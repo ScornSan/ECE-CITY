@@ -54,6 +54,7 @@ typedef struct Affichage{
     BITMAP* construct;
     BITMAP* construct_outline;
     BITMAP* bg;
+    BITMAP* cursor
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H
