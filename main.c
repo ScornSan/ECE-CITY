@@ -1,30 +1,6 @@
 #include "structures.h"
 #include "prototypes.h"
 
-void affichage_hud(t_affichage* hud, BITMAP* buffer){
-    int money = 500000;
-    int habitants = 191;
-    //Habitants
-    masked_blit(hud->habitants, buffer, 0, 0, 140, 16, SCREEN_W, SCREEN_H);
-    textprintf_ex(buffer,font,140 + 105,16+34,makecol(255,255,255),-1,"%d", habitants);
-    //Constructions
-    masked_blit(hud->bg, buffer, 0, 0, 21, 653, SCREEN_W, SCREEN_H);
-    masked_blit(hud->construct, buffer, 0, 0, 10, 650, SCREEN_W, SCREEN_H);
-
-    //Eau
-    masked_blit(hud->bg, buffer, 0, 0, 711, 23, SCREEN_W, SCREEN_H);
-    masked_blit(hud->eau, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
-
-    // Elec
-    masked_blit(hud->bg, buffer, 0, 0, 1000, 20, SCREEN_W, SCREEN_H);
-    masked_blit(hud->elec, buffer, 0, 0, 1000, 20, SCREEN_W, SCREEN_H);
-
-    // Argent
-    masked_blit(hud->argent, buffer, 0, 0, 400, 16, SCREEN_W, SCREEN_H);
-    textprintf_ex(buffer,font,400+105,16 + 36,makecol(255,255,255),-1,"%d", money);
-
-    masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
-}
 
 int main(int argc, char *argv[])
 {
@@ -53,6 +29,7 @@ int main(int argc, char *argv[])
     fin=0;
 
     t_affichage* hud = init_affichage();
+    t_joueur* joueur = init_joueur();
     // Boucle interactive
     while (!fin)
     {
@@ -70,7 +47,7 @@ int main(int argc, char *argv[])
         if (mouse_b & 4) // mileu : fin du programme
             fin=1;
 
-        affichage_hud(hud, buffer);
+        affichage_hud(hud, buffer, joueur);
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         // prise en compte effective de la zone cliquable EXIT :

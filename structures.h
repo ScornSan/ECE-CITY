@@ -47,6 +47,7 @@ typedef struct Affichage{
     BITMAP* fast;
     BITMAP* fast_outline;
     BITMAP* habitants;
+    BITMAP* habitants_outline;
     BITMAP* eau;
     BITMAP* eau_outline;
     BITMAP* elec;
@@ -54,7 +55,12 @@ typedef struct Affichage{
     BITMAP* construct;
     BITMAP* construct_outline;
     BITMAP* bg;
-    BITMAP* cursor
+    BITMAP* cursor;
+    BITMAP* chantier;
+    BITMAP* cabane;
+    BITMAP* maison;
+    BITMAP* building;
+    BITMAP* gratteciel;
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

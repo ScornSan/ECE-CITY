@@ -3,6 +3,6 @@ project (ECE_CITY C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(ECE_CITY main.c structures.h Initialisations/init_joueur.c prototypes.h)
+add_executable(ECE_CITY main.c structures.h Initialisations/init_joueur.c prototypes.h Initialisations/init_affichage.c Affichage/affichage_continu.c)
 
 target_link_libraries(ECE_CITY -lmingw32 -lalleg44)
