@@ -1,7 +1,6 @@
 #include "structures.h"
 #include "prototypes.h"
 
-
 int main(int argc, char *argv[])
 {
     int fin;
@@ -12,7 +11,7 @@ int main(int argc, char *argv[])
     install_mouse();
 
     set_color_depth(desktop_color_depth());
-    if (set_gfx_mode(GFX_AUTODETECT,1280,720 ,0,0)!=0)
+    if (set_gfx_mode(GFX_AUTODETECT,1024,768 ,0,0)!=0)
     {
         allegro_message("prb gfx mode");
         allegro_exit();
@@ -56,7 +55,6 @@ int main(int argc, char *argv[])
             fin=1;
 
     }
-
     return 0;
 }
 END_OF_MAIN();
