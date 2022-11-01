@@ -9,16 +9,15 @@
 #include <time.h>
 
 typedef struct Constructions{
-    int niveau[5];
+    int niveau;
     int nb_residents;
     int impot;
     int quantite_eau;
-    int quantite_elec;
     bool eau;
     bool elec;
     bool incendie;
     time_t timer;
-    BITMAP* style[5];
+    BITMAP* style[6];
 }t_construction;
 
 typedef struct Batiment{
@@ -42,6 +41,7 @@ typedef struct Affichage{
     BITMAP* argent;
     BITMAP* argent_outline;
     BITMAP* play;
+    BITMAP* play_outline;
     BITMAP* pause;
     BITMAP* pause_outline;
     BITMAP* fast;
