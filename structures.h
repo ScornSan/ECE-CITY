@@ -7,6 +7,10 @@
 #include <allegro.h>
 #include <stdbool.h>
 #include <time.h>
+#define CLIC 200000
+#define CONSTRUCT 1
+#define EAU 2
+#define ELEC 3
 
 typedef struct Constructions{
     int niveau;
@@ -34,8 +38,9 @@ typedef struct Plateau{
     int element;
     int lig;
     int col;
+    BITMAP* terrain;
     t_construction batiment;
-};
+}t_plateau;
 
 typedef struct Affichage{
     BITMAP* argent;
@@ -55,12 +60,25 @@ typedef struct Affichage{
     BITMAP* construct;
     BITMAP* construct_outline;
     BITMAP* bg;
+    BITMAP* bg_on;
     BITMAP* cursor;
     BITMAP* chantier;
     BITMAP* cabane;
     BITMAP* maison;
     BITMAP* building;
     BITMAP* gratteciel;
+    BITMAP* centrale;
+    BITMAP* Noncentrale;
+    BITMAP* chateau;
+    BITMAP* Nonchateau;
+    BITMAP* caserne;
+    BITMAP* Noncaserne;
+    BITMAP* ecole;
+    BITMAP* Nonecole;
+    BITMAP* Schateau;
+    BITMAP* Scaserne;
+    BITMAP* Scentrale;
+    BITMAP* Secole;
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

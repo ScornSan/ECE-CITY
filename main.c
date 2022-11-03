@@ -1,6 +1,17 @@
 #include "structures.h"
 #include "prototypes.h"
 
+void quadrillage_test(BITMAP * buffer)
+{
+    for( int i = 0; i<36; i++){
+        line(buffer, 26 +i*11, 478 +i*7, 612 +i*11, 118+i*7, makecol(255,0,0)); //horizontale
+    }
+    for ( int i = 0; i < 46; i++){
+        line(buffer, 26 +i*13, 478 -i*8, 410 +i*13, 723 -i*8, makecol(255,0,0)); // verticale
+    }
+}
+
+
 int main(int argc, char *argv[])
 {
     int fin;
@@ -26,8 +37,10 @@ int main(int argc, char *argv[])
 
     // init. variable de sortie boucle interactive
     fin=0;
+    int clic = 0;
 
     t_affichage* hud = init_affichage();
+    t_plateau * plateau = init_plateau();
     t_joueur* joueur = init_joueur();
     // Boucle interactive
     while (!fin)
@@ -45,8 +58,8 @@ int main(int argc, char *argv[])
 
         if (mouse_b & 4) // mileu : fin du programme
             fin=1;
-
-        affichage_hud(hud, buffer, joueur);
+        affichage_hud(hud, buffer, joueur, plateau);
+        quadrillage_test(buffer);
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         // prise en compte effective de la zone cliquable EXIT :
