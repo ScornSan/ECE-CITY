@@ -98,6 +98,9 @@
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET/ECE-CITY/Initialisations/init_plateau.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET/ECE-CITY/Interactions elements/ajout_construction.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET/ECE-CITY/main.c">
 			<Option target="ECE_CITY"/>
 		</Unit>

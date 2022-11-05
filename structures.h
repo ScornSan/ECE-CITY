@@ -57,7 +57,7 @@ typedef struct Plateau{
     t_construction batiment;
 }t_plateau;
 
-/*typedef struct Affichage{
+typedef struct Affichage{
     // instauration des tableaux de BITMAP a 2 dim
     // DIM1     le nombre d'image dans la partie construction (ex: chateau, ecole, caserne, centrale = 4)
     // DIM2      //1er indice les images noircis (ex: Nchateau)
@@ -101,7 +101,8 @@ typedef struct Plateau{
     BITMAP* Scentrale;
     BITMAP* Secole;
 }t_affichage;
-*/
+
+/*
 typedef struct Affichage{
     BITMAP* argent;
     BITMAP* argent_outline;
@@ -139,6 +140,6 @@ typedef struct Affichage{
     BITMAP* Scaserne;
     BITMAP* Scentrale;
     BITMAP* Secole;
-}t_affichage;
+}t_affichage;*/
 
 #endif //ECE_CITY_STRUCTURES_H

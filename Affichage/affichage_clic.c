@@ -87,7 +87,7 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
         rest(20);
     }
 }
-/*
+
 void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 651, SCREEN_W, SCREEN_H);
@@ -120,7 +120,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->construction[3][0], buffer, 0, 0, 10, 550, SCREEN_W, SCREEN_H);
     }
 }
-*/
+/*
 void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 651, SCREEN_W, SCREEN_H);
@@ -154,3 +154,4 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->Nonecole, buffer, 0, 0, 10, 550, SCREEN_W, SCREEN_H);
     }
 }
+*/

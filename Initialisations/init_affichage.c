@@ -1,7 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-/*
+
 t_affichage* init_affichage(){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
     hud->construction[0][0] = load_bitmap("../BITMAPS/HUD/Nchateau.bmp", 0);       /// NON chateau
@@ -38,7 +38,7 @@ t_affichage* init_affichage(){
     hud->gratteciel = load_bitmap("../BITMAPS/BUILDS/gratteciel.bmp", 0);
     return hud;
 }
-*/
+/*
 t_affichage* init_affichage(){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
     hud->argent = load_bitmap("../BITMAPS/HUD/Cash.bmp", 0);
@@ -71,4 +71,4 @@ t_affichage* init_affichage(){
     hud->Schateau = load_bitmap("../BITMAPS/HUD/chateau_selec.bmp", 0);
     hud->Secole = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);
     return hud;
-}
+}*/
