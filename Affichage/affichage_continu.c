@@ -51,3 +51,9 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur){
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
 }
 
+void affichage_map(BITMAP * map, BITMAP * buffer, t_construction * build)
+{
+    blit(map, buffer,0,0,0,0, SCREEN_W, SCREEN_H);
+    masked_blit(build->style[3],buffer, 0, 0, 415, 415, SCREEN_W, SCREEN_H);
+}
+

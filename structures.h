@@ -38,6 +38,7 @@ typedef struct Plateau{
 };
 
 typedef struct Affichage{
+    BITMAP * map;
     BITMAP* argent;
     BITMAP* argent_outline;
     BITMAP* play;

@@ -1,8 +1,11 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
+
+
 t_affichage* init_affichage(){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
+    hud->map = load_bitmap("../BITMAPS/MAP/MAP_1.3.bmp", 0);
     hud->argent = load_bitmap("../BITMAPS/HUD/Cash.bmp", 0);
     hud->bg = load_bitmap("../BITMAPS/HUD/Bg.bmp", 0);
     hud->eau = load_bitmap("../BITMAPS/HUD/Water.bmp", 0);

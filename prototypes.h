@@ -6,7 +6,9 @@
 
 t_affichage* init_affichage();
 t_joueur* init_joueur();
+t_construction* init_build();
 void affichage_hud();
+void affichage_map();
 int bouton();
 
 #endif //ECE_CITY_PROTOTYPES_H
