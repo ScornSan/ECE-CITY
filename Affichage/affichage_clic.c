@@ -87,7 +87,40 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
         rest(20);
     }
 }
-
+/*
+void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
+    blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    masked_blit(hud->bg_on, buffer, 0, 0, 10, 651, SCREEN_W, SCREEN_H);
+    masked_blit(hud->construct, buffer, 0, 0, 10, 650, SCREEN_W, SCREEN_H);
+    if (joueur->argent > 100000){
+        for(int i = 0; i< 3; i++){
+            masked_blit(hud->construction[i][1], buffer, 0, 0, 10, 250 +i*100, SCREEN_W, SCREEN_H);
+            if (bouton(hud->construction[i][1], 10, 250+i*100)){
+                masked_blit(hud->construction[i][2], buffer, 0, 0, 10, 250 +i*100, SCREEN_W, SCREEN_H);
+                if (mouse_b&1){
+                    usleep(CLIC);
+                    placement_construction(hud, buffer, joueur, plateau, i);
+                    usleep(CLIC);
+                }
+            }
+        }
+    }
+    else{
+        for(int i = 0; i< 4; i++){
+            masked_blit(hud->construction[i][0], buffer, 0, 0, 10, 250 +i*100, SCREEN_W, SCREEN_H);
+        }
+    }
+    if (joueur->argent > 50000){
+        masked_blit(hud->construction[3][1], buffer, 0, 0, 10, 550, SCREEN_W, SCREEN_H);
+        if (mouse_x > 10 && mouse_x < 10 + hud->construction[3][1]->w && mouse_y > 550 && mouse_y < 550 + hud->construction[3][1]->h){
+            masked_blit(hud->construction[3][2], buffer, 0, 0, 10, 550, SCREEN_W, SCREEN_H);
+        }
+    }
+    else{
+        masked_blit(hud->construction[3][0], buffer, 0, 0, 10, 550, SCREEN_W, SCREEN_H);
+    }
+}
+*/
 void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 651, SCREEN_W, SCREEN_H);
