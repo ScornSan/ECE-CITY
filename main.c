@@ -11,37 +11,6 @@ void quadrillage_test(BITMAP * buffer)
     }
 }
 
-int lecture(int plateau[35][45]) {
-    FILE *ifs = fopen("../fichier_map.txt", "r"); // ouverture du fichier pour recup une sauvegarde
-
-    if (!ifs) {
-        printf("Erreur de lecture fichier\n");
-        exit(-1);
-    }
-
-    //// récuperation d'une map existante ( ou non a faire avec condition)
-    int plateau_temp[35][45];
-    for(int i = 0; i< 35; i++){
-        for(int j = 0; j < 45; j++){
-            fscanf(ifs, "%d", &plateau_temp[i][j]);
-        }
-    }
-    fclose(ifs);
-    //// si on veut récuperer la map qu'on vient de prendre dans le fichier
-    //return plateau_temp;
-
-    ifs = fopen("../fichier_map.txt", "w"); /// ouvertue du fichier en mode ecriture
-    /// On écrase l'ancienne map et on sauvegarde la nouvelle (celle de notre partie déjà commencée
-    for(int i = 0; i< 35; i++){
-        for(int j = 0; j < 45; j++){
-            fprintf(ifs, "%d ", plateau[i][j]);
-        }
-        fprintf(ifs, "\n");
-    }
-    fclose(ifs);
-    /// si on veut continuer la partie après sauvegarde ou juste quitter après sauvegarde
-    //return plateau;
-}
 
 int main(int argc, char *argv[])
 {

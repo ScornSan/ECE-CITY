@@ -72,8 +72,3 @@ t_affichage* init_affichage(){
     hud->Secole = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);
     return hud;
 }
-
-t_plateau* init_plateau(){
-    t_plateau *plateau = (t_plateau*) malloc(sizeof(t_plateau));
-    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
-}
