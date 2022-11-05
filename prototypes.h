@@ -8,6 +8,7 @@ t_affichage* init_affichage();
 t_plateau* init_plateau();
 t_joueur* init_joueur();
 void affichage_hud();
+void quadrillage(BITMAP *buffer);
 void affichage_hud_et_clic();
 void affichage_liste_constru();
 void affichage_boutons();
