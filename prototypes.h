@@ -8,7 +8,7 @@ t_affichage* init_affichage();
 t_plateau* init_plateau();
 t_joueur* init_joueur();
 void affichage_hud();
-void quadrillage(BITMAP *buffer);
+void quadrillage_test(BITMAP * buffer);
 void affichage_global(t_affichage * hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau);
 void affichage_hud_et_clic();
 void reperage_bloc_souris(t_plateau* plateau);

@@ -1,6 +1,16 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
+void quadrillage_test(BITMAP * buffer)
+{
+    for( int i = 0; i<36; i++){
+        line(buffer, 26 +i*11, 478 +i*7, 612 +i*11, 118+i*7, makecol(255,0,0)); //horizontale
+    }
+    for ( int i = 0; i < 46; i++){
+        line(buffer, 26 +i*13, 478 -i*8, 410 +i*13, 723 -i*8, makecol(255,0,0)); // verticale
+    }
+}
+
 
 t_affichage* init_affichage(){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));

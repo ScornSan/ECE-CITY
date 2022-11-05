@@ -28,7 +28,7 @@ void affichage_global(t_affichage * hud, BITMAP* buffer, t_joueur* joueur, t_pla
     // Argent
     masked_blit(hud->argent, buffer, 0, 0, 300, 16, SCREEN_W, SCREEN_H);
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
-    quadrillage(buffer);
+    quadrillage_test(buffer);
 
     // souris
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
