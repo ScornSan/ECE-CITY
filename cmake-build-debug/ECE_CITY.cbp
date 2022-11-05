@@ -83,6 +83,9 @@
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET/ECE-CITY/Affichage/affichage_continu.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET/ECE-CITY/Infos generales/lecture_souris.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET/ECE-CITY/Initialisations/init_affichage.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
