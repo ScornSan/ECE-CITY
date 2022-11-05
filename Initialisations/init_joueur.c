@@ -9,6 +9,7 @@ t_joueur* init_joueur(){
     return joueur;
 }
 
+
 t_affichage* init_affichage(){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
     hud->argent = load_bitmap("../BITMAPS/HUD/Cash.bmp", 0);
