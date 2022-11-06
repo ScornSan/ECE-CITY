@@ -1,6 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
+
 void affichage_hud(t_affichage* hud,t_batiment *batiment, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     clear_bitmap(buffer);
     blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
