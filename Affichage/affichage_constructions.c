@@ -12,22 +12,24 @@ void boucle_affichage(int i, int j, int hauteur, int longueur,t_plateau * platea
 
 void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_plateau * plateau){
     /// affichage éléments sur le terrain
+    blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     for(int i = 0; i< 35; i++){
         for (int j = 0;j <45;j++){
             if(plateau->matrice[i][j].affiche != 1){ ///pour voir si on affiche pas deux fois la meme maison en allant sur le bloc suivant
                 int type = plateau->matrice[i][j].element;
                 switch(type){
+                    case 0 :break;
                     case 1 :
-                        boucle_affichage(i,j,4,6, plateau,buffer,1,2,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
                         break;
                     case 2:
-                        boucle_affichage(i,j,4,6, plateau,buffer,1,2,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
                         break;
                     case 3:
-                        boucle_affichage(i,j,4,6, plateau,buffer,1,2,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
                         break;
                     case 4:
-                        boucle_affichage(i,j,4,6, plateau,buffer,1,2,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
                         break;
                     case 5:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);

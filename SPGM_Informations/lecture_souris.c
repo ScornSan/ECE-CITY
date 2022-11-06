@@ -1,13 +1,10 @@
-//
-// Created by Gendry on 05/11/2022.
-//
 #include "../structures.h"
 #include "../prototypes.h"
 
 void lecture_pixels_buffer_map(BITMAP * buffer_map, int *red_mouse, int *green_mouse, int *blue_mouse)
 {
-    *green_mouse = getg(getpixel(buffer_map, mouse_x, mouse_y));
     *red_mouse = getr(getpixel(buffer_map, mouse_x, mouse_y));
+    *green_mouse = getg(getpixel(buffer_map, mouse_x, mouse_y));
     *blue_mouse = getb(getpixel(buffer_map, mouse_x, mouse_y));
 }
 

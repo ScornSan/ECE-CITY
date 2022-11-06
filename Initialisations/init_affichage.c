@@ -58,3 +58,4 @@ t_affichage* init_affichage(){
     hud->construction[3][2] = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);     /// select_ecole
     return hud;
 }
+

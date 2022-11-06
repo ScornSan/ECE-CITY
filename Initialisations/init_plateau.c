@@ -1,9 +1,3 @@
-//
-// Created by Gendry on 05/11/2022.
-//
-//
-// Created by Gendry on 04/11/2022.
-//
 #include "../structures.h"
 #include "../prototypes.h"
 

@@ -3,7 +3,7 @@
 
 void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     clear_bitmap(buffer);
-    blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    affichage_elements(hud, buffer, joueur, plateau);
 
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
@@ -54,7 +54,6 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     masked_blit(hud->argent, buffer, 0, 0, 300, 16, SCREEN_W, SCREEN_H);
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
 
-    masked_blit(hud->maison, buffer, 0, 0, 500, 300, SCREEN_W, SCREEN_H);
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
 }
 
@@ -89,7 +88,8 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
 }
 
 void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
-    blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    affichage_elements(hud, buffer, joueur, plateau);
+
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 701, SCREEN_W, SCREEN_H);
     masked_blit(hud->construct, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
 
@@ -101,7 +101,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Schateau, buffer, 0, 0, 10, 250, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU);
+                placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU - 1);
                 usleep(CLIC);
             }
         }
@@ -111,7 +111,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Scentrale, buffer, 0, 0, 10, 350, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                placement_construction(hud, buffer, joueur, plateau, CENTRALE);
+                placement_construction(hud, buffer, joueur, plateau, CENTRALE - 1);
                 usleep(CLIC);
             }
         }
@@ -121,7 +121,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Scaserne, buffer, 0, 0, 10, 450, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                placement_construction(hud, buffer, joueur, plateau, CASERNE);
+                placement_construction(hud, buffer, joueur, plateau, CASERNE - 1);
                 usleep(CLIC);
             }
         }
@@ -140,7 +140,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Secole, buffer, 0, 0, 10, 150, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                placement_construction(hud, buffer, joueur, plateau, ECOLE);
+                placement_construction(hud, buffer, joueur, plateau, ECOLE - 1);
                 usleep(CLIC);
             }
         }
@@ -151,9 +151,9 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
 
     // Affichage bouton terrains
     if (joueur->argent > 1000){
-        masked_blit(hud->chantier, buffer, 0, 0, 10, 550, SCREEN_W, SCREEN_H);
-        if (mouse_x > 10 && mouse_x < 10 + hud->route->w && mouse_y > 550 && mouse_y < 550 + hud->route->h){
-            masked_blit(hud->Schantier, buffer, 0, 0, 10, 550, SCREEN_W, SCREEN_H);
+        masked_blit(hud->chantier, buffer, 0, 0, 20, 550, SCREEN_W, SCREEN_H);
+        if (mouse_x > 10 && mouse_x < 20 + hud->chantier->w && mouse_y > 550 && mouse_y < 550 + hud->chantier->h){
+            masked_blit(hud->Schantier, buffer, 0, 0, 20, 550, SCREEN_W, SCREEN_H);
         }
     }
     else{
@@ -165,6 +165,11 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->route, buffer, 0, 0, 10, 625, SCREEN_W, SCREEN_H);
         if (mouse_x > 10 && mouse_x < 10 + hud->route->w && mouse_y > 625 && mouse_y < 625 + hud->route->h){
             masked_blit(hud->Sroute, buffer, 0, 0, 10, 625, SCREEN_W, SCREEN_H);
+            if (mouse_b&1){
+                usleep(CLIC);
+                ajout_routes(hud, buffer, joueur, plateau);
+                usleep(CLIC);
+            }
         }
     }
     else{
