@@ -1,14 +1,8 @@
-//
-// Created by Gendry on 05/11/2022.
-//
-//
-// Created by Gendry on 04/11/2022.
-//
 #include "../structures.h"
 #include "../prototypes.h"
 
-void lecture(int matrice_map[35][45]) {      ///pour l'instant void ensuite int
-    FILE *ifs = fopen("../fichier_map.txt", "r"); // ouverture du fichier pour recup une sauvegarde
+void chargement_partie(int matrice_map[35][45]){
+    FILE *ifs = fopen("../Fichier_map.txt", "r"); // ouverture du fichier pour recup une sauvegarde
 
     if (!ifs) {
         printf("Erreur de lecture fichier\n");
@@ -16,17 +10,17 @@ void lecture(int matrice_map[35][45]) {      ///pour l'instant void ensuite int
     }
 
     //// récuperation d'une map existante ( ou non a faire avec condition)
-    int plateau_temp[35][45];
     for(int i = 0; i< 35; i++){
         for(int j = 0; j < 45; j++){
-            fscanf(ifs, "%d", &plateau_temp[i][j]);
+            fscanf(ifs, "%d", &matrice_map[i][j]);
         }
     }
     fclose(ifs);
-    //// si on veut récuperer la map qu'on vient de prendre dans le fichier
-    //return plateau_temp;
+    ifs = NULL;
+}
 
-    ifs = fopen("../fichier_map.txt", "w"); /// ouvertue du fichier en mode ecriture
+void sauvegarde(int matrice_map[35][45]){
+    FILE *ifs = fopen("../fichier_map.txt", "w"); /// ouvertue du fichier en mode ecriture
     /// On écrase l'ancienne map et on sauvegarde la nouvelle (celle de notre partie déjà commencée
     for(int i = 0; i< 35; i++){
         for(int j = 0; j < 45; j++){
@@ -35,6 +29,7 @@ void lecture(int matrice_map[35][45]) {      ///pour l'instant void ensuite int
         fprintf(ifs, "\n");
     }
     fclose(ifs);
+    ifs = NULL;
     /// si on veut continuer la partie après sauvegarde ou juste quitter après sauvegarde
     //return plateau;
 }
@@ -94,5 +89,6 @@ t_plateau* init_plateau() {
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
     plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
     plateau->buffer_pixels = buffer_pixel;
+    chargement_partie(plateau->matrice_map);
     distribution_couleur_blocs(plateau);
 }

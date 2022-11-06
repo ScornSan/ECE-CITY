@@ -11,28 +11,21 @@
 #define CONSTRUCT 1
 #define EAU 2
 #define ELEC 3
+#define CHATEAU_EAU 0
+#define CENTRALE 1
+#define CASERNE 3
+#define ECOLE 4
 
-typedef struct Constructions{
-    int niveau;
-    int nb_residents;
-    int impot;
-    int quantite_eau;
-    bool eau;
-    bool elec;
-    bool incendie;
-    time_t timer;
-    BITMAP* style[6];
-}t_construction;
-
-typedef struct Batiment{
-
-}t_batiment;
-
-typedef struct Joueur{
-    int argent;
-    int habitants;
-    int niveau;
-}t_joueur;
+/// IMPORTANT
+/// pour les chiffres qu'il y aura dans la matrice
+//0 equivaudra a rien
+//1  = chateau
+//2 = usine
+//3 = caserne
+//4 = ecole
+//5  = terrain vague
+//et de 5 à 9 ce sera les niveaux d'evolution du terrain vague
+//donc 9 = gratteciel
 
 typedef struct Bloc{
     int RGB[3];
@@ -43,6 +36,44 @@ typedef struct Bloc{
     BITMAP *b_element;    // bitmap associé à ce batiment
     int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
 }t_bloc;
+
+typedef struct Constructions{
+    int niveau;
+    int nb_residents;
+    int impot;
+    int quantite_eau;
+    int quantite_elec;
+    t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
+    bool eau;
+    bool elec;
+    bool incendie;
+    time_t timer;
+    BITMAP* style[6];
+}t_construction;
+
+typedef struct Batiment{    // 4x6
+    t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
+    int quantite_ressource;
+    BITMAP* style[3];
+    // instauration des tableaux de BITMAP a 2 dim
+    // DIM1     le nombre d'image dans la partie construction (ex: chateau, ecole, caserne, centrale = 4)
+    // DIM2      //1er indice les images noircis (ex: Nchateau)
+    //2eme indice les images normales (ex: chateau)
+    // 3eme indice les images selectionnées (ex: select_chateau)
+    BITMAP * construction[4][3];
+}t_batiment;
+
+typedef struct Joueur{
+    char pseudo[20];
+    int argent;
+    int habitants;
+    int niveau;
+    int totaleau;
+    int totalelec;
+    int mode;
+}t_joueur;
+
+
 
 typedef struct Plateau{
     int lig;
@@ -58,12 +89,6 @@ typedef struct Plateau{
 }t_plateau;
 
 typedef struct Affichage{
-    // instauration des tableaux de BITMAP a 2 dim
-    // DIM1     le nombre d'image dans la partie construction (ex: chateau, ecole, caserne, centrale = 4)
-    // DIM2      //1er indice les images noircis (ex: Nchateau)
-    //2eme indice les images normales (ex: chateau)
-    // 3eme indice les images selectionnées (ex: select_chateau)
-    BITMAP * construction[4][3];
     BITMAP* argent;
     BITMAP* argent_outline;
     BITMAP* play;
@@ -84,6 +109,8 @@ typedef struct Affichage{
     BITMAP* bg_on;
     BITMAP* cursor;
     BITMAP* chantier;
+    BITMAP* Schantier;
+    BITMAP* Nonchantier;
     BITMAP* cabane;
     BITMAP* maison;
     BITMAP* building;
@@ -100,46 +127,12 @@ typedef struct Affichage{
     BITMAP* Scaserne;
     BITMAP* Scentrale;
     BITMAP* Secole;
+    BITMAP* route;
+    BITMAP* Nonroute;
+    BITMAP* Sroute;
+    BITMAP* son_on;
+    BITMAP* son_off;
+    BITMAP* accueil;
 }t_affichage;
-
-/*
-typedef struct Affichage{
-    BITMAP* argent;
-    BITMAP* argent_outline;
-    BITMAP* play;
-    BITMAP* play_outline;
-    BITMAP* pause;
-    BITMAP* pause_outline;
-    BITMAP* fast;
-    BITMAP* fast_outline;
-    BITMAP* habitants;
-    BITMAP* habitants_outline;
-    BITMAP* eau;
-    BITMAP* eau_outline;
-    BITMAP* elec;
-    BITMAP* elec_outline;
-    BITMAP* construct;
-    BITMAP* construct_outline;
-    BITMAP* bg;
-    BITMAP* bg_on;
-    BITMAP* cursor;
-    BITMAP* chantier;
-    BITMAP* cabane;
-    BITMAP* maison;
-    BITMAP* building;
-    BITMAP* gratteciel;
-    BITMAP* centrale;
-    BITMAP* Noncentrale;
-    BITMAP* chateau;
-    BITMAP* Nonchateau;
-    BITMAP* caserne;
-    BITMAP* Noncaserne;
-    BITMAP* ecole;
-    BITMAP* Nonecole;
-    BITMAP* Schateau;
-    BITMAP* Scaserne;
-    BITMAP* Scentrale;
-    BITMAP* Secole;
-}t_affichage;*/
 
 #endif //ECE_CITY_STRUCTURES_H
