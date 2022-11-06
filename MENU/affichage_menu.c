@@ -1,7 +1,6 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-
 void affichage_son(BITMAP *buffer/*, SAMPLE* s*/, int* clic )
 {
     if(mouse_b&1 && mouse_x>= 960 && mouse_x <= 1024 && mouse_y >= 0&& mouse_y <= 50 && !*clic)
@@ -68,7 +67,7 @@ void affichage_menu(t_affichage* hud, BITMAP* buffer, int* clic)
     }
 }
 
-void prenom( BITMAP* buffer, char pseudo[20], int* clic, t_affichage* hud)
+void prenom( BITMAP* buffer, t_joueur* joueur, int* clic, t_affichage* hud)
 {
     int x = 365;
     int touche;
@@ -108,7 +107,7 @@ void prenom( BITMAP* buffer, char pseudo[20], int* clic, t_affichage* hud)
             if( carac != '\r' && !key[KEY_BACKSPACE] && compteur != 19)
             {
                 textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),makecol(0,0,0),"%c",carac);
-                pseudo[place] = carac;
+                joueur->pseudo[place] = carac;
                 poscarac = poscarac+8;
                 compteur = compteur +1;
             }
@@ -118,7 +117,7 @@ void prenom( BITMAP* buffer, char pseudo[20], int* clic, t_affichage* hud)
                 if(x+poscarac == 373)
                 {
                     poscarac=poscarac-8;
-                    pseudo[place] = ' ';
+                    joueur->pseudo[place] = ' ';
                     textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),makecol(0,0,0)," ");
                     place = place-2;
                     compteur = compteur -1;
@@ -127,7 +126,7 @@ void prenom( BITMAP* buffer, char pseudo[20], int* clic, t_affichage* hud)
                 {
                     nb = nb +1;
                     poscarac=poscarac-8;
-                    pseudo[place-1] = ' ';
+                    joueur->pseudo[place-1] = ' ';
                     textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),makecol(0,0,0)," ");
                     place = place-2;
                     compteur = compteur -1;
@@ -149,7 +148,7 @@ void prenom( BITMAP* buffer, char pseudo[20], int* clic, t_affichage* hud)
     clear_bitmap(buffer);
 }
 
-void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, char pseudo[20]) {
+void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau* plateau) {
     int fin = 0;
     int ok = 0;
     int sortir = 0;
@@ -185,12 +184,12 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, char pseudo[20]) {
                 if (sortir != 1) {
                     install_keyboard();
                     clear_bitmap(buffer);
-                    prenom(buffer, pseudo, &clic, hud);
+                    prenom(buffer, joueur, &clic, hud);
 
                     while(!(mouse_b&2))
                     {
                         clear_bitmap(buffer);
-                        affichage_hud(hud, buffer, joueur);
+                        affichage_hud(hud, buffer, joueur, plateau);
                         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                     }
                 }
@@ -207,7 +206,7 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, char pseudo[20]) {
         if( mouse_b & 1 && mouse_x>= 400 && mouse_x <= 635 && mouse_y >= 200 && mouse_y <= 230) {
             while (!key[KEY_ESC] && !(mouse_b & 2)) {
                 clear_bitmap(buffer);
-                affichage_son(buffer,&clic);
+                affichage_son(buffer, &clic);
                 if (clic)
                 {
                     rectfill(buffer,960,0,1024,50,makecol( 255,255,255 ));

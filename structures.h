@@ -11,6 +11,10 @@
 #define CONSTRUCT 1
 #define EAU 2
 #define ELEC 3
+#define CHATEAU_EAU 0
+#define CENTRALE 1
+#define CASERNE 3
+#define ECOLE 4
 
 typedef struct Constructions{
     int niveau;
@@ -30,16 +34,35 @@ typedef struct Batiment{
 }t_batiment;
 
 typedef struct Joueur{
+    char pseudo[20];
     int argent;
     int habitants;
     int niveau;
+    int totaleau;
+    int totalelec;
+    int mode;
 }t_joueur;
 
+typedef struct Bloc{
+    int RGB[3];
+    int x_bloc;
+    int y_bloc;
+    int element;    // numéro indiquant de quel bat il s'agit
+    int evolution;  // chiffre montrant le niveau d'évolution de l'élément
+    BITMAP *b_element;    // bitmap associé à ce batiment
+    int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
+}t_bloc;
+
 typedef struct Plateau{
-    int element;
     int lig;
+    int lig_mouse;
+    int col_mouse;
+    int element;
+    t_bloc matrice[35][45];
+    int matrice_map[35][45];
     int col;
     BITMAP* terrain;
+    BITMAP* buffer_pixels;
     t_construction batiment;
 }t_plateau;
 
@@ -85,6 +108,16 @@ typedef struct Affichage{
     BITMAP* route;
     BITMAP* Nonroute;
     BITMAP* Sroute;
+    BITMAP* son_on;
+    BITMAP* son_off;
+    BITMAP* accueil;
+
+    // instauration des tableaux de BITMAP a 2 dim
+    // DIM1     le nombre d'image dans la partie construction (ex: chateau, ecole, caserne, centrale = 4)
+    // DIM2      //1er indice les images noircis (ex: Nchateau)
+    //2eme indice les images normales (ex: chateau)
+    // 3eme indice les images selectionnées (ex: select_chateau)
+    BITMAP * construction[4][3];
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

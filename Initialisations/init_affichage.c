@@ -40,10 +40,21 @@ t_affichage* init_affichage(){
     hud->route = load_bitmap("../BITMAPS/HUD/routes.bmp", 0);
     hud->Nonroute = load_bitmap("../BITMAPS/HUD/Nroutes.bmp", 0);
     hud->Sroute = load_bitmap("../BITMAPS/HUD/Sroutes.bmp", 0);
-    return hud;
-}
 
-t_plateau* init_plateau(){
-    t_plateau *plateau = (t_plateau*) malloc(sizeof(t_plateau));
-    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
+    hud->construction[0][0] = load_bitmap("../BITMAPS/HUD/Nchateau.bmp", 0);       /// NON chateau
+    hud->construction[0][1] = load_bitmap("../BITMAPS/HUD/chateau.bmp", 0);       /// chateau
+    hud->construction[0][2] = load_bitmap("../BITMAPS/HUD/chateau_selec.bmp", 0);      /// select_chateau
+
+    hud->construction[1][0] = load_bitmap("../BITMAPS/HUD/Ncentrale.bmp", 0);     /// NON centrale
+    hud->construction[1][1] = load_bitmap("../BITMAPS/HUD/centrale.bmp", 0);      /// centrale
+    hud->construction[1][2] = load_bitmap("../BITMAPS/HUD/centrale_selec.bmp", 0);      /// select_centrale
+
+    hud->construction[2][0] = load_bitmap("../BITMAPS/HUD/Ncaserne.bmp", 0);       /// NON caserne
+    hud->construction[2][1] = load_bitmap("../BITMAPS/HUD/caserne.bmp", 0);      /// caserne
+    hud->construction[2][2] = load_bitmap("../BITMAPS/HUD/caserne_selec.bmp", 0);     /// select_caserne
+
+    hud->construction[3][0] = load_bitmap("../BITMAPS/HUD/Necole.bmp", 0);     /// NON ecole
+    hud->construction[3][1] = load_bitmap("../BITMAPS/HUD/ecole.bmp", 0);     /// ecole
+    hud->construction[3][2] = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);     /// select_ecole
+    return hud;
 }

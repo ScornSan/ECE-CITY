@@ -92,19 +92,38 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
     blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 701, SCREEN_W, SCREEN_H);
     masked_blit(hud->construct, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
-    // Affichage bouton chateau centrale caserne
+
+    // Affichage des boutons "chateau, centrale, caserne"
     if (joueur->argent > 100000){
         masked_blit(hud->chateau, buffer, 0, 0, 10, 250, SCREEN_W, SCREEN_H);
+        // Souris sur bouton chateau
         if (mouse_x > 10 && mouse_x < 10 + hud->chateau->w && mouse_y > 250 && mouse_y < 250 + hud->chateau->h){
             masked_blit(hud->Schateau, buffer, 0, 0, 10, 250, SCREEN_W, SCREEN_H);
+            if (mouse_b&1){
+                usleep(CLIC);
+                placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU);
+                usleep(CLIC);
+            }
         }
         masked_blit(hud->centrale, buffer, 0, 0, 10, 350, SCREEN_W, SCREEN_H);
+        // Souris sur bouton centrale
         if (mouse_x > 10 && mouse_x < 10 + hud->centrale->w && mouse_y > 350 && mouse_y < 350 + hud->centrale->h){
             masked_blit(hud->Scentrale, buffer, 0, 0, 10, 350, SCREEN_W, SCREEN_H);
+            if (mouse_b&1){
+                usleep(CLIC);
+                placement_construction(hud, buffer, joueur, plateau, CENTRALE);
+                usleep(CLIC);
+            }
         }
         masked_blit(hud->caserne, buffer, 0, 0, 10, 450, SCREEN_W, SCREEN_H);
+        // Souris sur bouton caserne
         if (mouse_x > 10 && mouse_x < 10 + hud->caserne->w && mouse_y > 450 && mouse_y < 450 + hud->caserne->h){
             masked_blit(hud->Scaserne, buffer, 0, 0, 10, 450, SCREEN_W, SCREEN_H);
+            if (mouse_b&1){
+                usleep(CLIC);
+                placement_construction(hud, buffer, joueur, plateau, CASERNE);
+                usleep(CLIC);
+            }
         }
     }
     else{
@@ -112,11 +131,18 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->Noncentrale, buffer, 0, 0, 10, 350, SCREEN_W, SCREEN_H);
         masked_blit(hud->Noncaserne, buffer, 0, 0, 10, 450, SCREEN_W, SCREEN_H);
     }
+
     // Affichage bouton Ecole
     if (joueur->argent > 50000){
         masked_blit(hud->ecole, buffer, 0, 0, 10, 150, SCREEN_W, SCREEN_H);
+        // Souris sur bouton ecole
         if (mouse_x > 10 && mouse_x < 10 + hud->ecole->w && mouse_y > 150 && mouse_y < 150 + hud->ecole->h){
             masked_blit(hud->Secole, buffer, 0, 0, 10, 150, SCREEN_W, SCREEN_H);
+            if (mouse_b&1){
+                usleep(CLIC);
+                placement_construction(hud, buffer, joueur, plateau, ECOLE);
+                usleep(CLIC);
+            }
         }
     }
     else{

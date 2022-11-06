@@ -21,13 +21,13 @@ void affichage_hud_et_clic(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t
     textprintf_ex(buffer,font,170,16+24,makecol(255,255,255),-1,"%d", joueur->habitants);
 
     //Constructions
-    masked_blit(hud->bg, buffer, 0, 0, 10, 651, SCREEN_W, SCREEN_H);
-    if (bouton(hud->construct, 10, 650)){
-        masked_blit(hud->construct_outline, buffer, 0, 0, 10, 650, SCREEN_W, SCREEN_H);
+    masked_blit(hud->bg, buffer, 0, 0, 10, 701, SCREEN_W, SCREEN_H);
+    if (bouton(hud->construct, 10, 700)){
+        masked_blit(hud->construct_outline, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
     }
-    masked_blit(hud->construct, buffer, 0, 0, 10, 650, SCREEN_W, SCREEN_H);
+    masked_blit(hud->construct, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
 
-    //Eau
+    // Eau
     masked_blit(hud->bg, buffer, 0, 0, 500, 21, SCREEN_W, SCREEN_H);
     if (bouton(hud->eau, 500, 20)){
         masked_blit(hud->eau_outline, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
@@ -49,4 +49,6 @@ void affichage_hud_et_clic(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t
 
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
 }
+
+
 
