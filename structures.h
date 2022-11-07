@@ -129,6 +129,10 @@ typedef struct Affichage{
     BITMAP* son_on;
     BITMAP* son_off;
     BITMAP* accueil;
+    BITMAP* bouton_menu;
+    BITMAP* credits;
+    BITMAP* nom;
+    BITMAP* mode;
     BITMAP* construction[4][3];
 }t_affichage;
 

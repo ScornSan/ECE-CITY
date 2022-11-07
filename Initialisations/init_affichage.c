@@ -3,6 +3,10 @@
 
 t_affichage* init_affichage(){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
+    hud->mode = load_bitmap("../BITMAPS/mode.bmp",0);
+    hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);
+    hud->credits = load_bitmap("../BITMAPS/credits.bmp",0);
+    hud->bouton_menu = load_bitmap("../BITMAPS/HUD/bouton_menu.bmp",0);
     hud->son_on = load_bitmap("../BITMAPS/HUD/son_on.bmp",0);
     hud->son_off = load_bitmap("../BITMAPS/HUD/son_off.bmp",0);
     hud->accueil = load_bitmap("../BITMAPS/accueil.bmp",0);
