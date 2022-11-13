@@ -11,21 +11,31 @@
 #define CONSTRUCT 1
 #define EAU 2
 #define ELEC 3
-#define CHATEAU_EAU 0
-#define CENTRALE 1
+#define CHATEAU_EAU 1
+#define CENTRALE 2
 #define CASERNE 3
 #define ECOLE 4
 
-/// IMPORTANT
-/// pour les chiffres qu'il y aura dans la matrice
-//0 equivaudra a rien
 //1  = chateau
-//2 = usine
+//2 = centrale
 //3 = caserne
 //4 = ecole
-//5  = terrain vague
-//et de 5 à 9 ce sera les niveaux d'evolution du terrain vague
-//donc 9 = gratteciel
+
+
+typedef struct Constructions{
+    int niveau;
+    int nb_residents;
+    int impot;
+    int quantite_eau;
+    int distance_chateau;
+    int quantite_elec;
+    int distance_centrale;
+    bool eau;
+    bool elec;
+    bool incendie;
+    time_t timer;
+    BITMAP* style[6];
+}t_construction;
 
 typedef struct Bloc{
     int RGB[3];
@@ -36,20 +46,6 @@ typedef struct Bloc{
     BITMAP *b_element;    // bitmap associé à ce batiment
     int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
 }t_bloc;
-
-typedef struct Constructions{
-    int niveau;
-    int nb_residents;
-    int impot;
-    int quantite_eau;
-    int quantite_elec;
-    t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
-    bool eau;
-    bool elec;
-    bool incendie;
-    time_t timer;
-    BITMAP* style[6];
-}t_construction;
 
 typedef struct Batiment{    // 4x6
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
@@ -74,7 +70,6 @@ typedef struct Joueur{
 }t_joueur;
 
 
-
 typedef struct Plateau{
     int lig;
     int lig_mouse;
@@ -85,7 +80,8 @@ typedef struct Plateau{
     int col;
     BITMAP* terrain;
     BITMAP* buffer_pixels;
-    t_construction batiment;
+    t_construction* habitat;
+    t_batiment* batiment;
 }t_plateau;
 
 typedef struct Affichage{
@@ -133,6 +129,11 @@ typedef struct Affichage{
     BITMAP* son_on;
     BITMAP* son_off;
     BITMAP* accueil;
+    BITMAP* bouton_menu;
+    BITMAP* credits;
+    BITMAP* nom;
+    BITMAP* mode;
+    BITMAP* construction[4][3];
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

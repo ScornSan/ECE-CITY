@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
     t_affichage* hud = init_affichage();
     t_joueur* joueur = init_joueur();
     t_plateau* plateau = init_plateau();
-    t_batiment * batiment = init_batiments();
-    menu(hud,batiment, joueur, buffer, plateau);
+    plateau->batiment = init_batiments();
+    menu(hud, joueur, buffer, plateau);
 
     return 0;
 }

@@ -9,36 +9,11 @@ int bouton(BITMAP* bitmap, int x, int y) {
     return 0;
 }
 
-void affichage_global(t_affichage * hud,t_batiment *batiment, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
-    clear_bitmap(buffer);
-    blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-
-    //Habitants
-    masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
-    textprintf_ex(buffer,font,170,16+24,makecol(255,255,255),-1,"%d", joueur->habitants);
-
-    //Eau
-    masked_blit(hud->bg, buffer, 0, 0, 500, 21, SCREEN_W, SCREEN_H);
-    masked_blit(hud->eau, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
-
-    // Elec
-    masked_blit(hud->bg, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
-    masked_blit(hud->elec, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
-
-    // Argent
-    masked_blit(hud->argent, buffer, 0, 0, 300, 16, SCREEN_W, SCREEN_H);
-    textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
-    quadrillage_test(buffer);
-    affichage_elements(hud,batiment, buffer, joueur, plateau);
-
-    // souris
-    masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
-}
-
-void affichage_hud_et_clic(t_affichage* hud,t_batiment* batiment, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
+void affichage_hud_et_clic(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     int clic = 0;
     clear_bitmap(buffer);
-    blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    affichage_elements(hud, buffer, joueur, plateau);
+
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
     if (bouton(hud->habitants, 100, 16)){
@@ -74,7 +49,6 @@ void affichage_hud_et_clic(t_affichage* hud,t_batiment* batiment, BITMAP* buffer
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
 
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
-    affichage_elements(hud,batiment, buffer, joueur, plateau);
 }
 
 
