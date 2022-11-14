@@ -167,7 +167,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Sroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                ajout_routes(hud, buffer, joueur, plateau);
+                selection_ajout_routes(hud, buffer, joueur, plateau);
                 usleep(CLIC);
             }
         }

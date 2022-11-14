@@ -29,9 +29,9 @@ void affichage_zone_constru_terrain(BITMAP * buffer, t_plateau *plateau, int typ
                 }
             }
             if (compteur == 0)
-                condition_type(buffer, plateau, 1, 2, 1, 2, 0,0, 255);
+                condition_type(buffer, plateau, 1, 3, 2, 4, 0,0, 255);
             else
-                condition_type(buffer, plateau, 1, 2, 1, 2, 255, 0, 0);
+                condition_type(buffer, plateau, 1, 3, 2, 4, 255, 0, 0);
             break;
         case 3:  // elements sur case 4x6
             compteur = 0;

@@ -61,7 +61,7 @@ void affichage_menu(t_affichage* hud, BITMAP* buffer, int* clic, FONT* myfont)
     }
 }
 
-void prenom( BITMAP* buffer, t_joueur* joueur, t_affichage* hud)
+void prenom( BITMAP* buffer, t_joueur* joueur, int* clic, t_affichage* hud)
 {
     int x = 415;
     int touche;
@@ -74,14 +74,21 @@ void prenom( BITMAP* buffer, t_joueur* joueur, t_affichage* hud)
     int compteur = 0;
     fflush(stdin);
     poscarac = 0;
-    //textprintf_ex(buffer,font,365,100, makecol(0,255,0),-1, "BIENVENUE DANS UNE NOUVELLE PARTIE !");
-    //textprintf_ex(buffer,font,365,135, makecol(0,255,0),-1, "CHER JOUEUR, ENTREZ VOTRE PSEUDO:");
     rectfill(buffer,400,237,620,295,makecol(0,0,0 ));
-
-
     /// AFFICHAGE DES LETTRES QUE L'ON TAPE AU CLAVIER
     while (stop != 1)
     {
+        affichage_son(buffer, &(*clic));
+        if (*clic)
+        {
+            rectfill(buffer,960,0,1024,50,makecol( 255,255,255 ));
+            draw_sprite(buffer, hud->son_off, 960, 0);
+        }
+        else
+        {
+            rectfill(buffer,960,0,1024,50,makecol( 255,255,255 ));
+            draw_sprite(buffer, hud->son_on, 960, 0);
+        }
         if (keypressed())
         {
             touche=readkey();
@@ -170,7 +177,7 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
                     install_keyboard();
                     clear_bitmap(buffer);
                     blit(hud->nom,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
-                    prenom(buffer, joueur, hud);
+                    prenom(buffer, joueur, &clic, hud);
 
                     while(!(mouse_b&2))
                     {

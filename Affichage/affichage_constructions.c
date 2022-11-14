@@ -20,16 +20,16 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
                 switch(type){
                     case 0 :break;
                     case 1 :
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,3,7);
                         break;
                     case 2:
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,3,7);
                         break;
                     case 3:
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,3,7);
                         break;
                     case 4:
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,3,7);
                         break;
                     case 5:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
