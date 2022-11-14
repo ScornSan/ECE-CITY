@@ -41,7 +41,7 @@ typedef struct Bloc{
     int RGB[3];
     int x_bloc;
     int y_bloc;
-    int element;    // numéro indiquant de quel bat il s'agit
+    int element;    // numéro indiquant de quel bat il s'agit (-1 rien, 0 route, 1 ....)
     int evolution;  // chiffre montrant le niveau d'évolution de l'élément
     BITMAP *b_element;    // bitmap associé à ce batiment
     int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
@@ -68,7 +68,6 @@ typedef struct Joueur{
     int totalelec;
     int mode;
 }t_joueur;
-
 
 typedef struct Plateau{
     int lig;
@@ -133,6 +132,8 @@ typedef struct Affichage{
     BITMAP* credits;
     BITMAP* nom;
     BITMAP* mode;
+    BITMAP* case_eau;
+    BITMAP* case_elec;
     BITMAP* construction[4][3];
 }t_affichage;
 

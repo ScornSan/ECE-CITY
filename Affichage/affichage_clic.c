@@ -67,13 +67,11 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
                 break;
             case 2:
                 // AFFICHAGE DE LA COUCHE EAU (mettre ces trois lignes dans le spgm)
-                masked_blit(hud->bg_on, buffer, 0, 0, 500, 21, SCREEN_W, SCREEN_H);
-                masked_blit(hud->eau, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
+                affichage_eau(hud, buffer, joueur, plateau);
                 break;
             case 3:
                 // AFFICHAGE DE LA COUCHE ELEC (mettre ces trois lignes dans le spgm)
-                masked_blit(hud->bg_on, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
-                masked_blit(hud->elec, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
+                affichage_elec(hud, buffer, joueur, plateau);
                 break;
         }
         masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);

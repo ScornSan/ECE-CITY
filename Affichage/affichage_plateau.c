@@ -5,7 +5,7 @@ void dessin_bloc_unique(BITMAP *buffer, int k, int l, t_plateau *plateau, int re
     if (k >= 0 && k <= 34 && l <= 44 && l >= 0) {
         int x1 = 26 + 11 * k + l * 13;
         int y1 = 478 + 7 * k - l * 8;
-        /// triangle en bas a droitee
+        /// triangle en bas a droite
         int x4 = 38 + 11 * k + l * 13;     // x de base + largeur du bas +1  donc 26 + 11 + 1 = 38
         int y4 = 477 + 7 * k - l * 8;      // y de base - 1 donc 477
         /// triangle en haut a gauche
