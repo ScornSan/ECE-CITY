@@ -8,18 +8,18 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="ECE_CITY">
-				<Option output="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/ECE_CITY.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug"/>
+				<Option output="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/ECE_CITY.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -29,15 +29,15 @@
 					<Add directory="C:/Program Files/CodeBlocks/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 ECE_CITY"/>
-					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 ECE_CITY"/>
+					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="ECE_CITY/fast">
-				<Option output="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/ECE_CITY.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug"/>
+				<Option output="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/ECE_CITY.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -47,61 +47,85 @@
 					<Add directory="C:/Program Files/CodeBlocks/MinGW/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 ECE_CITY/fast"/>
-					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 ECE_CITY/fast"/>
+					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/CODEBL~1/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/Affichage/affichage_continu.c">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Affichage/affichage_clic.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/Initialisations/init_affichage.c">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Affichage/affichage_constructions.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/Initialisations/init_build.c">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Affichage/affichage_continu.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/Initialisations/init_ecriture.c">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Affichage/affichage_plateau.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/Initialisations/init_joueur.c">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Initialisations/init_affichage.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/MENU/affichage_menu.c">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Initialisations/init_build.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/main.c">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Initialisations/init_ecriture.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/prototypes.h">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Initialisations/init_joueur.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/structures.h">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Initialisations/init_plateau.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-main/CMakeLists.txt">
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Interactions_Elements/ajout_construction.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Interactions_Elements/ajout_routes.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/MENU/affichage_menu.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/MENU/modes.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/SPGM_Informations/lecture_souris.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/main.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/prototypes.h">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/structures.h">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

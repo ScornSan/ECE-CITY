@@ -19,8 +19,9 @@ void usleep();
 void affichage_boutons();
 void placement_construction();
 void reperage_bloc_souris();
-void ajout_routes();
+int affichage_ajout_routes();
 void dessin_bloc_unique();
 void affichage_elements();
+void selection_ajout_routes();
 
 #endif //ECE_CITY_PROTOTYPES_H
