@@ -55,6 +55,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
     int clic = 0;
 
     while(!clic){
+        // Tant qu'on a pas cliqué
         affichage_hud_et_clic(hud, buffer, joueur, plateau);
         textprintf_ex(buffer,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         reperage_bloc_souris(plateau);

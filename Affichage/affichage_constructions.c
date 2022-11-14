@@ -7,7 +7,7 @@ void boucle_affichage(int i, int j, int hauteur, int longueur,t_plateau * platea
             plateau->matrice[k][l].affiche = 1;
         }
     }
-    masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2, SCREEN_W, SCREEN_H);
+    masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +7*deplacement +1 - plateau->matrice[i][j].b_element->w/2, plateau->matrice[i+position_x][j+position_y].y_bloc-25+deplacement -plateau->matrice[i][j].b_element->h/2, SCREEN_W, SCREEN_H);
 }
 
 void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_plateau * plateau){
@@ -20,31 +20,31 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
                 switch(type){
                     case 0 :break;
                     case 1 :
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,0,7);
                         break;
                     case 2:
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,0,7);
                         break;
                     case 3:
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,0,7);
                         break;
                     case 4:
-                        boucle_affichage(i,j,4,6, plateau,buffer,3,0,7);
+                        boucle_affichage(i,j,4,6, plateau,buffer,0,0,7);
                         break;
                     case 5:
-                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
+                        boucle_affichage(i,j,3,3, plateau,buffer,0,0,0);
                         break;
                     case 6:
-                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
+                        boucle_affichage(i,j,3,3, plateau,buffer,0,0,0);
                         break;
                     case 7:
-                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
+                        boucle_affichage(i,j,3,3, plateau,buffer,0,0,0);
                         break;
                     case 8 :
-                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
+                        boucle_affichage(i,j,3,3, plateau,buffer,0,0,0);
                         break;
                     case 9:
-                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
+                        boucle_affichage(i,j,3,3, plateau,buffer,0,0,0);
                         break;
                 }
             }
