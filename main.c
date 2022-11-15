@@ -3,7 +3,6 @@
 
 int main(int argc, char *argv[])
 {
-    char pseudo[20]; // pseudo du joueur à stocker dans sa structure
     allegro_init();
     // pour disposer de la souris
     install_mouse();
@@ -22,7 +21,9 @@ int main(int argc, char *argv[])
 
     t_affichage* hud = init_affichage();
     t_joueur* joueur = init_joueur();
-    menu(hud, joueur, buffer, pseudo);
+    t_plateau* plateau = init_plateau();
+    plateau->batiment = init_batiments();
+    menu(hud, joueur, buffer, plateau);
 
     return 0;
 }
