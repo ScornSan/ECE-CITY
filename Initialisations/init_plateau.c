@@ -88,6 +88,7 @@ t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
     plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
+    plateau->terraingris = load_bitmap("../BITMAPS/Affichage/MAP_1.5grise.bmp", 0);
     plateau->buffer_pixels = buffer_pixel;
     chargement_partie(plateau->matrice_map);
     distribution_couleur_blocs(plateau);

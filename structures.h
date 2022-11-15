@@ -78,6 +78,7 @@ typedef struct Plateau{
     int matrice_map[35][45];
     int col;
     BITMAP* terrain;
+    BITMAP* terraingris;
     BITMAP* buffer_pixels;
     t_construction* habitat;
     t_batiment* batiment;
