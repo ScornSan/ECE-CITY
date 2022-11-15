@@ -16,11 +16,22 @@
 #define CASERNE 3
 #define ECOLE 4
 
-//1  = chateau
-//2 = centrale
-//3 = caserne
-//4 = ecole
+/* -1 : rien
+ * 0 : route
+ * 1 : terrain vide
+ * 2 : terrain vide où une construction est possible
+ * 3 : ruine
+ * 4 : chantier
+ * 5 : cabane
+ * 6 : maison
+ * 7 : building
+ * 8 : gratte ciel
+ * 10 : Chateau d'eau
+ * 11 : Centrale
+ * 12 : Caserne
+ * 13 : Ecole
 
+*/
 
 typedef struct Constructions{
     int niveau;
