@@ -11,13 +11,12 @@ void boucle_affichage(int i, int j, int hauteur, int longueur,t_plateau * platea
 }
 
 void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_plateau * plateau){
-    /// affichage éléments sur le terrain
     blit(plateau->terrain, buffer, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    /// affichage éléments sur le terrain
     for(int i = 0; i< 35; i++){
         for (int j = 0;j <45;j++){
             if(plateau->matrice[i][j].affiche != 1){ ///pour voir si on affiche pas deux fois la meme maison en allant sur le bloc suivant
-                int type = plateau->matrice[i][j].element;
-                switch(type){
+                switch(plateau->matrice[i][j].element){
                     case 0 :break;
                     case 1 :
                         boucle_affichage(i,j,4,6, plateau,buffer,0,3,7);
@@ -45,6 +44,10 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
                         break;
                     case 9:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
+                        break;
+                    case 12:
+                        plateau->matrice[i][j].affiche = 1;
+                        masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i][j].x_bloc - plateau->matrice[i][j].b_element->w/2, plateau->matrice[i][j].y_bloc -plateau->matrice[i][j].b_element->h/2, SCREEN_W, SCREEN_H);
                         break;
                 }
             }

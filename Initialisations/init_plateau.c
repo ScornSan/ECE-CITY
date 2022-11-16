@@ -57,6 +57,8 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].RGB[0] = red;
             plateau->matrice[j][k].RGB[1] = green;
             plateau->matrice[j][k].RGB[2] = blue;
+            plateau->matrice[j][k].ligne = j;
+            plateau->matrice[j][k].colonne = k;
             plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11;
             plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7;
             for(int i = 0; i< 6; i++)
@@ -89,6 +91,13 @@ t_plateau* init_plateau() {
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
     plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
     plateau->buffer_pixels = buffer_pixel;
+    plateau->indice_tab_batiment = 1;
+    plateau->indice_tab_habitations = 1;
+    for(int i = 1;i< 175; i++){
+        if(i <66)
+            plateau->batiments[i] = NULL;
+        plateau->habitations[i] = NULL;
+    }
     chargement_partie(plateau->matrice_map);
     distribution_couleur_blocs(plateau);
 }

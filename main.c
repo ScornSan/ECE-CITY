@@ -14,15 +14,14 @@ int main(int argc, char *argv[])
         allegro_exit();
         exit(EXIT_FAILURE);
     }
-
     BITMAP* buffer = create_bitmap(SCREEN_W, SCREEN_H);
     clear_bitmap(buffer);
     // init. variable de sortie boucle interactive
 
-    t_affichage* hud = init_affichage();
     t_joueur* joueur = init_joueur();
     t_plateau* plateau = init_plateau();
-    plateau->batiment = init_batiments();
+    t_affichage* hud = init_affichage(plateau);
+    init_batiments_et_constructions(hud);
     menu(hud, joueur, buffer, plateau);
 
     return 0;

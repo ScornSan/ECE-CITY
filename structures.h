@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include <allegro.h>
 #include <stdbool.h>
 #include <time.h>
@@ -16,13 +17,48 @@
 #define CASERNE 3
 #define ECOLE 4
 
-//1  = chateau
-//2 = centrale
-//3 = caserne
-//4 = ecole
+/* -1 : rien
+ * 0 : route
+ * 1 : terrain vide
+ * 2 : terrain vide où une construction est possible
+ * 3 : ruine
+ * 4 : chantier
+ * 5 : cabane
+ * 6 : maison
+ * 7 : building
+ * 8 : gratte ciel
+ * 10 : Chateau d'eau
+ * 11 : Centrale
+ * 12 : Caserne
+ * 13 : Ecole
 
+*/
+
+typedef struct maillon{
+    int ligne;
+    int colonne;
+    int compteur;
+    struct maillon * suivant;
+}t_maillon;
+
+typedef struct file{
+    t_maillon * debut;
+    t_maillon * fin;
+}t_file;
+
+typedef struct Bloc{
+    int RGB[3];
+    int x_bloc;
+    int y_bloc;
+    int ligne;
+    int colonne;
+    int element;    // numéro indiquant de quel bat il s'agit
+    BITMAP *b_element;    // bitmap associé à ce batiment
+    int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
+}t_bloc;
 
 typedef struct Constructions{
+    t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int niveau;
     int nb_residents;
     int impot;
@@ -37,26 +73,12 @@ typedef struct Constructions{
     BITMAP* style[6];
 }t_construction;
 
-typedef struct Bloc{
-    int RGB[3];
-    int x_bloc;
-    int y_bloc;
-    int element;    // numéro indiquant de quel bat il s'agit
-    int evolution;  // chiffre montrant le niveau d'évolution de l'élément
-    BITMAP *b_element;    // bitmap associé à ce batiment
-    int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
-}t_bloc;
-
 typedef struct Batiment{    // 4x6
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int quantite_ressource;
     BITMAP* style[3];
-    // instauration des tableaux de BITMAP a 2 dim
-    // DIM1     le nombre d'image dans la partie construction (ex: chateau, ecole, caserne, centrale = 4)
-    // DIM2      //1er indice les images noircis (ex: Nchateau)
-    //2eme indice les images normales (ex: chateau)
-    // 3eme indice les images selectionnées (ex: select_chateau)
-    BITMAP * construction[4][3];
+    int ordre_x[162];
+    int ordre_y[162];
 }t_batiment;
 
 typedef struct Joueur{
@@ -80,8 +102,11 @@ typedef struct Plateau{
     int col;
     BITMAP* terrain;
     BITMAP* buffer_pixels;
-    t_construction* habitat;
-    t_batiment* batiment;
+    t_construction* habitations[175]; // max 175 constructions 3x3 sur la map
+    int indice_tab_habitations;
+    t_batiment* batiments[66]; // max 66 batiments 4x6 sur la map
+    int indice_tab_batiment;
+    BITMAP * routes[11];
 }t_plateau;
 
 typedef struct Affichage{
@@ -133,7 +158,7 @@ typedef struct Affichage{
     BITMAP* credits;
     BITMAP* nom;
     BITMAP* mode;
-    BITMAP* construction[4][3];
+    BITMAP* construction[9][3];
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

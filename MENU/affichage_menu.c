@@ -74,11 +74,16 @@ void prenom( BITMAP* buffer, t_joueur* joueur, int* clic, t_affichage* hud)
     int compteur = 0;
     fflush(stdin);
     poscarac = 0;
-    rectfill(buffer,400,237,620,295,makecol(0,0,0 ));
+    //textprintf_ex(buffer,font,365,100, makecol(0,255,0),-1, "BIENVENUE DANS UNE NOUVELLE PARTIE !");
+    //textprintf_ex(buffer,font,365,135, makecol(0,255,0),-1, "CHER JOUEUR, ENTREZ VOTRE PSEUDO:");
+
     /// AFFICHAGE DES LETTRES QUE L'ON TAPE AU CLAVIER
     while (stop != 1)
     {
+        //blit(hud->accueil,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+        //blit(hud->nom,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
         affichage_son(buffer, &(*clic));
+
         if (*clic)
         {
             rectfill(buffer,960,0,1024,50,makecol( 255,255,255 ));
@@ -133,6 +138,7 @@ void prenom( BITMAP* buffer, t_joueur* joueur, int* clic, t_affichage* hud)
             }
             place = place+1;
         }
+        //masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
     clear_bitmap(buffer);
@@ -163,7 +169,7 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
         }
 
         affichage_menu(hud, buffer, &clic, myfont);
-        masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
+        masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
         // afficher coordonnées de la souris (%4d = format numérique largeur fixe sur 4 caractères)
 
         // si on appui sur standard
@@ -185,7 +191,7 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
                         blit(hud->mode,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
                         textprintf_ex(buffer,myfont,425, 289, makecol(0,0,0),-1,"COMMUNISTE");
                         textprintf_ex(buffer,myfont,430, 455, makecol(0,0,0),-1,"CAPITALISTE");
-                        masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
+                        masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
                         textprintf_ex(buffer, font, 60, 300, makecol(0, 255, 0), makecol(0, 0, 0), "%4d %4d", mouse_x, mouse_y);
                         if(mouse_b & 1 && mouse_x>= 294 && mouse_x <= 636 && mouse_y >= 281 && mouse_y <= 334)
                         {
@@ -246,7 +252,7 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
                     draw_sprite(buffer, hud->bouton_menu, 356, 609);
                     textprintf_ex(buffer, myfont, 485, 694, makecol(0, 0, 0), -1, "EXIT");
                 }
-                masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
+                masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                 rest(20);
             }
