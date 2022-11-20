@@ -86,12 +86,10 @@ void prenom( BITMAP* buffer, t_joueur* joueur, int* clic, t_affichage* hud)
 
         if (*clic)
         {
-            rectfill(buffer,960,0,1024,50,makecol( 255,255,255 ));
             draw_sprite(buffer, hud->son_off, 960, 0);
         }
         else
         {
-            rectfill(buffer,960,0,1024,50,makecol( 255,255,255 ));
             draw_sprite(buffer, hud->son_on, 960, 0);
         }
         if (keypressed())
@@ -114,7 +112,7 @@ void prenom( BITMAP* buffer, t_joueur* joueur, int* clic, t_affichage* hud)
                 {
                     poscarac=poscarac-8;
                     joueur->pseudo[place] = ' ';
-                    textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),makecol(0,0,0)," ");
+                    textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),-1," ");
                     place = place-2;
                     compteur = compteur -1;
                 }
@@ -123,7 +121,7 @@ void prenom( BITMAP* buffer, t_joueur* joueur, int* clic, t_affichage* hud)
                     nb = nb +1;
                     poscarac=poscarac-8;
                     joueur->pseudo[place-1] = ' ';
-                    textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),makecol(0,0,0)," ");
+                    textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),-1," ");
                     place = place-2;
                     compteur = compteur -1;
                 }
@@ -162,11 +160,11 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
 
         if (clic)
         {
-            draw_sprite(buffer, hud->son_off, 960, 0);
+            masked_blit(buffer, hud->son_off, 0, 0, 960, 0, SCREEN_W, SCREEN_H);
         }
         else
         {
-            draw_sprite(buffer, hud->son_on, 960, 0);
+            masked_blit(buffer, hud->son_on, 0, 0, 960, 0, SCREEN_W, SCREEN_H);
         }
 
         affichage_menu(hud, buffer, &clic, myfont);

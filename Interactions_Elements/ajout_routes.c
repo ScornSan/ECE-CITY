@@ -43,6 +43,9 @@ int check_route(t_plateau *plateau, int lig, int col) {
 
 int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *plateau) {
     int clic = 0;
+    int lig_augmente = 0, col_augmente = 0;
+    int lig_diminue = 0, col_diminue = 0;
+    int lig_ajout, col_ajout;
     while (!clic) {
         affichage_hud_et_clic(hud, buffer, joueur, plateau);
         reperage_bloc_souris(plateau);
@@ -66,6 +69,8 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
             while (!clic) {
                 affichage_hud_et_clic(hud, buffer, joueur, plateau);
                 if (lig_init == plateau->lig_mouse) {
+                    lig_augmente = 0;
+                    col_augmente = 1;
                     if (plateau->col_mouse > col_init) {
                         for (int i = col_init; i <= plateau->col_mouse; i++) {
                             if (check_route(plateau, plateau->lig_mouse, i)) {
@@ -74,6 +79,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             } else
                                 break;
                         }
+                        col_ajout = plateau->col_mouse - col_init;
                     } else if (plateau->col_mouse < col_init) {
                         for (int i = col_init; i >= plateau->col_mouse; i--) {
                             if (check_route(plateau, plateau->lig_mouse, i)) {
@@ -82,11 +88,15 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             } else
                                 break;
                         }
+                        col_ajout = plateau->col_mouse + col_init;
                     } else {
                         reperage_bloc_souris(plateau);
                         dessin_bloc_unique(buffer, plateau->lig_mouse, plateau->col_mouse, 200, 0, 0);
                     }
-                } else if (col_init == plateau->col_mouse) {
+                }
+                else if (col_init == plateau->col_mouse) {
+                    lig_augmente = 1;
+                    col_augmente = 0;
                     if (plateau->lig_mouse > lig_init) {
                         for (int i = lig_init; i <= plateau->lig_mouse; i++) {
                             if (check_route(plateau, i, plateau->col_mouse)) {
@@ -95,6 +105,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             } else
                                 break;
                         }
+                        lig_ajout = plateau->lig_mouse - lig_init;
                     } else if (plateau->lig_mouse < lig_init) {
                         for (int i = lig_init; i >= plateau->lig_mouse; i--) {
                             if (check_route(plateau, i, plateau->col_mouse)) {
@@ -103,6 +114,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             } else
                                 break;
                         }
+                        lig_ajout = plateau->lig_mouse + lig_init;
                     } else {
                         reperage_bloc_souris(plateau);
                         dessin_bloc_unique(buffer, plateau->lig_mouse, plateau->col_mouse, 200, 0, 0);
@@ -115,9 +127,26 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                 masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                 if (mouse_b & 1 && plateau->lig_mouse > -1 && plateau->col_mouse > -1 &&
                     plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0) {
+                    if (plateau->col_mouse > col_init) {
+                        for (int i = col_init; i <= plateau->col_mouse; i++) {
+                            if (check_route(plateau, plateau->lig_mouse, i)) {
+                                reperage_bloc_souris(plateau);
+                                dessin_bloc_unique(buffer, plateau->lig_mouse, i, 200, 0, 0);
+                            }
+                            col_ajout = plateau->col_mouse - col_init;
+                        }
+                    }
+                    else if (plateau->col_mouse < col_init) {
+                        for (int i = col_init; i >= plateau->col_mouse; i--) {
+                            if (check_route(plateau, plateau->lig_mouse, i)) {
+                                reperage_bloc_souris(plateau);
+                                dessin_bloc_unique(buffer, plateau->lig_mouse, i, 200, 0, 0);
+                            }
+                        }
+                        col_ajout = plateau->col_mouse + col_init;
+                    }
                     usleep(CLIC);
                     break;
-                    usleep(CLIC);
                 }
             }
         }
