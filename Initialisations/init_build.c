@@ -18,6 +18,8 @@ t_construction* init_build(){
     return build;
 }
 
+
+
 t_batiment * init_batiments(){
     t_batiment *batiment = (t_batiment*)malloc(sizeof(t_batiment));
     batiment->construction[0][0] = load_bitmap("../BITMAPS/HUD/Nchateau.bmp", 0);       /// NON chateau

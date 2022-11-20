@@ -1,6 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
+
 void affichage_son(BITMAP *buffer/*, SAMPLE* s*/, int* clic )
 {
     if(mouse_b&1 && mouse_x>= 960 && mouse_x <= 1024 && mouse_y >= 0&& mouse_y <= 50 && !*clic)
@@ -18,6 +19,7 @@ void affichage_son(BITMAP *buffer/*, SAMPLE* s*/, int* clic )
         //play_sample(s, 255, 128, 1000, 1);
     }
 }
+
 
 void affichage_menu(t_affichage* hud, BITMAP* buffer, int* clic, FONT* myfont)
 {
@@ -80,7 +82,7 @@ void prenom( BITMAP* buffer, t_joueur* joueur, t_affichage* hud)
     poscarac = 0;
     //textprintf_ex(buffer,font,365,100, makecol(0,255,0),-1, "BIENVENUE DANS UNE NOUVELLE PARTIE !");
     //textprintf_ex(buffer,font,365,135, makecol(0,255,0),-1, "CHER JOUEUR, ENTREZ VOTRE PSEUDO:");
-    rectfill(buffer,400,237,620,295,makecol(0,0,0 ));
+    rectfill(buffer,386,245,638,286,makecol(0,0,0 ));
 
 
     /// AFFICHAGE DES LETTRES QUE L'ON TAPE AU CLAVIER
@@ -94,7 +96,7 @@ void prenom( BITMAP* buffer, t_joueur* joueur, t_affichage* hud)
             // afficher le caractère à une position x croissante
             if( carac != '\r' && !key[KEY_BACKSPACE] && compteur != 19)
             {
-                textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),makecol(0,0,0),"%c",carac);
+                textprintf_ex(buffer,font,x+poscarac,y,makecol(255,255,255),makecol(0,0,0), "%c",carac);
                 joueur->pseudo[place] = carac;
                 poscarac = poscarac+8;
                 compteur = compteur +1;
