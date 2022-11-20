@@ -23,6 +23,7 @@ void affichage_menu(t_affichage* hud, BITMAP* buffer, int* clic, FONT* myfont)
 {
     clear_bitmap(buffer);
     blit(hud->accueil,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+    //textprintf_ex(buffer, font, 60, 300, makecol(0, 255, 0), makecol(0, 0, 0), "%4d %4d", mouse_x, mouse_y);
     affichage_son(buffer, &(*clic));
 
 
@@ -35,29 +36,32 @@ void affichage_menu(t_affichage* hud, BITMAP* buffer, int* clic, FONT* myfont)
         draw_sprite(buffer, hud->son_on, 960, 0);
     }
 
-    rectfill(buffer,0,0,40,20,makecol(0,128,0 ));
-    textprintf_ex(buffer,font,4,6,makecol(255,0,0),makecol(0,255,0),"EXIT");
 
-    textprintf_ex(buffer,myfont,481,321, makecol(0,0,0),-1,"PLAY");
-    textprintf_ex(buffer,myfont,460, 428, makecol(0,0,0),-1,"CREDITS");
-    textprintf_ex(buffer,myfont,487, 537, makecol(0,0,0),-1,"EXIT");
+    textprintf_ex(buffer,myfont,475,328, makecol(0,0,0),-1,"JOUER");
+    textprintf_ex(buffer,myfont, 438, 434, makecol(0,0,0),-1,"CONTINUER");
+    textprintf_ex(buffer,myfont,460, 542, makecol(0,0,0),-1,"CREDITS");
+    textprintf_ex(buffer,myfont, 460, 650, makecol(0,0,0),-1,"QUITTER");
 
     if ( mouse_x>= 400 && mouse_x <= 631 && mouse_y >= 322 && mouse_y <=377)
     {
         masked_blit(hud->bouton_menu, buffer, 0, 0, 357, 245, SCREEN_W, SCREEN_H);
-        textprintf_ex(buffer,myfont,481,321, makecol(0,0,0),-1,"PLAY");
+        textprintf_ex(buffer,myfont,475,328, makecol(0,0,0),-1,"JOUER");
     }
 
     if(  mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 428 && mouse_y <= 482)
     {
         draw_sprite(buffer, hud->bouton_menu, 357, 351);
-        textprintf_ex(buffer,myfont,460, 428, makecol(0,0,0),-1,"CREDITS");
+        textprintf_ex(buffer,myfont, 438, 434, makecol(0,0,0),-1,"CONTINUER");
     }
 
     if(   mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 538 && mouse_y <= 590 )
     {
         draw_sprite(buffer, hud->bouton_menu, 357, 459);
-        textprintf_ex(buffer,myfont,487, 537, makecol(0,0,0),-1,"EXIT");
+        textprintf_ex(buffer,myfont,460, 542, makecol(0,0,0),-1,"CREDITS");
+    }
+    if(   mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 638 && mouse_y <= 700 ) {
+        draw_sprite(buffer, hud->bouton_menu, 357, 567);
+        textprintf_ex(buffer,myfont, 460, 650, makecol(0,0,0),-1,"QUITTER");
     }
 }
 
@@ -159,7 +163,7 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
         masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
         // afficher coordonnées de la souris (%4d = format numérique largeur fixe sur 4 caractères)
 
-        // si on appui sur standard
+        // si on appui sur jouer
         if (mouse_b & 1 && mouse_x>= 400 && mouse_x <= 631 && mouse_y >= 322 && mouse_y <=377) {
             ok = 0;
             sortir = 0;
@@ -220,11 +224,10 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
                     sortir = 1;
                     ok = 0;
                 }
-
             }
         }
         // si on appui sur credit
-        if( mouse_b & 1 &&  mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 428 && mouse_y <= 482) {
+        if( mouse_b & 1 &&  mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 538 && mouse_y <= 590 ) {
             while ( !(mouse_b & 1 &&  mouse_x>= 395 && mouse_x <= 635 && mouse_y >= 683 && mouse_y <= 738)) {
                 clear_bitmap(buffer);
                 affichage_son(buffer,&clic);
@@ -256,7 +259,7 @@ void menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau
             }
         }
         // si on appui sur quitter
-        if(mouse_b & 1  &&  mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 538 && mouse_y <= 590) {
+        if(mouse_b & 1  &&   mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 638 && mouse_y <= 700 ) {
             allegro_message("Merci d'avoir joue !");
             allegro_exit();
             exit(0);
