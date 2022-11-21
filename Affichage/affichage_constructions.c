@@ -45,7 +45,7 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
                     case 9:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0);
                         break;
-                    case 12:
+                    case 13:
                         plateau->matrice[i][j].affiche = 1;
                         masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i][j].x_bloc - plateau->matrice[i][j].b_element->w/2, plateau->matrice[i][j].y_bloc -plateau->matrice[i][j].b_element->h/2, SCREEN_W, SCREEN_H);
                         break;

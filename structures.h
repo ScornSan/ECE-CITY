@@ -39,17 +39,19 @@ typedef struct maillon{
     int colonne;
     int compteur;
     struct maillon * suivant;
+    struct maillon * precedent;
 }t_maillon;
 
-typedef struct file{
+typedef struct pile{
     t_maillon * debut;
     t_maillon * fin;
-}t_file;
+}t_pile;
 
 typedef struct Bloc{
     int RGB[3];
     int x_bloc;
     int y_bloc;
+    int id_element;
     int ligne;
     int colonne;
     int element;    // numéro indiquant de quel bat il s'agit
@@ -62,6 +64,8 @@ typedef struct Constructions{
     int niveau;
     int nb_residents;
     int impot;
+    int id_element;
+    t_bloc surface[3][3];
     int quantite_eau;
     int distance_chateau;
     int quantite_elec;
@@ -76,9 +80,11 @@ typedef struct Constructions{
 typedef struct Batiment{    // 4x6
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int quantite_ressource;
+    int id_batiment;
+    t_bloc surface[4][6];
     BITMAP* style[3];
-    int ordre_x[162];
-    int ordre_y[162];
+    t_construction* ordre_distribution[150];
+    int indice_ordre;
 }t_batiment;
 
 typedef struct Joueur{

@@ -7,71 +7,76 @@ t_maillon * creation_maillon(int ligne, int colonne, int compteur){
     maillon->colonne = colonne;
     maillon->compteur = compteur;
     maillon->suivant = NULL;
+    maillon->precedent = NULL;
     return maillon;
 }
 
-t_file * cases_adjacentes(BITMAP * buffer, t_batiment* batiment, t_plateau *plateau){
+t_pile * cases_adjacentes(BITMAP * buffer, t_batiment* batiment, t_plateau *plateau){
     int ligne = batiment->premier_bloc.ligne;
     int colonne = batiment->premier_bloc.colonne;
-    t_file *file = (t_file*)malloc(sizeof(t_file));
-    file->debut = NULL;
-    file->fin = NULL;
+    t_pile * pile = (t_pile*)malloc(sizeof(t_pile));
+    pile->debut = NULL;
+    pile->fin = NULL;
     for (int i = ligne ; i < ligne +4;i++){
         if(plateau->matrice[i][colonne-1].element == 12){
             t_maillon *maillon = creation_maillon(i,colonne-1, 1);
-            if(file->debut == NULL) {
-                file->debut = maillon;
-                file->fin = maillon;
+            if(pile->debut == NULL) {
+                pile->debut = maillon;
+                pile->fin = maillon;
             }
             else{
-                file->fin->suivant = maillon;
-                file->fin = maillon;
+                pile->fin->suivant = maillon;
+                maillon->precedent = pile->fin;
+                pile->fin = maillon;
             }
         }
         if(plateau->matrice[i][colonne+6].element == 12){
             t_maillon *maillon = creation_maillon(i,colonne+6, 1);
-            if(file->debut == NULL) {
-                file->debut = maillon;
-                file->fin = maillon;
+            if(pile->debut == NULL) {
+                pile->debut = maillon;
+                pile->fin = maillon;
             }
             else{
-                file->fin->suivant = maillon;
-                file->fin = maillon;
+                pile->fin->suivant = maillon;
+                maillon->precedent = pile->fin;
+                pile->fin = maillon;
             }
         }
     }
     for (int i = colonne; i < colonne +6;i++){
         if(plateau->matrice[ligne-1][i].element == 12){
             t_maillon *maillon = creation_maillon(ligne-1,i, 1);
-            if(file->debut == NULL) {
-                file->debut = maillon;
-                file->fin = maillon;
+            if(pile->debut == NULL) {
+                pile->debut = maillon;
+                pile->fin = maillon;
             }
             else{
-                file->fin->suivant = maillon;
-                file->fin = maillon;
+                pile->fin->suivant = maillon;
+                maillon->precedent = pile->fin;
+                pile->fin = maillon;
             }
         }
         if(plateau->matrice[ligne +4][i].element == 12){
             t_maillon *maillon = creation_maillon(ligne+4,i, 1);
-            if(file->debut == NULL){
-                file->debut = maillon;
-                file->fin = maillon;
+            if(pile->debut == NULL){
+                pile->debut = maillon;
+                pile->fin = maillon;
             }
             else{
-                file->fin->suivant = maillon;
-                file->fin = maillon;
+                pile->fin->suivant = maillon;
+                maillon->precedent = pile->fin;
+                pile->fin = maillon;
             }
         }
     }
-    t_maillon *temp = file->debut;
+    t_maillon *temp = pile->debut;
     while(temp != NULL){
         dessin_bloc_unique(buffer,temp->ligne, temp->colonne, plateau, 0,0,0);
         temp = temp->suivant;
     }
     blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
     rest(2000);
-    return file;
+    return pile;
 }
 
 int* cond_3_sur_4(int * cond,t_maillon * case_actuelle, t_plateau * plateau){
@@ -128,18 +133,73 @@ int* cond_3_sur_4(int * cond,t_maillon * case_actuelle, t_plateau * plateau){
 }
 
 void dijkstra(BITMAP * buffer, t_plateau * plateau){
-    t_file * file = cases_adjacentes(buffer, plateau->batiments[1], plateau);
+    t_pile * pile = cases_adjacentes(buffer, plateau->batiments[plateau->indice_tab_batiment], plateau);
     int compteur = 1;
-    t_maillon * case_actuelle = file->debut;
+    t_maillon * case_actuelle = pile->fin;
     int *cond;
+    int element_case, ligne_case, colonne_case;
     while(case_actuelle != NULL){
-        cond = cond_3_sur_4(cond, case_actuelle, plateau);
-        if(cond[0]){
-            printf(" continue while\n");
+        /// depilage de la case actuelle pour la suite
+        pile->fin->precedent->suivant = NULL;
+        pile->fin = pile->fin->precedent;
+
+        if (!plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche){// si elle est pâs deja visitée
+            plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche = 1; // on la marque en visitée
+            cond = cond_3_sur_4(cond, case_actuelle, plateau); // on regarde si c'est pas une fin de route
+            if(cond[0]){
+                for(int i = 0; i< 4; i++){    /// on regarde les 4 cases autour
+                    if(!cond[i+1]){  // si case != extremité
+                        if(i == 0) {    // element prend la valeur de la bonne case et les lignes et colonnes pareil
+                            element_case = plateau->matrice[case_actuelle->ligne - 1][case_actuelle->colonne].element;
+                            ligne_case = case_actuelle->ligne - 1;
+                            colonne_case = case_actuelle->colonne;
+                        }
+                        else if (i == 1){
+                            element_case = plateau->matrice[case_actuelle->ligne ][case_actuelle->colonne +1].element;
+                            ligne_case = case_actuelle->ligne;
+                            colonne_case = case_actuelle->colonne +1;
+                        }
+                        else if(i == 3){
+                            element_case = plateau->matrice[case_actuelle->ligne +1][case_actuelle->colonne].element;
+                            ligne_case = case_actuelle->ligne +1;
+                            colonne_case = case_actuelle->colonne;
+                        }
+                        else{
+                            element_case = plateau->matrice[case_actuelle->ligne ][case_actuelle->colonne-1].element;
+                            ligne_case = case_actuelle->ligne;
+                            colonne_case = case_actuelle->colonne-1;
+                        }
+                        if (!plateau->matrice[ligne_case][colonne_case].affiche){ // si la case verifié n'est pas e,core visitée
+                            plateau->matrice[ligne_case][colonne_case].affiche = 1;
+                            if(element_case != 0){ // si case != vide
+                                if(element_case > 4) { // si case = habitation
+                                    if(compteur < plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau){
+                                        /// mise a jour de la distance avec l echateau d'eau le plus proche
+                                        plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau = case_actuelle->compteur;
+                                        plateau->batiments[plateau->indice_tab_batiment]->ordre_distribution[plateau->batiments[plateau->indice_tab_batiment]->indice_ordre] = plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element];
+                                    }
+                                    else
+                                        plateau->batiments[plateau->indice_tab_batiment]->ordre_distribution[plateau->batiments[plateau->indice_tab_batiment]->indice_ordre] = plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element];
+                                }
+                                else if (element_case == 12){ // si case = route
+                                    // carrefour
+
+                                }
+                                else
+                                    compteur++; // case considérée comme vide
+                            }
+                        }
+
+                    }
+                }
+                printf(" continue while\n");
+            }
+            else{
+                printf(" arrete while \n");
+
+            }
         }
-        else
-            printf(" arrete while \n");
-        case_actuelle = case_actuelle->suivant;
+        case_actuelle = pile->fin;
     }
 
 }

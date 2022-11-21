@@ -93,7 +93,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
     masked_blit(hud->construct, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
 
     if(mouse_b&1 && mouse_x > 800 && mouse_y < 100){
-       dijkstra(buffer, plateau);
+       //dijkstra(buffer, plateau);
     }
 
     // Affichage des boutons "chateau, centrale, caserne"
@@ -102,6 +102,8 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         // Souris sur bouton chateau
         if (mouse_x > 20 && mouse_x < 20 + hud->chateau->w && mouse_y > 300 && mouse_y < 300 + hud->chateau->h){
             masked_blit(hud->Schateau, buffer, 0, 0, 20, 300, SCREEN_W, SCREEN_H);
+            reperage_bloc_souris(plateau);
+            affichage_zone_constru_terrain(buffer,plateau,3);
             if (mouse_b&1){
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU - 1);

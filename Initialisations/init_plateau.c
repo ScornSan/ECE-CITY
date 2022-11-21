@@ -58,6 +58,9 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].RGB[1] = green;
             plateau->matrice[j][k].RGB[2] = blue;
             plateau->matrice[j][k].ligne = j;
+            plateau->matrice[j][k].element = 0;
+            plateau->matrice[j][k].id_element = -1;
+            plateau->matrice[j][k].affiche = 0;
             plateau->matrice[j][k].colonne = k;
             plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11;
             plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7;
