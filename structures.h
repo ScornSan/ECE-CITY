@@ -113,7 +113,6 @@ typedef struct Plateau{
     int lig;
     int lig_mouse;
     int col_mouse;
-    int element;
     t_bloc matrice[35][45];
     int col;
     BITMAP* terrain;
