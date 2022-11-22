@@ -1,39 +1,6 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-void chargement_partie(int matrice_map[35][45]){
-    FILE *ifs = fopen("../Fichier_map.txt", "r"); // ouverture du fichier pour recup une sauvegarde
-
-    if (!ifs) {
-        printf("Erreur de lecture fichier\n");
-        exit(-1);
-    }
-
-    //// récuperation d'une map existante ( ou non a faire avec condition)
-    for(int i = 0; i< 35; i++){
-        for(int j = 0; j < 45; j++){
-            fscanf(ifs, "%d", &matrice_map[i][j]);
-        }
-    }
-    fclose(ifs);
-    ifs = NULL;
-}
-
-void sauvegarde(int matrice_map[35][45]){
-    FILE *ifs = fopen("../fichier_map.txt", "w"); /// ouvertue du fichier en mode ecriture
-    /// On écrase l'ancienne map et on sauvegarde la nouvelle (celle de notre partie déjà commencée
-    for(int i = 0; i< 35; i++){
-        for(int j = 0; j < 45; j++){
-            fprintf(ifs, "%d ", matrice_map[i][j]);
-        }
-        fprintf(ifs, "\n");
-    }
-    fclose(ifs);
-    ifs = NULL;
-    /// si on veut continuer la partie après sauvegarde ou juste quitter après sauvegarde
-    //return plateau;
-}
-
 t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 {
     for (int j = 0; j<35; j++)      // boucle pour les lignes
@@ -54,6 +21,7 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             int x3 = 40 +13*k +j*11;   // x de base + largeur du haut +1  donc 26 + 14 = 40
             int y3= 477 -8*k +j*7;   // y de base - 1 donc 477
 
+
             plateau->matrice[j][k].RGB[0] = red;
             plateau->matrice[j][k].RGB[1] = green;
             plateau->matrice[j][k].RGB[2] = blue;
@@ -64,6 +32,7 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].colonne = k;
             plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11;
             plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7;
+
             for(int i = 0; i< 6; i++)
             {
                 line(plateau->buffer_pixels, x1 +2*i , y1 +i , x1 +12 , y1 +i , makecol(red,green,blue));
@@ -96,11 +65,19 @@ t_plateau* init_plateau() {
     plateau->buffer_pixels = buffer_pixel;
     plateau->indice_tab_batiment = 0;
     plateau->indice_tab_habitations = 0;
+
     for(int i = 1;i< 175; i++){
         if(i <66)
             plateau->batiments[i] = NULL;
         plateau->habitations[i] = NULL;
     }
-    chargement_partie(plateau->matrice_map);
+
+    for(int i = 0; i< 35; i++){
+        for(int j = 0; j < 45; j++){
+            plateau->matrice_map[i][j] = 0;
+        }
+    }
+
+    //chargement_partie(plateau->matrice_map);
     distribution_couleur_blocs(plateau);
 }

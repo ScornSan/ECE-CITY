@@ -87,14 +87,9 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
 }
 
 void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
-    affichage_elements(hud, buffer, joueur, plateau);
-
+    affichage_hud(hud, buffer, joueur, plateau);
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 701, SCREEN_W, SCREEN_H);
     masked_blit(hud->construct, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
-
-    if(mouse_b&1 && mouse_x > 800 && mouse_y < 100){
-       //dijkstra(buffer, plateau);
-    }
 
     // Affichage des boutons "chateau, centrale, caserne"
     if (joueur->argent > 100000){
@@ -102,8 +97,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         // Souris sur bouton chateau
         if (mouse_x > 20 && mouse_x < 20 + hud->chateau->w && mouse_y > 300 && mouse_y < 300 + hud->chateau->h){
             masked_blit(hud->Schateau, buffer, 0, 0, 20, 300, SCREEN_W, SCREEN_H);
-            reperage_bloc_souris(plateau);
-            affichage_zone_constru_terrain(buffer,plateau,3);
             if (mouse_b&1){
                 usleep(CLIC);
                 usleep(CLIC);
@@ -191,4 +184,15 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
     else{
         masked_blit(hud->Nonroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
     }
+    if( mouse_x > 700 && mouse_y <300){
+        if(mouse_b&1 ){
+            usleep(CLIC);
+            dessin_bloc_unique(buffer, 20,20,plateau, 0,0,0);
+            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
+            rest(1000);
+            dijkstra(buffer, plateau);
+            usleep(CLIC);
+        }
+    }
+
 }

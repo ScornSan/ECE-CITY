@@ -58,11 +58,10 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
             if(mouse_b&1 && plateau->lig_mouse != -1) {
                 t_construction * construction= init_build();
                 construction->premier_bloc = plateau->matrice[plateau->lig_mouse-1][plateau->col_mouse-1];
-                construction->distance_chateau = 1000;
-                construction->id_element = plateau->indice_tab_habitations;
                 plateau->habitations[plateau->indice_tab_habitations] = construction;
                 construction->timer = time(NULL);
-
+                construction->distance_chateau = 1000;
+                construction->id_element = plateau->indice_tab_habitations;
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 2; i++) {
                     for (int j = plateau->col_mouse - 1; j < plateau->col_mouse + 2; j++) {
                         plateau->matrice[i][j].element = indice+1;
@@ -104,6 +103,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 batiment->premier_bloc = plateau->matrice[plateau->lig_mouse-1][plateau->col_mouse-2];
                 batiment->indice_ordre = 0;
                 batiment->id_batiment = plateau->indice_tab_batiment;
+                printf("premier bloc = %d et %d", batiment->premier_bloc.ligne, batiment->premier_bloc.colonne);
                 plateau->batiments[plateau->indice_tab_batiment] = batiment;
 
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 3; i++) {
