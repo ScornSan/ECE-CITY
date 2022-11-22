@@ -26,6 +26,7 @@
 #define TVAGUE_CP_BP 12
 #define ROUTES 13
 #define TVAGUE 14
+# define TIME_CYCLE 15
 
 /* 0 : rien
  * 1 : chateau d'eau
@@ -42,7 +43,6 @@
  * 12 : terrain vague + construction ou batiment possible
  * 13 : routes
  * 14 : terrain vague
-
 */
 
 typedef struct maillon{
@@ -115,7 +115,6 @@ typedef struct Plateau{
     int col_mouse;
     int element;
     t_bloc matrice[35][45];
-    int matrice_map[35][45];
     int col;
     BITMAP* terrain;
     BITMAP* buffer_pixels;
@@ -172,6 +171,7 @@ typedef struct Affichage{
     BITMAP* son_off;
     BITMAP* accueil;
     BITMAP* bouton_menu;
+    BITMAP* bouton_menu2;
     BITMAP* credits;
     BITMAP* nom;
     BITMAP* mode;

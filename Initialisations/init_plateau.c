@@ -1,7 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-void chargement_partie(int matrice_map[35][45]){
+void chargement_partie(t_bloc matrice[35][45]){
     FILE *ifs = fopen("../Fichier_map.txt", "r"); // ouverture du fichier pour recup une sauvegarde
 
     if (!ifs) {
@@ -12,7 +12,7 @@ void chargement_partie(int matrice_map[35][45]){
     //// récuperation d'une map existante ( ou non a faire avec condition)
     for(int i = 0; i< 35; i++){
         for(int j = 0; j < 45; j++){
-            fscanf(ifs, "%d", &matrice_map[i][j]);
+            fscanf(ifs, "%d", &matrice[i][j].element);
         }
     }
     fclose(ifs);
@@ -94,24 +94,13 @@ t_plateau* init_plateau() {
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
     plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
     plateau->buffer_pixels = buffer_pixel;
-    plateau->indice_tab_batiment = 1;
-    plateau->indice_tab_habitations = 1;
-    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
-    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
-    plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude1.bmp", 0);
-    plateau->routes[3] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude2.bmp", 0);
-    plateau->routes[4] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude3.bmp", 0);
-    plateau->routes[5] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude4.bmp", 0);
-    plateau->routes[6] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies1.bmp", 0);
-    plateau->routes[7] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies2.bmp", 0);
-    plateau->routes[8] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
-    plateau->routes[9] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
-    plateau->routes[10] = load_bitmap("../BITMAPS/BUILDS/ROUTES/carrefour.bmp", 0);
+    plateau->indice_tab_batiment = 0;
+    plateau->indice_tab_habitations = 0;
     for(int i = 1;i< 175; i++){
         if(i <66)
             plateau->batiments[i] = NULL;
         plateau->habitations[i] = NULL;
     }
-    chargement_partie(plateau->matrice_map);
+    chargement_partie(plateau->matrice);
     distribution_couleur_blocs(plateau);
 }

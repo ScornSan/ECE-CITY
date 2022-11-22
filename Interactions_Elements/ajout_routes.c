@@ -128,7 +128,6 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                     if (lig_init == plateau->lig_mouse) {
                         if (col_init > plateau->col_mouse) {
                             for (int i = col_init; i >= plateau->col_mouse; i--) {
-                                plateau->matrice_map[lig_init][i] = 13;
                                 plateau->matrice[lig_init][i].element = 13;
                                 for (int k = 1; k <= 3; k++) {
                                     if (plateau->matrice[lig_init + k][i].element == 0)
@@ -141,7 +140,6 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                         } else {
                             for (int i = col_init; i < plateau->col_mouse + 1; i++) {
                                 plateau->matrice[lig_init][i].element = 13;
-                                plateau->matrice_map[lig_init][i] = 13;
                                 for (int k = 1; k <= 3; k++) {
                                     if (plateau->matrice[lig_init + k][i].element == 0)
                                         plateau->matrice[lig_init + k][i].element = 14;
@@ -155,7 +153,6 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                         if (lig_init > plateau->lig_mouse) {
                             for (int i = lig_init; i >= plateau->lig_mouse; i--) {
                                 plateau->matrice[i][col_init].element = 13;
-                                plateau->matrice_map[i][col_init] = 13;
                                 for (int k = 1; k <= 3; k++) {
                                     if (plateau->matrice[i][col_init + k].element == 0)
                                         plateau->matrice[i][col_init + k].element = 14;
@@ -167,7 +164,6 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                         } else {
                             for (int i = lig_init; i < plateau->lig_mouse + 1; i++) {
                                 plateau->matrice[i][col_init].element = 13;
-                                plateau->matrice_map[i][col_init] = 13;
                                 for (int k = 1; k <= 3; k++) {
                                     if (plateau->matrice[i][col_init + k].element == 0)
                                         plateau->matrice[i][col_init + k].element = 14;

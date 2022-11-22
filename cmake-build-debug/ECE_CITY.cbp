@@ -116,6 +116,9 @@
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/MENU/modes.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
+		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Maj_Elements/maj_habitations.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Maj_Elements/maj_routes.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
