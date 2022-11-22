@@ -48,7 +48,7 @@ void affichage_zone_constru_terrain(BITMAP * buffer, t_plateau *plateau, int typ
 void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau, int indice){
     int clic = 0;
     while(!clic){
-        affichage_hud_et_clic(hud, buffer, joueur, plateau);
+        affichage_hud(hud, buffer, joueur, plateau);
         textprintf_ex(buffer,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         reperage_bloc_souris(plateau);
         textprintf_ex(buffer,font,300,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",plateau->lig_mouse,plateau->col_mouse);
@@ -66,7 +66,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                     for (int j = plateau->col_mouse - 1; j < plateau->col_mouse + 2; j++) {
                         plateau->matrice[i][j].element = indice+1;
                         plateau->matrice[i][j].b_element = hud->construction[indice][1];
-                        plateau->matrice_map[i][j] = indice+1;
                         plateau->matrice[i][j].id_element = plateau->indice_tab_habitations;
                     }
                 }
@@ -76,12 +75,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                         construction->surface[i][j].ligne = construction->premier_bloc.ligne + i;
                         construction->surface[i][j].colonne = construction->premier_bloc.colonne + j;
                     }
-                }
-                for(int i = 0; i<35; i++){
-                    for(int j = 0; j<45; j++){
-                        printf("%d ", plateau->matrice_map[i][j]);
-                    }
-                    printf("\n");
                 }
                 clic = 1;
                 usleep(CLIC);
@@ -110,7 +103,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                     for (int j = plateau->col_mouse - 2; j < plateau->col_mouse + 4; j++) {
                         plateau->matrice[i][j].element = indice+1;
                         plateau->matrice[i][j].b_element = hud->construction[indice][1];
-                        plateau->matrice_map[i][j] = indice+1;
                         plateau->matrice[i][j].id_element = plateau->indice_tab_batiment;
                     }
                 }
@@ -120,12 +112,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                         batiment->surface[i][j].ligne = batiment->premier_bloc.ligne + i;
                         batiment->surface[i][j].colonne = batiment->premier_bloc.colonne + j;
                     }
-                }
-                for(int i = 0; i<35; i++){
-                    for(int j = 0; j<45; j  ++){
-                        printf("%d ", plateau->matrice_map[i][j]);
-                    }
-                    printf("\n");
                 }
                 clic = 1;
                 usleep(CLIC);

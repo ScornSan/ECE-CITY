@@ -115,7 +115,6 @@ typedef struct Plateau{
     int col_mouse;
     int element;
     t_bloc matrice[35][45];
-    int matrice_map[35][45];
     int col;
     BITMAP* terrain;
     BITMAP* buffer_pixels;

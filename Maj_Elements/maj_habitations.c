@@ -5,7 +5,6 @@
 // mode communiste = 1
 // mode capitaliste = 2
 
-
 void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* buffer, t_affichage* hud)
 {
     // build  niveau 1 (terrain-vague)
@@ -17,7 +16,15 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* bu
             if(plateau->habitations[plateau->habitations[indice]->id_element]->eau == true && plateau->habitations[plateau->habitations[indice]->id_element]->elec == true && plateau->habitations[plateau->habitations[indice]->id_element]->incendie == true) {
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 10;
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 2;
+                //pas d'habitant donc pas d'impot
             }
+                // rajouter condition de rester sans evoluer ni regresser
+            else
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+            }
+
 
         }
         else // mode capitaliste
@@ -33,13 +40,18 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* bu
 
         if(joueur->mode == 1) // communiste
         {
-            printf("good");
             if(plateau->habitations[plateau->habitations[indice]->id_element]->eau == true && plateau->habitations[plateau->habitations[indice]->id_element]->elec == true && plateau->habitations[plateau->habitations[indice]->id_element]->incendie == true) {
                 joueur->argent = joueur->argent + (10*plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 50;
-                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 3;}
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 3;
+            }
+            else // regression
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 1;
+            }
         }
-        else // capitaliste
+        else // capitaliste pas de regression évolue quoi qu
         {
             joueur->argent = joueur->argent + (10*plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
             plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 50;
@@ -57,6 +69,11 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* bu
                 joueur->argent = joueur->argent + (10 * plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 100;
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 4; }
+            else //regression
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 2;
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 10;
+            }
         }
         else
         {
@@ -78,6 +95,12 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* bu
                 joueur->argent = joueur->argent + (10*plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 5;
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 1000;}
+            else
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 3;
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 100;
+
+            }
         }
         else
         {
@@ -89,19 +112,19 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* bu
 
 
 
-        //build  niveau 4 (gratte-ciel) // ne peut plus évoluer
+        //build  niveau 5 (gratte-ciel) // ne peut plus évoluer
     else if (plateau->habitations[plateau->habitations[indice]->id_element]->niveau  == 5) {
 
-        if(joueur->mode == 1)
+        if(joueur->mode == 1) //communiste
         {
             joueur->argent = joueur->argent + (10 * plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
             plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 4;
         }
-        else
+        else //capitaliste
         {
 
-
         }
+
 
     }
 }

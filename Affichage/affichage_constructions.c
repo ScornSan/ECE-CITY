@@ -28,7 +28,7 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
         if( (int)time(NULL) - plateau->habitations[x]->timer >= TIME_CYCLE && plateau->indice_tab_habitations != 0) // on verifie si le cycle de 15 secondes d'une des habitations est fini
         {
             plateau->habitations[x]->timer = time(NULL);
-            maj_habitation(x, plateau, joueur, buffer, hud);
+            //maj_habitation(x, plateau, joueur, buffer, hud);
         }
         else
         {

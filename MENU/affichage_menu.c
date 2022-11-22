@@ -196,17 +196,21 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                         {
                             draw_sprite(buffer, hud->bouton_menu2, 358, 211);
                             textprintf_ex(buffer,myfont,425, 289, makecol(255,255,255),-1,"CAPITALISTE");
+                            masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                         }
                         if(mouse_x>= 389 && mouse_x <= 642 && mouse_y >= 442 && mouse_y <= 504) // capitaliste
                         {
-                            draw_sprite(buffer, hud->bouton_menu, 358, 371);
+                            draw_sprite(buffer, hud->bouton_menu, 357, 367);
                             textprintf_ex(buffer,myfont,430, 455, makecol(255,255,255),-1,"COMMUNISTE");
+                            masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                         }
                         if(mouse_b & 1 && mouse_x>= 294 && mouse_x <= 636 && mouse_y >= 281 && mouse_y <= 334) // capitaliste
                         {
+                            masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                             int fait = 0;
                             while(!(mouse_b&2))
                             {
+                                masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 if(!fait){
                                     stop_sample(hud->son_menu);
                                     play_sample(hud->son_jeu, 255, 128, 1000, 1);
@@ -215,6 +219,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                                 clear_bitmap(buffer);
                                 joueur->mode = 1;
                                 affichage_hud(hud, buffer, joueur, plateau);
+
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
                         }
@@ -223,6 +228,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                             int fait = 0;
                             while(!(mouse_b&2))
                             {
+                                masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 clear_bitmap(buffer);
                                 if(!fait){
                                     stop_sample(hud->son_menu);
@@ -233,6 +239,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                                 stop_sample(hud->son_menu);
                                 play_sample(hud->son_jeu, 255, 128, 1000, 1);
                                 affichage_hud(hud, buffer, joueur, plateau);
+                                masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
                         }

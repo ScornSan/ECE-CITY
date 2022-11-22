@@ -87,8 +87,7 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
 }
 
 void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
-    affichage_elements(hud, buffer, joueur, plateau);
-
+    affichage_hud(hud, buffer, joueur, plateau);
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 701, SCREEN_W, SCREEN_H);
     masked_blit(hud->construct, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
 

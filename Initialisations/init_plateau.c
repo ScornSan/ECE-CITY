@@ -1,7 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-void chargement_partie(int matrice_map[35][45]){
+void chargement_partie(t_bloc matrice[35][45]){
     FILE *ifs = fopen("../Fichier_map.txt", "r"); // ouverture du fichier pour recup une sauvegarde
 
     if (!ifs) {
@@ -12,7 +12,7 @@ void chargement_partie(int matrice_map[35][45]){
     //// récuperation d'une map existante ( ou non a faire avec condition)
     for(int i = 0; i< 35; i++){
         for(int j = 0; j < 45; j++){
-            fscanf(ifs, "%d", &matrice_map[i][j]);
+            fscanf(ifs, "%d", &matrice[i][j].element);
         }
     }
     fclose(ifs);
@@ -101,6 +101,6 @@ t_plateau* init_plateau() {
             plateau->batiments[i] = NULL;
         plateau->habitations[i] = NULL;
     }
-    chargement_partie(plateau->matrice_map);
+    chargement_partie(plateau->matrice);
     distribution_couleur_blocs(plateau);
 }
