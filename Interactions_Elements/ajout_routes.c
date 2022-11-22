@@ -11,7 +11,7 @@ void selection_ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, 
                       plateau->lig_mouse, plateau->col_mouse,
                       plateau->matrice[plateau->lig_mouse][plateau->col_mouse].x_bloc,
                       plateau->matrice[plateau->lig_mouse][plateau->col_mouse].y_bloc);
-        masked_blit(hud->cursor, buffer, 0, 0, mouse_x , mouse_y, SCREEN_W, SCREEN_H);
+        masked_blit(hud->cursor, buffer, 0, 0, mouse_x, mouse_y, SCREEN_W, SCREEN_H);
         masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         if (mouse_b & 1 && plateau->lig_mouse > -1 && plateau->col_mouse > -1 &&
             plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0) {
@@ -34,7 +34,8 @@ void selection_ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, 
 int check_route(t_plateau *plateau, int lig, int col) {
     //printf("%d\n", plateau->matrice[lig][col].element);
     if (plateau->matrice[lig][col].element != -1 && plateau->matrice[lig][col].element != 0 &&
-        plateau->matrice[lig][col].element != 1 && plateau->matrice[lig][col].element != 2) {
+        plateau->matrice[lig][col].element != 1 && plateau->matrice[lig][col].element != 2 &&
+        plateau->matrice[lig][col].element != 13 && plateau->matrice[lig][col].element != TVAGUE && plateau->matrice[lig][col].element != TVAGUE_CP && plateau->matrice[lig][col].element != TVAGUE_CP_BP) {
         return 0;
     }
     return 1;
@@ -62,7 +63,10 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
 
         // On a selectionne un endroit ou mettre notre route
         if (mouse_b & 1 && plateau->lig_mouse > -1 && plateau->col_mouse > -1 &&
-            plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0) {
+            (plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0 ||
+             plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == TVAGUE ||
+             plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == TVAGUE_CP ||
+             plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == TVAGUE_CP_BP)) {
             int lig_init = plateau->lig_mouse;
             int col_init = plateau->col_mouse;
             usleep(CLIC);
@@ -117,111 +121,66 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                 }
                 masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                 if (mouse_b & 1 && plateau->lig_mouse > -1 && plateau->col_mouse > -1 &&
-                    plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0) {
+                    (plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0 ||
+                     plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 14)) {
                     reperage_bloc_souris(plateau);
                     usleep(CLIC);
-                    if(lig_init == plateau->lig_mouse){
-                        if(col_init > plateau->col_mouse){
-                            for(int i = col_init; i >= plateau->col_mouse ; i--){
+                    if (lig_init == plateau->lig_mouse) {
+                        if (col_init > plateau->col_mouse) {
+                            for (int i = col_init; i >= plateau->col_mouse; i--) {
+                                plateau->matrice_map[lig_init][i] = 13;
+                                plateau->matrice[lig_init][i].element = 13;
+                                for (int k = 1; k <= 3; k++) {
+                                    if (plateau->matrice[lig_init + k][i].element == 0)
+                                        plateau->matrice[lig_init + k][i].element = 14;
+                                    if (plateau->matrice[lig_init - k][i].element == 0)
+                                        plateau->matrice[lig_init - k][i].element = 14;
+                                }
+                                plateau->matrice[lig_init][i].b_element = plateau->routes[1];
+                            }
+                        } else {
+                            for (int i = col_init; i < plateau->col_mouse + 1; i++) {
                                 plateau->matrice[lig_init][i].element = 13;
                                 plateau->matrice_map[lig_init][i] = 13;
-                                plateau->matrice[lig_init][i].b_element = plateau->routes[4];
+                                for (int k = 1; k <= 3; k++) {
+                                    if (plateau->matrice[lig_init + k][i].element == 0)
+                                        plateau->matrice[lig_init + k][i].element = 14;
+                                    if (plateau->matrice[lig_init - k][i].element == 0)
+                                        plateau->matrice[lig_init - k][i].element = 14;
+                                }
+                                plateau->matrice[lig_init][i].b_element = plateau->routes[1];
                             }
                         }
-                        else{
-                            for(int i = col_init; i < plateau->col_mouse +1 ; i++){
-                                plateau->matrice[lig_init][i].element = 13;
-                                plateau->matrice_map[lig_init][i] = 13;
-                                plateau->matrice[lig_init][i].b_element = plateau->routes[4];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(lig_init > plateau->lig_mouse){
-                            for(int i = lig_init; i >= plateau->lig_mouse ; i--){
+                    } else {
+                        if (lig_init > plateau->lig_mouse) {
+                            for (int i = lig_init; i >= plateau->lig_mouse; i--) {
                                 plateau->matrice[i][col_init].element = 13;
                                 plateau->matrice_map[i][col_init] = 13;
-                                plateau->matrice[i][col_init].b_element = plateau->routes[5];
+                                for (int k = 1; k <= 3; k++) {
+                                    if (plateau->matrice[i][col_init + k].element == 0)
+                                        plateau->matrice[i][col_init + k].element = 14;
+                                    if (plateau->matrice[i][col_init - k].element == 0)
+                                        plateau->matrice[i][col_init - k].element = 14;
+                                }
+                                plateau->matrice[i][col_init].b_element = plateau->routes[0];
                             }
-                        }
-                        else{
-                            for(int i = lig_init; i < plateau->lig_mouse +1 ; i++){
+                        } else {
+                            for (int i = lig_init; i < plateau->lig_mouse + 1; i++) {
                                 plateau->matrice[i][col_init].element = 13;
                                 plateau->matrice_map[i][col_init] = 13;
-                                plateau->matrice[i][col_init].b_element = plateau->routes[5];
+                                for (int k = 1; k <= 3; k++) {
+                                    if (plateau->matrice[i][col_init + k].element == 0)
+                                        plateau->matrice[i][col_init + k].element = 14;
+                                    if (plateau->matrice[i][col_init - k].element == 0)
+                                        plateau->matrice[i][col_init - k].element = 14;
+                                }
+                                plateau->matrice[i][col_init].b_element = plateau->routes[0];
                             }
                         }
                     }
                     break;
-                    usleep(CLIC);
                 }
             }
         }
     }
 }
-
-
-/*int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *plateau, int lig_init,
-                           int col_init) {
-    int clic = 0;
-    int x_augmente;
-    int y_augmente;
-    int autorisation;
-    int compteur = 0;
-
-    if (lig_init <= plateau->lig_mouse)
-        x_augmente = 1;
-    else
-        x_augmente = 0;
-    if (col_init <= plateau->col_mouse)
-        y_augmente = 1;
-    else
-        y_augmente = 0;
-
-    int compteur_lig = lig_init;
-    int compteur_col = col_init;
-
-    printf("ajout routes lol");
-    while (!clic) {
-        affichage_hud_et_clic(hud, buffer, joueur, plateau);
-        dessin_bloc_unique(buffer, plateau->lig_mouse, plateau->col_mouse, 200, 0, 0);
-        /// tant que le x et le y du joueur sont différents de celui de la souris ET seulement si la case est accessible la ou pointe la souris
-        printf("avant while");
-        //while (compteur_lig != plateau->lig_mouse && compteur_col != plateau->col_mouse) {
-            printf("while euss");
-            affichage_hud_et_clic(hud, buffer, joueur, plateau);
-            reperage_bloc_souris(plateau);
-            textprintf_ex(buffer, font, 170, 500, makecol(255, 255, 255), -1, "RGETHYJTUK");
-    masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
-            // on dessine un bloc puis on augmente de 1 la valeur du x_joueur
-            if (x_augmente) {
-                for (int i = lig_init; i < plateau->lig_mouse; i++){
-                    dessin_bloc_unique(buffer, i, col_init, plateau, 200, 0, 0);
-                    compteur_lig = compteur_lig + 1;
-                }
-            } else if (!x_augmente) {
-                for (int i = lig_init; i > plateau->lig_mouse; i--){
-                    dessin_bloc_unique(buffer, i, col_init, plateau, 200, 0, 0);
-                    compteur_lig = compteur_lig - 1;
-                }
-            }
-            if (y_augmente) {
-                for (int i = lig_init; i < plateau->col_mouse; i++){
-                    dessin_bloc_unique(buffer, compteur_lig, i, plateau, 200, 0, 0);
-                    compteur_col = compteur_col + 1;
-                }
-            } else if (!y_augmente) {
-                for (int i = lig_init; i > plateau->col_mouse; i--){
-                    dessin_bloc_unique(buffer, compteur_lig, i, plateau, 200, 0, 0);
-                    compteur_col = compteur_col - 1;
-                }
-            }
-            masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-        //}
-        if (lig_init == plateau->lig_mouse && col_init == plateau->col_mouse && mouse_b & 1) {
-            clic = 1;
-        }
-        masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
-    }
-}*/

@@ -16,22 +16,33 @@
 #define CENTRALE 2
 #define CASERNE 3
 #define ECOLE 4
+#define CHANTIER 5
+#define CABANE 6
+#define MAISON 7
+#define BUILDING 8
+#define GRATTECIEL 9
+#define RUINE 10
+#define TVAGUE_CP 11
+#define TVAGUE_CP_BP 12
+#define ROUTES 13
+#define TVAGUE 14
+# define TIME_CYCLE 3
 
-/* -1 : rien
- * 0 : route
- * 1 : terrain vide
- * 2 : terrain vide où une construction est possible
- * 3 : ruine
- * 4 : chantier
- * 5 : cabane
- * 6 : maison
- * 7 : building
- * 8 : gratte ciel
- * 10 : Chateau d'eau
- * 11 : Centrale
- * 12 : Caserne
- * 13 : Ecole
-
+/* 0 : rien
+ * 1 : chateau d'eau
+ * 2 : centrale
+ * 3 : caserne
+ * 4 : école
+ * 5 : chantier
+ * 6 : cabane
+ * 7 : maison
+ * 8 : building
+ * 9 : gratte ciel
+ * 10 : ruine
+ * 11 : terrain vague + construction possible
+ * 12 : terrain vague + construction ou batiment possible
+ * 13 : routes
+ * 14 : terrain vague
 */
 
 typedef struct maillon{
@@ -161,10 +172,13 @@ typedef struct Affichage{
     BITMAP* son_off;
     BITMAP* accueil;
     BITMAP* bouton_menu;
+    BITMAP* bouton_menu2;
     BITMAP* credits;
     BITMAP* nom;
     BITMAP* mode;
     BITMAP* construction[9][3];
+    SAMPLE * son_menu;
+    SAMPLE * son_jeu;
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

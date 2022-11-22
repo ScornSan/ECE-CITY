@@ -94,8 +94,8 @@ t_plateau* init_plateau() {
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
     plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
     plateau->buffer_pixels = buffer_pixel;
-    plateau->indice_tab_batiment = 1;
-    plateau->indice_tab_habitations = 1;
+    plateau->indice_tab_batiment = 0;
+    plateau->indice_tab_habitations = 0;
     for(int i = 1;i< 175; i++){
         if(i <66)
             plateau->batiments[i] = NULL;

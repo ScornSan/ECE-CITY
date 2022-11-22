@@ -7,6 +7,7 @@ t_affichage* init_affichage(t_plateau *plateau){
     hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);
     hud->credits = load_bitmap("../BITMAPS/credits.bmp",0);
     hud->bouton_menu = load_bitmap("../BITMAPS/HUD/bouton_menu.bmp",0);
+    hud->bouton_menu2 = load_bitmap("../BITMAPS/HUD/bouton_menu2.bmp",0);
     hud->son_on = load_bitmap("../BITMAPS/HUD/son_on.bmp",0);
     hud->son_off = load_bitmap("../BITMAPS/HUD/son_off.bmp",0);
     hud->accueil = load_bitmap("../BITMAPS/accueil.bmp",0);
@@ -62,12 +63,21 @@ t_affichage* init_affichage(t_plateau *plateau){
     hud->construction[3][2] = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);     /// select_ecole
 
 
-    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies1.bmp", 0);
-    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies2.bmp", 0);
-    plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
-    plateau->routes[3] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
-    plateau->routes[4] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
-    plateau->routes[5] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
+    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
+    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
+    plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude1.bmp", 0);
+    plateau->routes[3] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude2.bmp", 0);
+    plateau->routes[4] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude3.bmp", 0);
+    plateau->routes[5] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude4.bmp", 0);
+    plateau->routes[6] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies1.bmp", 0);
+    plateau->routes[7] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies2.bmp", 0);
+    plateau->routes[8] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
+    plateau->routes[9] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
+    plateau->routes[10] = load_bitmap("../BITMAPS/BUILDS/ROUTES/carrefour.bmp", 0);
+
+    // son
+    hud->son_menu = load_sample("../MUSIC/son_menu.wav");
+    hud->son_jeu = load_sample("../MUSIC/son_jeu.wav");
     return hud;
 }
 
