@@ -1,7 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-t_affichage* init_affichage(){
+t_affichage* init_affichage(t_plateau *plateau){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
     hud->mode = load_bitmap("../BITMAPS/mode.bmp",0);
     hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);
@@ -61,9 +61,8 @@ t_affichage* init_affichage(){
     hud->construction[3][1] = load_bitmap("../BITMAPS/HUD/ecole.bmp", 0);     /// ecole
     hud->construction[3][2] = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);     /// select_ecole
 
-    hud->case_eau = load_bitmap("../BITMAPS/BUILDS/EAUELEC/case_eau.bmp", 0);
-    hud->case_elec = load_bitmap("../BITMAPS/BUILDS/EAUELEC/case_elec.bmp", 0);
-
+    hud->son_menu = load_sample("../MUSIC/son_menu.wav");
+    hud->son_jeu = load_sample("../MUSIC/son_jeu.wav");
     return hud;
 }
 

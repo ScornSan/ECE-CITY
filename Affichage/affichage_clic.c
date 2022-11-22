@@ -54,7 +54,7 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     masked_blit(hud->argent, buffer, 0, 0, 300, 16, SCREEN_W, SCREEN_H);
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
 
-    masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
+    masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
 }
 
 void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau, int bouton){
@@ -67,21 +67,22 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
                 break;
             case 2:
                 // AFFICHAGE DE LA COUCHE EAU (mettre ces trois lignes dans le spgm)
-                affichage_eau(hud, buffer, joueur, plateau);
+                masked_blit(hud->bg_on, buffer, 0, 0, 500, 21, SCREEN_W, SCREEN_H);
+                masked_blit(hud->eau, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
                 break;
             case 3:
                 // AFFICHAGE DE LA COUCHE ELEC (mettre ces trois lignes dans le spgm)
-                affichage_elec(hud, buffer, joueur, plateau);
+                masked_blit(hud->bg_on, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
+                masked_blit(hud->elec, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
                 break;
         }
-        masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
+        masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
         masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
         if (mouse_b&1){
             clic = 1;
             printf("sortie");
         }
-        rest(20);
     }
 }
 
@@ -91,12 +92,18 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
     masked_blit(hud->bg_on, buffer, 0, 0, 10, 701, SCREEN_W, SCREEN_H);
     masked_blit(hud->construct, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
 
+    if(mouse_b&1 && mouse_x > 800 && mouse_y < 100){
+       //dijkstra(buffer, plateau);
+    }
+
     // Affichage des boutons "chateau, centrale, caserne"
     if (joueur->argent > 100000){
         masked_blit(hud->chateau, buffer, 0, 0, 20, 300, SCREEN_W, SCREEN_H);
         // Souris sur bouton chateau
         if (mouse_x > 20 && mouse_x < 20 + hud->chateau->w && mouse_y > 300 && mouse_y < 300 + hud->chateau->h){
             masked_blit(hud->Schateau, buffer, 0, 0, 20, 300, SCREEN_W, SCREEN_H);
+            reperage_bloc_souris(plateau);
+            affichage_zone_constru_terrain(buffer,plateau,3);
             if (mouse_b&1){
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU - 1);
@@ -152,6 +159,11 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->chantier, buffer, 0, 0, 20, 600, SCREEN_W, SCREEN_H);
         if (mouse_x > 10 && mouse_x < 20 + hud->chantier->w && mouse_y > 600 && mouse_y < 600 + hud->chantier->h){
             masked_blit(hud->Schantier, buffer, 0, 0, 20, 600, SCREEN_W, SCREEN_H);
+            if (mouse_b&1){
+                usleep(CLIC);
+                placement_construction(hud, buffer, joueur, plateau, CONSTRUCT +3);
+                usleep(CLIC);
+            }
         }
     }
     else{
@@ -165,7 +177,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Sroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                ajout_routes(hud, buffer, joueur, plateau);
+                selection_ajout_routes(hud, buffer, joueur, plateau);
                 usleep(CLIC);
             }
         }

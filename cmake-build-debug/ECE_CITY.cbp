@@ -83,9 +83,6 @@
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Affichage/affichage_continu.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
-		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Affichage/affichage_niveaux.c">
-			<Option target="ECE_CITY"/>
-		</Unit>
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Affichage/affichage_plateau.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
@@ -110,10 +107,16 @@
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Interactions_Elements/ajout_routes.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
+		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Interactions_Elements/distribution_eau.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/MENU/affichage_menu.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/MENU/modes.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/Maj_Elements/maj_routes.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
 		<Unit filename="C:/Users/Garfl/Documents/GitHub/ECE-CITY/SPGM_Informations/lecture_souris.c">

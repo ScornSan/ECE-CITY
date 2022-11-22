@@ -57,6 +57,11 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].RGB[0] = red;
             plateau->matrice[j][k].RGB[1] = green;
             plateau->matrice[j][k].RGB[2] = blue;
+            plateau->matrice[j][k].ligne = j;
+            plateau->matrice[j][k].element = 0;
+            plateau->matrice[j][k].id_element = -1;
+            plateau->matrice[j][k].affiche = 0;
+            plateau->matrice[j][k].colonne = k;
             plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11;
             plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7;
             for(int i = 0; i< 6; i++)
@@ -88,18 +93,25 @@ t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
     plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
-    plateau->terraingris = load_bitmap("../BITMAPS/Affichage/MAP_1.5grise.bmp", 0);
     plateau->buffer_pixels = buffer_pixel;
+    plateau->indice_tab_batiment = 1;
+    plateau->indice_tab_habitations = 1;
+    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
+    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
+    plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude1.bmp", 0);
+    plateau->routes[3] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude2.bmp", 0);
+    plateau->routes[4] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude3.bmp", 0);
+    plateau->routes[5] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude4.bmp", 0);
+    plateau->routes[6] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies1.bmp", 0);
+    plateau->routes[7] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies2.bmp", 0);
+    plateau->routes[8] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
+    plateau->routes[9] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
+    plateau->routes[10] = load_bitmap("../BITMAPS/BUILDS/ROUTES/carrefour.bmp", 0);
+    for(int i = 1;i< 175; i++){
+        if(i <66)
+            plateau->batiments[i] = NULL;
+        plateau->habitations[i] = NULL;
+    }
     chargement_partie(plateau->matrice_map);
     distribution_couleur_blocs(plateau);
-}
-
-void quadrillage_test(BITMAP * buffer)
-{
-    for( int i = 0; i<36; i++){
-        line(buffer, 26 +i*11, 478 +i*7, 612 +i*11, 118+i*7, makecol(255,0,0)); //horizontale
-    }
-    for ( int i = 0; i < 46; i++){
-        line(buffer, 26 +i*13, 478 -i*8, 410 +i*13, 723 -i*8, makecol(255,0,0)); // verticale
-    }
 }
