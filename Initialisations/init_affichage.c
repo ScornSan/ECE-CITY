@@ -1,9 +1,8 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-t_affichage* init_affichage(){
+t_affichage* init_affichage(t_plateau *plateau){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
-    hud->bouton_menu2 = load_bitmap("../BITMAPS/HUD/bouton_menu2.bmp",0);
     hud->mode = load_bitmap("../BITMAPS/mode.bmp",0);
     hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);
     hud->credits = load_bitmap("../BITMAPS/credits.bmp",0);
@@ -62,9 +61,13 @@ t_affichage* init_affichage(){
     hud->construction[3][1] = load_bitmap("../BITMAPS/HUD/ecole.bmp", 0);     /// ecole
     hud->construction[3][2] = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);     /// select_ecole
 
-    hud->case_eau = load_bitmap("../BITMAPS/BUILDS/EAUELEC/case_eau.bmp", 0);
-    hud->case_elec = load_bitmap("../BITMAPS/BUILDS/EAUELEC/case_elec.bmp", 0);
 
+    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies1.bmp", 0);
+    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies2.bmp", 0);
+    plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
+    plateau->routes[3] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
+    plateau->routes[4] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
+    plateau->routes[5] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
     return hud;
 }
 

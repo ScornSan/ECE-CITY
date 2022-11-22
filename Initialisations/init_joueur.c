@@ -6,5 +6,6 @@ t_joueur* init_joueur(){
     joueur->argent = 500000;
     joueur->habitants = 0;
     joueur->niveau = 1;
+    joueur->mode = 0;
     return joueur;
 }
