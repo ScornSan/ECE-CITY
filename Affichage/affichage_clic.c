@@ -190,7 +190,9 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             dessin_bloc_unique(buffer, 20,20,plateau, 0,0,0);
             blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
             dijkstra(buffer, plateau);
-            printf("distance au chateau = %d", plateau->habitations[plateau->indice_tab_habitations-1]->distance_chateau);
+            for(int i = 0; i< plateau->indice_tab_habitations; i++){
+                printf("distance au chateau = %d\n", plateau->habitations[i]->distance_chateau);
+            }
             usleep(CLIC);
         }
     }
