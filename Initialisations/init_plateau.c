@@ -1,7 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-void chargement_partie(int matrice_map[35][45]){
+void chargement_partie(t_bloc matrice[35][45]){
     FILE *ifs = fopen("../Fichier_map.txt", "r"); // ouverture du fichier pour recup une sauvegarde
 
     if (!ifs) {
@@ -12,7 +12,7 @@ void chargement_partie(int matrice_map[35][45]){
     //// récuperation d'une map existante ( ou non a faire avec condition)
     for(int i = 0; i< 35; i++){
         for(int j = 0; j < 45; j++){
-            fscanf(ifs, "%d", &matrice_map[i][j]);
+            fscanf(ifs, "%d", &matrice[i][j].element);
         }
     }
     fclose(ifs);
@@ -62,9 +62,14 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].id_element = -1;
             plateau->matrice[j][k].affiche = 0;
             plateau->matrice[j][k].colonne = k;
-            plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11;
-            plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7;
-            for(int i = 0; i< 6; i++)
+            plateau->screenx = 100;
+            plateau->screeny = 100;
+            plateau->compteur_x = 0;
+            plateau->compteur_y = 0;
+            plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11 + 100;
+            plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7 + 100;
+
+            /*for(int i = 0; i< 6; i++)
             {
                 line(plateau->buffer_pixels, x1 +2*i , y1 +i , x1 +12 , y1 +i , makecol(red,green,blue));
             }
@@ -83,7 +88,7 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             {
                 line(plateau->buffer_pixels, x4-1 , y4 +i , x4 +14 -2*i , y4 +i , makecol(red,green,blue));
             }
-            putpixel(plateau->buffer_pixels, x4 , y4 +7 , makecol(red,green,blue));
+            putpixel(plateau->buffer_pixels, x4 , y4 +7 , makecol(red,green,blue));*/
         }
     }
     return plateau;
@@ -92,12 +97,13 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
-    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
+    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_agrandi.bmp", 0);
     plateau->buffer_pixels = buffer_pixel;
-    plateau->indice_tab_batiment = 1;
-    plateau->indice_tab_habitations = 1;
-    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
-    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
+    plateau->calque_pixels = load_bitmap("../BITMAPS/Affichage/buffer_pixel_X.bmp", 0);
+    plateau->indice_tab_batiment = 0;
+    plateau->indice_tab_habitations = 0;
+    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
+    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
     plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude1.bmp", 0);
     plateau->routes[3] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude2.bmp", 0);
     plateau->routes[4] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude3.bmp", 0);
@@ -112,6 +118,6 @@ t_plateau* init_plateau() {
             plateau->batiments[i] = NULL;
         plateau->habitations[i] = NULL;
     }
-    chargement_partie(plateau->matrice_map);
+    chargement_partie(plateau->matrice);
     distribution_couleur_blocs(plateau);
 }

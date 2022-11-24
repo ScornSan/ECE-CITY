@@ -8,6 +8,7 @@
 #include <allegro.h>
 #include <stdbool.h>
 #include <time.h>
+#include <conio.h>
 #define CLIC 200000
 #define CONSTRUCT 1
 #define EAU 2
@@ -26,6 +27,10 @@
 #define TVAGUE_CP_BP 12
 #define ROUTES 13
 #define TVAGUE 14
+#define TIME_CYCLE 3
+
+#define X 50
+#define Y 10
 
 /* 0 : rien
  * 1 : chateau d'eau
@@ -42,7 +47,6 @@
  * 12 : terrain vague + construction ou batiment possible
  * 13 : routes
  * 14 : terrain vague
-
 */
 
 typedef struct maillon{
@@ -110,15 +114,18 @@ typedef struct Joueur{
 
 
 typedef struct Plateau{
+    int screenx;
+    int screeny;
+    int compteur_x;
+    int compteur_y;
     int lig;
     int lig_mouse;
     int col_mouse;
-    int element;
     t_bloc matrice[35][45];
-    int matrice_map[35][45];
     int col;
     BITMAP* terrain;
     BITMAP* buffer_pixels;
+    BITMAP* calque_pixels;
     t_construction* habitations[175]; // max 175 constructions 3x3 sur la map
     int indice_tab_habitations;
     t_batiment* batiments[66]; // max 66 batiments 4x6 sur la map
@@ -172,10 +179,13 @@ typedef struct Affichage{
     BITMAP* son_off;
     BITMAP* accueil;
     BITMAP* bouton_menu;
+    BITMAP* bouton_menu2;
     BITMAP* credits;
     BITMAP* nom;
     BITMAP* mode;
     BITMAP* construction[9][3];
+    SAMPLE * son_menu;
+    SAMPLE * son_jeu;
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

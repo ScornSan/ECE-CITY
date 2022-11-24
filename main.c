@@ -7,6 +7,12 @@ int main(int argc, char *argv[])
     // pour disposer de la souris
     install_mouse();
 
+    if (install_sound(DIGI_AUTODETECT, MIDI_NONE, 0) != 0)
+    {
+        printf("Error initialising sound: %s\n", allegro_error);
+        return 1;
+    }
+
     set_color_depth(desktop_color_depth());
     if (set_gfx_mode(GFX_AUTODETECT,1024,768 ,0,0)!=0)
     {

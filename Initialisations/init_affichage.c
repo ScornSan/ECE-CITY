@@ -7,6 +7,7 @@ t_affichage* init_affichage(t_plateau *plateau){
     hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);
     hud->credits = load_bitmap("../BITMAPS/credits.bmp",0);
     hud->bouton_menu = load_bitmap("../BITMAPS/HUD/bouton_menu.bmp",0);
+    hud->bouton_menu2 = load_bitmap("../BITMAPS/HUD/bouton_menu2.bmp",0);
     hud->son_on = load_bitmap("../BITMAPS/HUD/son_on.bmp",0);
     hud->son_off = load_bitmap("../BITMAPS/HUD/son_off.bmp",0);
     hud->accueil = load_bitmap("../BITMAPS/accueil.bmp",0);
@@ -61,6 +62,9 @@ t_affichage* init_affichage(t_plateau *plateau){
     hud->construction[3][1] = load_bitmap("../BITMAPS/HUD/ecole.bmp", 0);     /// ecole
     hud->construction[3][2] = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);     /// select_ecole
 
+    // son
+    hud->son_menu = load_sample("../MUSIC/son_menu.wav");
+    hud->son_jeu = load_sample("../MUSIC/son_jeu.wav");
     return hud;
 }
 

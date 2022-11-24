@@ -116,6 +116,12 @@
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/MENU/modes.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Maj_Elements/maj_habitations.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Maj_Elements/maj_routes.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/SPGM_Informations/lecture_souris.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
