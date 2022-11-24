@@ -185,14 +185,33 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->Nonroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
     }
     if( mouse_x > 700 && mouse_y <300){
-        if(mouse_b&1 ){
+        if(mouse_b&1){
             usleep(CLIC);
-            dessin_bloc_unique(buffer, 20,20,plateau, 0,0,0);
-            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
             dijkstra(buffer, plateau);
-            for(int i = 0; i< plateau->indice_tab_habitations; i++){
-                printf("distance au chateau = %d\n", plateau->habitations[i]->distance_chateau);
+            for(int i = 0; i< plateau->indice_tab_batiment; i++){
+                printf("indice ordre = %d\n", plateau->batiments[i]->indice_ordre);
+                for(int j = 0; j< plateau->batiments[i]->indice_ordre;j++){
+                    printf("for");
+                    printf("distance au chateau %d = %d\n", i, plateau->batiments[i]->ordre_distribution[j]->distance_chateau);
+                }
+                printf("rentre");
             }
+            t_maillon* temp;
+            for(int i = 0; i <plateau->indice_tab_habitations; i++){
+                //dessin_bloc_unique(buffer, plateau->habitations[i]->derniere_case_chemin->predecesseur->predecesseur->ligne, plateau->habitations[i]->derniere_case_chemin->predecesseur->predecesseur->colonne, 255,255,255);
+                temp = plateau->habitations[i]->derniere_case_chemin;
+                while(temp != NULL){
+                    dessin_bloc_unique(buffer, temp->ligne, temp->colonne, 255,255,255);
+                    temp = temp->predecesseur;
+                }
+            }
+
+            free(temp);
+            temp = NULL;
+
+            blit(buffer, screen,0,0,0,0,SCREEN_W,SCREEN_H);
+            rest(2000);
+            //dij_simplifie(buffer, plateau);
             usleep(CLIC);
         }
     }

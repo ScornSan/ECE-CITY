@@ -60,6 +60,8 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 construction->premier_bloc = plateau->matrice[plateau->lig_mouse-1][plateau->col_mouse-1];
                 plateau->habitations[plateau->indice_tab_habitations] = construction;
                 construction->timer = time(NULL);
+                construction->element = indice+1;
+                //construction->case_pred = NULL;
                 construction->distance_chateau = 1000;
                 construction->id_element = plateau->indice_tab_habitations;
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 2; i++) {
@@ -70,12 +72,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                     }
                 }
                 plateau->indice_tab_habitations++;
-                for(int i = 0; i< 3; i++){
-                    for(int j = 0;j < 3;j++){
-                        construction->surface[i][j].ligne = construction->premier_bloc.ligne + i;
-                        construction->surface[i][j].colonne = construction->premier_bloc.colonne + j;
-                    }
-                }
+                plateau->habitations = realloc(plateau->habitations, sizeof(t_construction) * (plateau->indice_tab_habitations +1));
                 clic = 1;
                 usleep(CLIC);
             }
@@ -96,7 +93,8 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 batiment->premier_bloc = plateau->matrice[plateau->lig_mouse-1][plateau->col_mouse-2];
                 batiment->indice_ordre = 0;
                 batiment->id_batiment = plateau->indice_tab_batiment;
-                printf("premier bloc = %d et %d", batiment->premier_bloc.ligne, batiment->premier_bloc.colonne);
+                batiment->element = indice+1;
+                batiment->ordre_distribution = malloc(sizeof (t_construction));
                 plateau->batiments[plateau->indice_tab_batiment] = batiment;
 
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 3; i++) {
@@ -107,12 +105,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                     }
                 }
                 plateau->indice_tab_batiment++;
-                for(int i = 0; i< 4; i++){
-                    for(int j = 0;j < 6;j++){
-                        batiment->surface[i][j].ligne = batiment->premier_bloc.ligne + i;
-                        batiment->surface[i][j].colonne = batiment->premier_bloc.colonne + j;
-                    }
-                }
+                plateau->batiments = realloc(plateau->batiments, sizeof (t_batiment) * (plateau->indice_tab_batiment+1));
                 clic = 1;
                 usleep(CLIC);
             }

@@ -23,7 +23,6 @@ void affichage_menu(t_affichage* hud, BITMAP* buffer, int* clic, FONT* myfont, S
 {
     clear_bitmap(buffer);
     blit(hud->accueil,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
-    //textprintf_ex(buffer, font, 60, 300, makecol(0, 255, 0), makecol(0, 0, 0), "%4d %4d", mouse_x, mouse_y);
     affichage_son(buffer, s, &(*clic));
 
     if (*clic)
@@ -147,25 +146,12 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
     int fait1 = 0;
     while (!fin) {
         if(!fait1){
-            printf("rentre");
             play_sample(hud->son_menu, 255, 128, 1000, 1);
             fait1 = 1;
         }
         affichage_son(buffer, hud->son_menu, &clic);
 
         textprintf_ex(buffer, font, 60, 300, makecol(0, 255, 0), makecol(0, 0, 0), "%4d %4d", mouse_x, mouse_y);
-
-        /*if (clic)
-        {
-            adjust_sample(son_menu, 0, 128, 1000, 1);
-            draw_sprite(buffer, hud->son_off, 960, 0);
-        }
-        else
-        {
-            adjust_sample(son_menu, 255, 128, 1000, 1);
-            draw_sprite(buffer, hud->son_on, 960, 0);
-        }*/
-
         affichage_menu(hud, buffer, &clic, myfont, hud->son_menu);
         masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
         // afficher coordonnées de la souris (%4d = format numérique largeur fixe sur 4 caractères)
@@ -300,5 +286,8 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         // prise en compte effective de la zone cliquable EXIT :
+
     }
+    free(myfont);
+    myfont = NULL;
 }

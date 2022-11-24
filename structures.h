@@ -51,12 +51,8 @@ typedef struct maillon{
     int compteur;
     struct maillon * suivant;
     struct maillon * precedent;
+    struct maillon * predecesseur;
 }t_maillon;
-
-typedef struct pile{
-    t_maillon * debut;
-    t_maillon * fin;
-}t_pile;
 
 typedef struct Bloc{
     int RGB[3];
@@ -70,13 +66,19 @@ typedef struct Bloc{
     int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
 }t_bloc;
 
+typedef struct file{
+    t_maillon * debut;
+    t_maillon * fin;
+}t_file;
+
 typedef struct Constructions{
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int niveau;
     int nb_residents;
     int impot;
     int id_element;
-    t_bloc surface[3][3];
+    int element;
+    t_maillon * derniere_case_chemin;
     int quantite_eau;
     int distance_chateau;
     int quantite_elec;
@@ -92,9 +94,9 @@ typedef struct Batiment{    // 4x6
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int quantite_ressource;
     int id_batiment;
-    t_bloc surface[4][6];
+    int element;
     BITMAP* style[3];
-    t_construction* ordre_distribution[150];
+    t_construction** ordre_distribution;
     int indice_ordre;
 }t_batiment;
 
@@ -117,9 +119,9 @@ typedef struct Plateau{
     int col;
     BITMAP* terrain;
     BITMAP* buffer_pixels;
-    t_construction* habitations[175]; // max 175 constructions 3x3 sur la map
+    t_construction** habitations; // max 175 constructions 3x3 sur la map
     int indice_tab_habitations;
-    t_batiment* batiments[66]; // max 66 batiments 4x6 sur la map
+    t_batiment** batiments; // max 66 batiments 4x6 sur la map
     int indice_tab_batiment;
     BITMAP * routes[11];
 }t_plateau;

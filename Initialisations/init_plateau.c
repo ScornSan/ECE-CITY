@@ -96,11 +96,8 @@ t_plateau* init_plateau() {
     plateau->buffer_pixels = buffer_pixel;
     plateau->indice_tab_batiment = 0;
     plateau->indice_tab_habitations = 0;
-    for(int i = 1;i< 175; i++){
-        if(i <66)
-            plateau->batiments[i] = NULL;
-        plateau->habitations[i] = NULL;
-    }
+    plateau->batiments = malloc(sizeof (t_batiment));
+    plateau->habitations = malloc(sizeof (t_construction));
     chargement_partie(plateau->matrice);
     distribution_couleur_blocs(plateau);
 }
