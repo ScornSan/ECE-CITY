@@ -17,7 +17,6 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     if (bouton(hud->construct, 10, 700)){
         masked_blit(hud->construct_outline, buffer, 0, 0, 10, 700, SCREEN_W, SCREEN_H);
         if (mouse_b&1){
-            usleep(CLIC);
             affichage_boutons(hud, buffer, joueur, plateau, CONSTRUCT);
             usleep(CLIC);
         }
@@ -29,7 +28,6 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     if (bouton(hud->eau, 500, 20)){
         masked_blit(hud->eau_outline, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
         if (mouse_b&1){
-            usleep(CLIC);
             affichage_boutons(hud, buffer, joueur, plateau, EAU);
             usleep(CLIC);
         }
@@ -43,7 +41,6 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     if (bouton(hud->elec, 700, 20)){
         masked_blit(hud->elec_outline, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
         if (mouse_b&1){
-            usleep(CLIC);
             affichage_boutons(hud, buffer, joueur, plateau, ELEC);
             usleep(CLIC);
         }
@@ -99,7 +96,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Schateau, buffer, 0, 0, 20, 300, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU - 1);
                 usleep(CLIC);
             }
@@ -110,7 +106,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Scentrale, buffer, 0, 0, 25, 400, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CENTRALE - 1);
                 usleep(CLIC);
             }
@@ -120,7 +115,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         if (mouse_x > 10 && mouse_x < 10 + hud->caserne->w && mouse_y > 500 && mouse_y < 500 + hud->caserne->h){
             masked_blit(hud->Scaserne, buffer, 0, 0, 10, 500, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
-                usleep(CLIC);
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CASERNE - 1);
                 usleep(CLIC);

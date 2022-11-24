@@ -28,7 +28,7 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
         if( (int)time(NULL) - plateau->habitations[x]->timer >= TIME_CYCLE && plateau->indice_tab_habitations != 0) // on verifie si le cycle de 15 secondes d'une des habitations est fini
         {
             plateau->habitations[x]->timer = time(NULL);
-            //maj_habitation(x, plateau, joueur, buffer, hud);
+            maj_habitation(x, plateau, joueur, buffer, hud);
         }
         else
         {
@@ -43,6 +43,18 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
             if(plateau->matrice[i][j].affiche != 1){ ///pour voir si on affiche pas deux fois la meme maison en allant sur le bloc suivant
                 switch(plateau->matrice[i][j].element){
                     case 0 :break;
+                    case 11:
+                        plateau->matrice[i][j].affiche = 1;
+                        dessin_bloc_unique(buffer, i, j, plateau, 0, 255, 0);
+                        break;
+                    case 13:
+                        plateau->matrice[i][j].affiche = 1;
+                        masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i][j].x_bloc - plateau->matrice[i][j].b_element->w/2, plateau->matrice[i][j].y_bloc -plateau->matrice[i][j].b_element->h/2, SCREEN_W, SCREEN_H);
+                        break;
+                    case 14:
+                        plateau->matrice[i][j].affiche = 1;
+                        dessin_bloc_unique(buffer, i, j, plateau, 119, 136, 153);
+                        break;
                     case 1 :
                         boucle_affichage(i,j,4,6, plateau,buffer,0,3,7,3,0);
                         break;
@@ -70,18 +82,7 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
                     case 9:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0,2, plateau->matrice[i][j].id_element);
                         break;
-                    case 11:
-                        plateau->matrice[i][j].affiche = 1;
-                        dessin_bloc_unique(buffer, i, j, plateau, 0, 255, 0);
-                        break;
-                    case 13:
-                        plateau->matrice[i][j].affiche = 1;
-                        masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i][j].x_bloc - plateau->matrice[i][j].b_element->w/2, plateau->matrice[i][j].y_bloc -plateau->matrice[i][j].b_element->h/2, SCREEN_W, SCREEN_H);
-                        break;
-                    case 14:
-                        plateau->matrice[i][j].affiche = 1;
-                        dessin_bloc_unique(buffer, i, j, plateau, 119, 136, 153);
-                        break;
+
                 }
             }
         }

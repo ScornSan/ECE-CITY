@@ -22,8 +22,8 @@
 #define BUILDING 8
 #define GRATTECIEL 9
 #define RUINE 10
-#define TVAGUE_CP 11
-#define TVAGUE_CP_BP 12
+#define TVAGUE_CP 16
+#define TVAGUE_CP_BP 15
 #define ROUTES 13
 #define TVAGUE 14
 # define TIME_CYCLE 3
