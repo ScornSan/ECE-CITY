@@ -11,7 +11,7 @@ void boucle_affichage(int i, int j, int hauteur, int longueur,t_plateau * platea
     }
     switch(type){
         case 2 :   /// habitations 3x3
-            masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - 10 , plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - 15, SCREEN_W, SCREEN_H);
+            masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - 10, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - 15, SCREEN_W, SCREEN_H);
             break;
         case 3:   /// batiments 4x6
             masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2, SCREEN_W, SCREEN_H);

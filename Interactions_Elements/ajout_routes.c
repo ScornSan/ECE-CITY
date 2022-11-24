@@ -46,6 +46,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
     reperage_bloc_souris(plateau);
     int lig_init = plateau->lig_mouse;
     int col_init = plateau->col_mouse;
+    int cout = 10; // var temporaire pour débiter le joueur
 
     while (!clic) {
         affichage_hud_et_clic(hud, buffer, joueur, plateau);
@@ -107,6 +108,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             if (check_route(plateau, i, plateau->col_mouse)) {
                                 reperage_bloc_souris(plateau);
                                 dessin_bloc_unique(buffer, i, plateau->col_mouse, 200, 0, 0);
+
                             } else
                                 break;
                         }
@@ -135,6 +137,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                     if (plateau->matrice[lig_init - k][i].element == 0)
                                         plateau->matrice[lig_init - k][i].element = 14;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[lig_init][i].b_element = plateau->routes[1];
                             }
                         } else {
@@ -146,6 +149,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                     if (plateau->matrice[lig_init - k][i].element == 0)
                                         plateau->matrice[lig_init - k][i].element = 14;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[lig_init][i].b_element = plateau->routes[1];
                             }
                         }
@@ -159,6 +163,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                     if (plateau->matrice[i][col_init - k].element == 0)
                                         plateau->matrice[i][col_init - k].element = 14;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[i][col_init].b_element = plateau->routes[0];
                             }
                         } else {
@@ -170,6 +175,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                     if (plateau->matrice[i][col_init - k].element == 0)
                                         plateau->matrice[i][col_init - k].element = 14;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[i][col_init].b_element = plateau->routes[0];
                             }
                         }
