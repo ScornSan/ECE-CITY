@@ -33,5 +33,7 @@ void selection_ajout_routes();
 void affichage_niveaux();
 void affichage_eau();
 void affichage_elec();
+void affichage_elements2();
+void sauvegarde();
 
 #endif //ECE_CITY_PROTOTYPES_H

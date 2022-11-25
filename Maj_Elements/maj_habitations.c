@@ -8,7 +8,6 @@
 void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* buffer, t_affichage* hud)
 {
     // build  niveau 1 (terrain-vague)
-    printf("debutt");
     if (plateau->habitations[plateau->habitations[indice]->id_element]->niveau == 1)
     {
         if(joueur->mode == 1) // mode communiste

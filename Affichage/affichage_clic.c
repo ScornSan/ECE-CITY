@@ -53,8 +53,16 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     // Argent
     masked_blit(hud->argent, buffer, 0, 0, 300, 16, SCREEN_W, SCREEN_H);
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
-
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
+
+
+    draw_sprite(buffer, hud->pauseselec, 950, 680);
+    if(mouse_b&1 && mouse_x>= 976 && mouse_x <= 1021 && mouse_y >= 710 && mouse_y <= 750)
+    {
+        clear_bitmap(buffer);
+        sauvegarde(joueur, plateau);
+        menu(hud, joueur, buffer, plateau);
+    }
 }
 
 void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau, int bouton){
@@ -77,7 +85,7 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
                 break;
         }
         masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
-        masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
         if (mouse_b&1){
             clic = 1;

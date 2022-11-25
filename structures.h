@@ -9,8 +9,8 @@
 #include <stdbool.h>
 #include <time.h>
 #include <conio.h>
-#define CLIC 100000
-#define RIEN 1
+#define CLIC 80000
+#define RIEN 0
 #define CONSTRUCT 1
 #define EAU 2
 #define ELEC 3
@@ -90,9 +90,9 @@ typedef struct Constructions{
     int distance_chateau;
     int quantite_elec;
     int distance_centrale;
-    bool eau;
-    bool elec;
-    bool incendie;
+    int eau;
+    int elec;
+    int incendie;
     time_t timer;
     BITMAP* style[6];
 }t_construction;
@@ -193,6 +193,9 @@ typedef struct Affichage{
     BITMAP* construction[9][3];
     SAMPLE * son_menu;
     SAMPLE * son_jeu;
+    BITMAP * buffer2;
+    BITMAP * pauseselec;
+
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

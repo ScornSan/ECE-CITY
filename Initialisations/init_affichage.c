@@ -5,6 +5,7 @@ t_affichage* init_affichage(t_plateau *plateau){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
     hud->mode = load_bitmap("../BITMAPS/mode.bmp",0);
     hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);
+    hud->pauseselec = load_bitmap("../BITMAPS/HUD/pauseselec.bmp",0);
     hud->credits = load_bitmap("../BITMAPS/credits.bmp",0);
     hud->bouton_menu = load_bitmap("../BITMAPS/HUD/bouton_menu.bmp",0);
     hud->bouton_menu2 = load_bitmap("../BITMAPS/HUD/bouton_menu2.bmp",0);
@@ -65,6 +66,9 @@ t_affichage* init_affichage(t_plateau *plateau){
     // son
     hud->son_menu = load_sample("../MUSIC/son_menu.wav");
     hud->son_jeu = load_sample("../MUSIC/son_jeu.wav");
+
+    hud->buffer2 = create_bitmap(SCREEN_W, SCREEN_H);
+
     return hud;
 }
 

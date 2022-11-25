@@ -12,7 +12,7 @@ void selection_ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, 
                       plateau->matrice[plateau->lig_mouse][plateau->col_mouse].x_bloc,
                       plateau->matrice[plateau->lig_mouse][plateau->col_mouse].y_bloc);
         masked_blit(hud->cursor, buffer, 0, 0, mouse_x, mouse_y, SCREEN_W, SCREEN_H);
-        masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         if (mouse_b & 1 && plateau->lig_mouse > -1 && plateau->col_mouse > -1 &&
             plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0) {
             // On va dans le sous programme pour ajouter une route, avec
@@ -56,7 +56,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                       plateau->matrice[plateau->lig_mouse][plateau->col_mouse].x_bloc,
                       plateau->matrice[plateau->lig_mouse][plateau->col_mouse].y_bloc);
         //masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
-        masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         if (mouse_b & 1 && mouse_x < 100 && mouse_y > 700) {
             clic = 1;
         }
@@ -119,7 +119,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                     col_init = plateau->col_mouse;
                     break;
                 }
-                masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+                blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                 if (mouse_b & 1 && plateau->lig_mouse > -1 && plateau->col_mouse > -1 &&
                     (plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 0 ||
                      plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == 14)) {
@@ -130,9 +130,9 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             for (int i = col_init; i >= plateau->col_mouse; i--) {
                                 plateau->matrice[lig_init][i].element = 13;
                                 for (int k = 1; k <= 3; k++) {
-                                    if (plateau->matrice[lig_init + k][i].element == 0)
+                                    if (plateau->matrice[lig_init + k][i].element == RIEN)
                                         plateau->matrice[lig_init + k][i].element = TVAGUE;
-                                    if (plateau->matrice[lig_init - k][i].element == 0)
+                                    if (plateau->matrice[lig_init - k][i].element == RIEN)
                                         plateau->matrice[lig_init - k][i].element = TVAGUE;
                                 }
                                 joueur->argent -= cout;
@@ -142,9 +142,9 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             for (int i = col_init; i < plateau->col_mouse + 1; i++) {
                                 plateau->matrice[lig_init][i].element = 13;
                                 for (int k = 1; k <= 3; k++) {
-                                    if (plateau->matrice[lig_init + k][i].element == 0)
+                                    if (plateau->matrice[lig_init + k][i].element == RIEN)
                                         plateau->matrice[lig_init + k][i].element = TVAGUE;
-                                    if (plateau->matrice[lig_init - k][i].element == 0)
+                                    if (plateau->matrice[lig_init - k][i].element == RIEN)
                                         plateau->matrice[lig_init - k][i].element = TVAGUE;
                                 }
                                 joueur->argent -= cout;

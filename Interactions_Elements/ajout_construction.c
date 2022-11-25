@@ -56,7 +56,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
         textprintf_ex(buffer,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         reperage_bloc_souris(plateau);
         textprintf_ex(buffer,font,300,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",plateau->lig_mouse,plateau->col_mouse);
-        if(indice == 4){        // si c'est une maison
+        if(indice == 4){ // si c'est une construction
             affichage_zone_constru_terrain(hud,buffer,joueur,plateau,2);
             masked_blit(hud->construction[indice][2], buffer, 0, 0, plateau->matrice[plateau->lig_mouse][plateau->col_mouse].x_bloc - hud->construction[indice][2]->w/2 - plateau->screenx, plateau->matrice[plateau->lig_mouse][plateau->col_mouse].y_bloc - hud->construction[indice][2]->h/2 - plateau->screeny, SCREEN_W, SCREEN_H);
             if(mouse_b&1 && plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == TVAGUE_CP) {
@@ -119,6 +119,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 usleep(CLIC);
             }
         }
-        masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     }
 }

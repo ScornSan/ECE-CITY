@@ -205,6 +205,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                         }
                         if(mouse_b & 1 && mouse_x>= 294 && mouse_x <= 636 && mouse_y >= 281 && mouse_y <= 334) // capitaliste
                         {
+                            joueur->mode = 1;
                             masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                             int fait = 0;
                             while(!(mouse_b&2))
@@ -216,7 +217,6 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                                     fait = 1;
                                 }
                                 clear_bitmap(buffer);
-                                joueur->mode = 1;
                                 affichage_hud(hud, buffer, joueur, plateau);
 
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -226,6 +226,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                         if(mouse_b & 1 && mouse_x>= 389 && mouse_x <= 642 && mouse_y >= 442 && mouse_y <= 505)
                         {
                             int fait = 0;
+                            joueur->mode = 2;
                             while(!(mouse_b&2))
                             {
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
@@ -235,7 +236,6 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                                     play_sample(hud->son_jeu, 255, 128, 1000, 1);
                                     fait = 1;
                                 }
-                                joueur->mode = 2;
                                 affichage_hud(hud, buffer, joueur, plateau);
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
@@ -291,6 +291,19 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
             allegro_message("Merci d'avoir joue !");
             allegro_exit();
             exit(0);
+        }
+
+        if (mouse_b & 1 && mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 428 && mouse_y <= 482) //CONTINUER
+        {
+            chargement_sauvegarde(hud, buffer, joueur, plateau);
+            printf("lets go");
+
+            while (!(mouse_b & 2)) {
+                clear_bitmap(buffer);
+                affichage_hud(hud, buffer, joueur, plateau);
+                masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
+                blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+            }
         }
 
         // clic gauche en haut à gauche de l'écran -> fin du programme
