@@ -9,7 +9,8 @@
 #include <stdbool.h>
 #include <time.h>
 #include <conio.h>
-#define CLIC 200000
+#define CLIC 100000
+#define RIEN 1
 #define CONSTRUCT 1
 #define EAU 2
 #define ELEC 3
@@ -23,8 +24,8 @@
 #define BUILDING 8
 #define GRATTECIEL 9
 #define RUINE 10
-#define TVAGUE_CP 11
-#define TVAGUE_CP_BP 12
+#define TVAGUE_CP 16
+#define TVAGUE_CP_BP 15
 #define ROUTES 13
 #define TVAGUE 14
 #define TIME_CYCLE 3
@@ -55,12 +56,14 @@ typedef struct maillon{
     int compteur;
     struct maillon * suivant;
     struct maillon * precedent;
+    struct maillon * predecesseur;
 }t_maillon;
 
-typedef struct pile{
+
+typedef struct file{
     t_maillon * debut;
     t_maillon * fin;
-}t_pile;
+}t_file;
 
 typedef struct Bloc{
     int RGB[3];
@@ -80,6 +83,8 @@ typedef struct Constructions{
     int nb_residents;
     int impot;
     int id_element;
+    int element;
+    t_maillon * derniere_case_chemin;
     t_bloc surface[3][3];
     int quantite_eau;
     int distance_chateau;
@@ -96,9 +101,10 @@ typedef struct Batiment{    // 4x6
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int quantite_ressource;
     int id_batiment;
+    int element;
     t_bloc surface[4][6];
     BITMAP* style[3];
-    t_construction* ordre_distribution[150];
+    t_construction** ordre_distribution;
     int indice_ordre;
 }t_batiment;
 
@@ -122,13 +128,14 @@ typedef struct Plateau{
     int lig_mouse;
     int col_mouse;
     t_bloc matrice[35][45];
+    int matrice_map[35][45];
     int col;
     BITMAP* terrain;
     BITMAP* buffer_pixels;
     BITMAP* calque_pixels;
-    t_construction* habitations[175]; // max 175 constructions 3x3 sur la map
+    t_construction** habitations; // max 175 constructions 3x3 sur la map
     int indice_tab_habitations;
-    t_batiment* batiments[66]; // max 66 batiments 4x6 sur la map
+    t_batiment** batiments; // max 66 batiments 4x6 sur la map
     int indice_tab_batiment;
     BITMAP * routes[11];
 }t_plateau;

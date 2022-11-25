@@ -8,7 +8,7 @@ t_affichage* init_affichage();
 t_joueur* init_joueur();
 t_plateau* init_plateau();
 void init_batiments_et_constructions();
-t_pile * cases_adjacentes();
+t_file * cases_adjacentes();
 void affichage_hud();
 void affichage_hud_et_clic();
 void affichage_liste_constru();
@@ -30,5 +30,8 @@ int ajout_routes();
 void dessin_bloc_unique();
 void affichage_elements();
 void selection_ajout_routes();
+void affichage_niveaux();
+void affichage_eau();
+void affichage_elec();
 
 #endif //ECE_CITY_PROTOTYPES_H

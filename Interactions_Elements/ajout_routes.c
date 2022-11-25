@@ -44,9 +44,8 @@ int check_route(t_plateau *plateau, int lig, int col) {
 
 int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *plateau) {
     int clic = 0;
+    int cout = 10; // var temporaire pour débiter le joueur
     reperage_bloc_souris(plateau);
-    int lig_init = plateau->lig_mouse;
-    int col_init = plateau->col_mouse;
 
     while (!clic) {
         affichage_hud_et_clic(hud, buffer, joueur, plateau);
@@ -132,10 +131,11 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                 plateau->matrice[lig_init][i].element = 13;
                                 for (int k = 1; k <= 3; k++) {
                                     if (plateau->matrice[lig_init + k][i].element == 0)
-                                        plateau->matrice[lig_init + k][i].element = 14;
+                                        plateau->matrice[lig_init + k][i].element = TVAGUE;
                                     if (plateau->matrice[lig_init - k][i].element == 0)
-                                        plateau->matrice[lig_init - k][i].element = 14;
+                                        plateau->matrice[lig_init - k][i].element = TVAGUE;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[lig_init][i].b_element = plateau->routes[1];
                             }
                         } else {
@@ -143,10 +143,11 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                 plateau->matrice[lig_init][i].element = 13;
                                 for (int k = 1; k <= 3; k++) {
                                     if (plateau->matrice[lig_init + k][i].element == 0)
-                                        plateau->matrice[lig_init + k][i].element = 14;
+                                        plateau->matrice[lig_init + k][i].element = TVAGUE;
                                     if (plateau->matrice[lig_init - k][i].element == 0)
-                                        plateau->matrice[lig_init - k][i].element = 14;
+                                        plateau->matrice[lig_init - k][i].element = TVAGUE;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[lig_init][i].b_element = plateau->routes[1];
                             }
                         }
@@ -155,22 +156,24 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                             for (int i = lig_init; i >= plateau->lig_mouse; i--) {
                                 plateau->matrice[i][col_init].element = 13;
                                 for (int k = 1; k <= 3; k++) {
-                                    if (plateau->matrice[i][col_init + k].element == 0)
-                                        plateau->matrice[i][col_init + k].element = 14;
-                                    if (plateau->matrice[i][col_init - k].element == 0)
-                                        plateau->matrice[i][col_init - k].element = 14;
+                                    if (plateau->matrice[i][col_init + k].element == RIEN)
+                                        plateau->matrice[i][col_init + k].element = TVAGUE;
+                                    if (plateau->matrice[i][col_init - k].element == RIEN)
+                                        plateau->matrice[i][col_init - k].element = TVAGUE;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[i][col_init].b_element = plateau->routes[0];
                             }
                         } else {
                             for (int i = lig_init; i < plateau->lig_mouse + 1; i++) {
                                 plateau->matrice[i][col_init].element = 13;
                                 for (int k = 1; k <= 3; k++) {
-                                    if (plateau->matrice[i][col_init + k].element == 0)
-                                        plateau->matrice[i][col_init + k].element = 14;
-                                    if (plateau->matrice[i][col_init - k].element == 0)
-                                        plateau->matrice[i][col_init - k].element = 14;
+                                    if (plateau->matrice[i][col_init + k].element == RIEN)
+                                        plateau->matrice[i][col_init + k].element = TVAGUE;
+                                    if (plateau->matrice[i][col_init - k].element == RIEN)
+                                        plateau->matrice[i][col_init - k].element = TVAGUE;
                                 }
+                                joueur->argent -= cout;
                                 plateau->matrice[i][col_init].b_element = plateau->routes[0];
                             }
                         }
@@ -178,12 +181,11 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                     break;
                 }
             }
-        }
-        else if (mouse_b & 1 && (plateau->lig_mouse == -1 && plateau->col_mouse == -1 ||
+        } else if (mouse_b & 1 && (plateau->lig_mouse == -1 && plateau->col_mouse == -1 ||
                                    plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element != 0 ||
-                                    plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element != TVAGUE ||
-                                    plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element != TVAGUE_CP ||
-                                    plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element != TVAGUE_CP_BP)) {
+                                   plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element != TVAGUE ||
+                                   plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element != TVAGUE_CP ||
+                                   plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element != TVAGUE_CP_BP)) {
             clic = 1;
         }
     }

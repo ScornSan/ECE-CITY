@@ -62,15 +62,15 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
     while(!clic){
         affichage_hud_et_clic(hud, buffer, joueur, plateau);
         switch (bouton){
-            case CONSTRUCT:
+            case 1:
                 affichage_liste_constru(hud, buffer, joueur, plateau);
                 break;
-            case EAU:
+            case 2:
                 // AFFICHAGE DE LA COUCHE EAU (mettre ces trois lignes dans le spgm)
                 masked_blit(hud->bg_on, buffer, 0, 0, 500, 21, SCREEN_W, SCREEN_H);
                 masked_blit(hud->eau, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
                 break;
-            case ELEC:
+            case 3:
                 // AFFICHAGE DE LA COUCHE ELEC (mettre ces trois lignes dans le spgm)
                 masked_blit(hud->bg_on, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
                 masked_blit(hud->elec, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
@@ -81,6 +81,7 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
 
         if (mouse_b&1){
             clic = 1;
+            usleep(CLIC);
             printf("sortie");
         }
     }
@@ -100,7 +101,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             if (mouse_b&1){
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU - 1);
-                usleep(CLIC);
             }
         }
         masked_blit(hud->centrale, buffer, 0, 0, 25, 400, SCREEN_W, SCREEN_H);
@@ -110,7 +110,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             if (mouse_b&1){
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CENTRALE - 1);
-                usleep(CLIC);
             }
         }
         masked_blit(hud->caserne, buffer, 0, 0, 10, 500, SCREEN_W, SCREEN_H);
@@ -120,7 +119,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             if (mouse_b&1){
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CASERNE - 1);
-                usleep(CLIC);
             }
         }
     }
@@ -139,7 +137,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             if (mouse_b&1){
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, ECOLE - 1);
-                usleep(CLIC);
             }
         }
     }
@@ -155,7 +152,6 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             if (mouse_b&1){
                 usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CONSTRUCT +3);
-                usleep(CLIC);
             }
         }
     }
@@ -166,12 +162,11 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
     // Affichage bouton routes
     if (joueur->argent > 10){
         masked_blit(hud->route, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
-        if (mouse_x > 30 && mouse_x < 30 + hud->route->w / 2 && mouse_y > 650 && mouse_y < 650 + hud->route->h){
+        if (mouse_x > 7 && mouse_x < 7 + hud->route->w && mouse_y > 625 && mouse_y < 625 + hud->route->h){
             masked_blit(hud->Sroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
                 selection_ajout_routes(hud, buffer, joueur, plateau);
-                usleep(CLIC);
             }
         }
     }
@@ -179,16 +174,9 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->Nonroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
     }
     if( mouse_x > 700 && mouse_y <300){
-        if(mouse_b&1 ){
+        if(mouse_b&1){
             usleep(CLIC);
-            dessin_bloc_unique(buffer, 20,20,plateau, 0,0,0);
-            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
             dijkstra(buffer, plateau);
-            for(int i = 0; i< plateau->indice_tab_habitations; i++){
-                printf("distance au chateau = %d\n", plateau->habitations[i]->distance_chateau);
-            }
-            usleep(CLIC);
         }
     }
-
 }

@@ -109,17 +109,21 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
                     case 9:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0,2, plateau->matrice[i][j].id_element);
                         break;
-                    case 11:
+                    case TVAGUE_CP:
                         plateau->matrice[i][j].affiche = 1;
                         dessin_bloc_unique(buffer, i, j, plateau, 0, 255, 0);
                         break;
-                    case 13:
+                    case ROUTES:
                         plateau->matrice[i][j].affiche = 1;
                         masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i][j].x_bloc - plateau->matrice[i][j].b_element->w/2 - plateau->screenx, plateau->matrice[i][j].y_bloc -plateau->matrice[i][j].b_element->h/2 - plateau->screeny, SCREEN_W, SCREEN_H);
                         break;
-                    case 14:
+                    case TVAGUE:
                         plateau->matrice[i][j].affiche = 1;
                         dessin_bloc_unique(buffer, i, j, plateau, 119, 136, 153);
+                        break;
+                    case TVAGUE_CP_BP:
+                        plateau->matrice[i][j].affiche = 1;
+                        dessin_bloc_unique(buffer, i, j, plateau, 0, 0, 255);
                         break;
                 }
             }

@@ -19,21 +19,6 @@ void chargement_partie(t_bloc matrice[35][45]){
     ifs = NULL;
 }
 
-void sauvegarde(int matrice_map[35][45]){
-    FILE *ifs = fopen("../fichier_map.txt", "w"); /// ouvertue du fichier en mode ecriture
-    /// On écrase l'ancienne map et on sauvegarde la nouvelle (celle de notre partie déjà commencée
-    for(int i = 0; i< 35; i++){
-        for(int j = 0; j < 45; j++){
-            fprintf(ifs, "%d ", matrice_map[i][j]);
-        }
-        fprintf(ifs, "\n");
-    }
-    fclose(ifs);
-    ifs = NULL;
-    /// si on veut continuer la partie après sauvegarde ou juste quitter après sauvegarde
-    //return plateau;
-}
-
 t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 {
     for (int j = 0; j<35; j++)      // boucle pour les lignes
@@ -113,11 +98,8 @@ t_plateau* init_plateau() {
     plateau->routes[8] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
     plateau->routes[9] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
     plateau->routes[10] = load_bitmap("../BITMAPS/BUILDS/ROUTES/carrefour.bmp", 0);
-    for(int i = 1;i< 175; i++){
-        if(i <66)
-            plateau->batiments[i] = NULL;
-        plateau->habitations[i] = NULL;
-    }
+    plateau->batiments = malloc(sizeof (t_batiment));
+    plateau->habitations = malloc(sizeof (t_construction));
     chargement_partie(plateau->matrice);
     distribution_couleur_blocs(plateau);
 }

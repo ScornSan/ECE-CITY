@@ -147,7 +147,6 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
     int fait1 = 0;
     while (!fin) {
         if(!fait1){
-            printf("rentre");
             play_sample(hud->son_menu, 255, 128, 1000, 1);
             fait1 = 1;
         }
@@ -222,6 +221,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
 
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
+                            stop_sample(hud->son_jeu);
                         }
                         if(mouse_b & 1 && mouse_x>= 389 && mouse_x <= 642 && mouse_y >= 442 && mouse_y <= 505)
                         {
@@ -236,12 +236,11 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                                     fait = 1;
                                 }
                                 joueur->mode = 2;
-                                stop_sample(hud->son_menu);
-                                play_sample(hud->son_jeu, 255, 128, 1000, 1);
                                 affichage_hud(hud, buffer, joueur, plateau);
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
+                            stop_sample(hud->son_jeu);
                         }
 
                         //affichage_hud(hud, buffer, joueur);
@@ -301,4 +300,5 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         // prise en compte effective de la zone cliquable EXIT :
     }
+    free(myfont);
 }
