@@ -8,7 +8,7 @@
 #include <allegro.h>
 #include <stdbool.h>
 #include <time.h>
-#define CLIC 200000
+#define CLIC 80000
 #define CONSTRUCT 1
 #define EAU 2
 #define ELEC 3
