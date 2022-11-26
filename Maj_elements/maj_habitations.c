@@ -8,7 +8,6 @@
 void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* buffer, t_affichage* hud)
 {
     // build  niveau 1 (terrain-vague)
-    printf("debutt");
     if (plateau->habitations[plateau->habitations[indice]->id_element]->niveau == 1)
     {
         if(joueur->mode == 1) // mode communiste
@@ -19,7 +18,7 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* bu
                 joueur->habitants = joueur->habitants + 10;
                 //pas d'habitant donc pas d'impot
             }
-            // rajouter condition de rester sans evoluer ni regresser
+                // rajouter condition de rester sans evoluer ni regresser
             else
             {
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 0;
@@ -99,7 +98,6 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur* joueur, BITMAP* bu
 
         if(joueur->mode == 1)
         {
-            printf("ok");
             if(plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 && plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1 && plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1) {
                 joueur->argent = joueur->argent + (10*plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 5;

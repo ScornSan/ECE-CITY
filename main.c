@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-
     set_color_depth(desktop_color_depth());
     if (set_gfx_mode(GFX_AUTODETECT,1024,768 ,0,0)!=0)
     {
@@ -30,6 +29,15 @@ int main(int argc, char *argv[])
     t_affichage* hud = init_affichage(plateau);
     init_batiments_et_constructions(hud);
     menu(hud, joueur, buffer, plateau);
-    return 0;
 
-}END_OF_MAIN();
+    free(joueur);
+    free(plateau);
+    free(hud);
+    joueur = NULL;
+    plateau = NULL;
+    hud = NULL;
+    destroy_bitmap(buffer);
+    buffer = NULL;
+    return 0;
+}
+END_OF_MAIN();

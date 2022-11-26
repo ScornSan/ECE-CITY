@@ -8,7 +8,9 @@
 #include <allegro.h>
 #include <stdbool.h>
 #include <time.h>
-#define CLIC 200000
+#include <conio.h>
+#define CLIC 80000
+#define RIEN 0
 #define CONSTRUCT 1
 #define EAU 2
 #define ELEC 3
@@ -22,11 +24,14 @@
 #define BUILDING 8
 #define GRATTECIEL 9
 #define RUINE 10
-#define TVAGUE_CP 11
-#define TVAGUE_CP_BP 12
+#define TVAGUE_CP 16
+#define TVAGUE_CP_BP 15
 #define ROUTES 13
 #define TVAGUE 14
-# define TIME_CYCLE 5
+#define TIME_CYCLE 10
+
+#define X 50
+#define Y 10
 
 /* 0 : rien
  * 1 : chateau d'eau
@@ -51,12 +56,14 @@ typedef struct maillon{
     int compteur;
     struct maillon * suivant;
     struct maillon * precedent;
+    struct maillon * predecesseur;
 }t_maillon;
 
-typedef struct pile{
+
+typedef struct file{
     t_maillon * debut;
     t_maillon * fin;
-}t_pile;
+}t_file;
 
 typedef struct Bloc{
     int RGB[3];
@@ -72,28 +79,32 @@ typedef struct Bloc{
 
 typedef struct Constructions{
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
-    int niveau;///
-    int nb_residents; ///
-    int id_element;///
+    int niveau;
+    int nb_residents;
+    int impot;
+    int id_element;
+    int element;
+    t_maillon * derniere_case_chemin;
     t_bloc surface[3][3];
-    int quantite_eau; ///
-    int distance_chateau;///
-    int quantite_elec; ///
-    int distance_centrale; ///
-    int eau;///
-    int elec;///
-    int incendie;///
-    time_t timer; ///
-    BITMAP* style[6]; ///
+    int quantite_eau;
+    int distance_chateau;
+    int quantite_elec;
+    int distance_centrale;
+    int eau;
+    int elec;
+    int incendie;
+    time_t timer;
+    BITMAP* style[6];
 }t_construction;
 
 typedef struct Batiment{    // 4x6
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int quantite_ressource;
     int id_batiment;
+    int element;
     t_bloc surface[4][6];
     BITMAP* style[3];
-    t_construction* ordre_distribution[150];
+    t_construction** ordre_distribution;
     int indice_ordre;
 }t_batiment;
 
@@ -109,21 +120,24 @@ typedef struct Joueur{
 
 
 typedef struct Plateau{
+    int screenx;
+    int screeny;
+    int compteur_x;
+    int compteur_y;
     int lig;
     int lig_mouse;
     int col_mouse;
-    int element;
     t_bloc matrice[35][45];
-    int matrice_map[35][45]; ///
+    int matrice_map[35][45];
     int col;
-    BITMAP* terrain;//
-    BITMAP* buffer_pixels;//
-    t_construction* habitations[175]; /// max 175 constructions 3x3 sur la map ///
-    int indice_tab_habitations; ///
-    t_batiment* batiments[66]; // max 66 batiments 4x6 sur la map
-    int indice_tab_batiment;///
-    BITMAP * routes[11];//
-
+    BITMAP* terrain;
+    BITMAP* buffer_pixels;
+    BITMAP* calque_pixels;
+    t_construction** habitations; // max 175 constructions 3x3 sur la map
+    int indice_tab_habitations;
+    t_batiment** batiments; // max 66 batiments 4x6 sur la map
+    int indice_tab_batiment;
+    BITMAP * routes[11];
 }t_plateau;
 
 typedef struct Affichage{
@@ -179,7 +193,9 @@ typedef struct Affichage{
     BITMAP* construction[9][3];
     SAMPLE * son_menu;
     SAMPLE * son_jeu;
-    BITMAP* pauseselec;
+    BITMAP * buffer2;
+    BITMAP * pauseselec;
+
 }t_affichage;
 
 #endif //ECE_CITY_STRUCTURES_H

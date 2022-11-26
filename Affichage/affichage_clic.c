@@ -5,6 +5,7 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     clear_bitmap(buffer);
     affichage_elements(hud, buffer, joueur, plateau);
 
+
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
     if (bouton(hud->habitants, 100, 16)){
@@ -53,8 +54,16 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     // Argent
     masked_blit(hud->argent, buffer, 0, 0, 300, 16, SCREEN_W, SCREEN_H);
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
-
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
+
+    draw_sprite(buffer, hud->pauseselec, 950, 680);
+
+    if(mouse_b&1 && mouse_x>= 976 && mouse_x <= 1021 && mouse_y >= 710 && mouse_y <= 750)
+    {
+        clear_bitmap(buffer);
+        sauvegarde(joueur, plateau);
+        menu(hud, joueur, buffer, plateau);
+    }
 }
 
 void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau, int bouton){
@@ -77,10 +86,11 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
                 break;
         }
         masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
-        masked_blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+        blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
 
         if (mouse_b&1){
             clic = 1;
+            usleep(CLIC);
             printf("sortie");
         }
     }
@@ -99,9 +109,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Schateau, buffer, 0, 0, 20, 300, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CHATEAU_EAU - 1);
-                usleep(CLIC);
             }
         }
         masked_blit(hud->centrale, buffer, 0, 0, 25, 400, SCREEN_W, SCREEN_H);
@@ -110,9 +118,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Scentrale, buffer, 0, 0, 25, 400, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CENTRALE - 1);
-                usleep(CLIC);
             }
         }
         masked_blit(hud->caserne, buffer, 0, 0, 10, 500, SCREEN_W, SCREEN_H);
@@ -121,9 +127,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Scaserne, buffer, 0, 0, 10, 500, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CASERNE - 1);
-                usleep(CLIC);
             }
         }
     }
@@ -141,9 +145,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Secole, buffer, 0, 0, 5, 200, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, ECOLE - 1);
-                usleep(CLIC);
             }
         }
     }
@@ -158,9 +160,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Schantier, buffer, 0, 0, 20, 600, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 placement_construction(hud, buffer, joueur, plateau, CONSTRUCT +3);
-                usleep(CLIC);
             }
         }
     }
@@ -175,9 +175,7 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
             masked_blit(hud->Sroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
             if (mouse_b&1){
                 usleep(CLIC);
-                usleep(CLIC);
                 selection_ajout_routes(hud, buffer, joueur, plateau);
-                usleep(CLIC);
             }
         }
     }
@@ -185,14 +183,9 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
         masked_blit(hud->Nonroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
     }
     if( mouse_x > 700 && mouse_y <300){
-        if(mouse_b&1 ){
+        if(mouse_b&1){
             usleep(CLIC);
-            dessin_bloc_unique(buffer, 20,20,plateau, 0,0,0);
-            blit(buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
-            rest(1000);
             dijkstra(buffer, plateau);
-            usleep(CLIC);
         }
     }
-
 }

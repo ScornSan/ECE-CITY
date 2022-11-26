@@ -83,6 +83,9 @@
 		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-Sarah/ECE-CITY/Affichage/affichage_continu.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
+		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-Sarah/ECE-CITY/Affichage/affichage_niveau.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
 		<Unit filename="C:/Users/sasab/Documents/ING 2/THEORIE DES GRAPHES/PROJET/ECE-CITY-Sarah/ECE-CITY/Affichage/affichage_plateau.c">
 			<Option target="ECE_CITY"/>
 		</Unit>

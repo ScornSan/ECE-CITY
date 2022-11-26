@@ -5,13 +5,10 @@ t_construction* init_build(){
     t_construction *build = (t_construction *) malloc(sizeof(t_construction));
     build->niveau = 1;
     build->nb_residents = 0;
-    build->eau = 1;
+    build->eau = true;
     build->quantite_eau = 0;
-    build->quantite_elec = 0;
-    build->distance_chateau = 0;
-    build->distance_centrale= 0;
-    build->elec = 1;
-    build->incendie = 1;
+    build->elec = true;
+    build->incendie = true;
     build->style[0] = load_bitmap("../BITMAPS/BUILDS/ruine.bmp", 0);
     build->style[1] = load_bitmap("../BITMAPS/BUILDS/chantier.bmp", 0);
     build->style[2] = load_bitmap("../BITMAPS/BUILDS/cabane.bmp", 0);
@@ -20,7 +17,6 @@ t_construction* init_build(){
     build->style[5] = load_bitmap("../BITMAPS/BUILDS/gratteciel.bmp", 0);
     return build;
 }
-
 
 void init_batiments_et_constructions(t_affichage* hud){
     t_batiment *batiment = (t_batiment *) malloc(sizeof(t_batiment));
