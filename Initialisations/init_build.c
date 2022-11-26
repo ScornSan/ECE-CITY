@@ -19,6 +19,7 @@ t_construction* init_build(){
 }
 
 void init_batiments_et_constructions(t_affichage* hud){
+    t_batiment *batiment = (t_batiment *) malloc(sizeof(t_batiment));
     hud->construction[4][0] = load_bitmap("../BITMAPS/HUD/Nchantier.bmp", 0);     /// Nterrain vague/chantier
     hud->construction[4][1] = load_bitmap("../BITMAPS/HUD/chantier.bmp", 0);     /// terrain vague/chantier
     hud->construction[4][2] = load_bitmap("../BITMAPS/HUD/Schantier.bmp", 0);     /// select_terrain vague/chantier
@@ -26,4 +27,7 @@ void init_batiments_et_constructions(t_affichage* hud){
     hud->construction[6][1] = load_bitmap("../BITMAPS/BUILDS/maison.bmp", 0);     /// maison
     hud->construction[7][1] = load_bitmap("../BITMAPS/BUILDS/building.bmp", 0);     /// immeuble
     hud->construction[8][1] = load_bitmap("../BITMAPS/BUILDS/gratteciel.bmp", 0);     /// gratte_ciel
+    batiment->quantite_ressource = 0;
+    batiment->indice_ordre = 0;
+    batiment->id_batiment = 0;
 }

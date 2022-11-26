@@ -23,6 +23,7 @@ void affichage_menu(t_affichage* hud, BITMAP* buffer, int* clic, FONT* myfont, S
 {
     clear_bitmap(buffer);
     blit(hud->accueil,buffer,0,0,0,0,SCREEN_W,SCREEN_H);
+    //textprintf_ex(buffer, font, 60, 300, makecol(0, 255, 0), makecol(0, 0, 0), "%4d %4d", mouse_x, mouse_y);
     affichage_son(buffer, s, &(*clic));
 
     if (*clic)
@@ -152,6 +153,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
         affichage_son(buffer, hud->son_menu, &clic);
 
         textprintf_ex(buffer, font, 60, 300, makecol(0, 255, 0), makecol(0, 0, 0), "%4d %4d", mouse_x, mouse_y);
+
         affichage_menu(hud, buffer, &clic, myfont, hud->son_menu);
         masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
         // afficher coordonnées de la souris (%4d = format numérique largeur fixe sur 4 caractères)
@@ -192,6 +194,11 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                         }
                         if(mouse_b & 1 && mouse_x>= 294 && mouse_x <= 636 && mouse_y >= 281 && mouse_y <= 334) // capitaliste
                         {
+                            joueur->mode = 1;
+                            t_joueur* joueur = init_joueur();
+                            t_plateau* plateau = init_plateau();
+                            t_affichage* hud = init_affichage(plateau);
+                            init_batiments_et_constructions(hud);
                             masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                             int fait = 0;
                             while(!(mouse_b&2))
@@ -203,15 +210,20 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                                     fait = 1;
                                 }
                                 clear_bitmap(buffer);
-                                joueur->mode = 1;
                                 affichage_hud(hud, buffer, joueur, plateau);
 
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
+                            stop_sample(hud->son_jeu);
                         }
                         if(mouse_b & 1 && mouse_x>= 389 && mouse_x <= 642 && mouse_y >= 442 && mouse_y <= 505)
                         {
                             int fait = 0;
+                            joueur = init_joueur();
+                            joueur->mode = 2;
+                            plateau = init_plateau();
+                            hud = init_affichage(plateau);
+                            init_batiments_et_constructions(hud);
                             while(!(mouse_b&2))
                             {
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
@@ -221,13 +233,11 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                                     play_sample(hud->son_jeu, 255, 128, 1000, 1);
                                     fait = 1;
                                 }
-                                joueur->mode = 2;
-                                stop_sample(hud->son_menu);
-                                play_sample(hud->son_jeu, 255, 128, 1000, 1);
                                 affichage_hud(hud, buffer, joueur, plateau);
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
+                            stop_sample(hud->son_jeu);
                         }
 
                         //affichage_hud(hud, buffer, joueur);
@@ -280,14 +290,30 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
             exit(0);
         }
 
+        if (mouse_b & 1 && mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 428 && mouse_y <= 482) //CONTINUER
+        {
+            install_keyboard();
+            plateau = chargement_sauvegarde(hud, joueur, plateau);
+            printf("lets go");
+            printf("%d et %d et %d\n", joueur->mode, joueur->argent, joueur->habitants);
+            for (int i = 0; i < 35; i++){
+                for (int j = 0 ; j < 45; j++){
+                    printf("%d pour %d et %d\n", plateau->matrice[i][j].element, i, j);
+                }
+            }
+            while (!(mouse_b & 2)) {
+                clear_bitmap(buffer);
+                affichage_hud(hud, buffer, joueur, plateau);
+                blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+            }
+        }
+
         // clic gauche en haut à gauche de l'écran -> fin du programme
         if (mouse_b & 1 && mouse_x <= 40 && mouse_y <= 20)
             fin = 1;
 
         blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
         // prise en compte effective de la zone cliquable EXIT :
-
     }
     free(myfont);
-    myfont = NULL;
 }

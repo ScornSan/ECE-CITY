@@ -19,21 +19,6 @@ void chargement_partie(t_bloc matrice[35][45]){
     ifs = NULL;
 }
 
-void sauvegarde(int matrice_map[35][45]){
-    FILE *ifs = fopen("../fichier_map.txt", "w"); /// ouvertue du fichier en mode ecriture
-    /// On écrase l'ancienne map et on sauvegarde la nouvelle (celle de notre partie déjà commencée
-    for(int i = 0; i< 35; i++){
-        for(int j = 0; j < 45; j++){
-            fprintf(ifs, "%d ", matrice_map[i][j]);
-        }
-        fprintf(ifs, "\n");
-    }
-    fclose(ifs);
-    ifs = NULL;
-    /// si on veut continuer la partie après sauvegarde ou juste quitter après sauvegarde
-    //return plateau;
-}
-
 t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 {
     for (int j = 0; j<35; j++)      // boucle pour les lignes
@@ -62,9 +47,12 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].id_element = -1;
             plateau->matrice[j][k].affiche = 0;
             plateau->matrice[j][k].colonne = k;
-            plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11;
-            plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7;
-            for(int i = 0; i< 6; i++)
+            plateau->screenx = 100;
+            plateau->screeny = 100;
+            plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11 + 100;
+            plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7 + 100;
+
+            /*for(int i = 0; i< 6; i++)
             {
                 line(plateau->buffer_pixels, x1 +2*i , y1 +i , x1 +12 , y1 +i , makecol(red,green,blue));
             }
@@ -83,7 +71,7 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             {
                 line(plateau->buffer_pixels, x4-1 , y4 +i , x4 +14 -2*i , y4 +i , makecol(red,green,blue));
             }
-            putpixel(plateau->buffer_pixels, x4 , y4 +7 , makecol(red,green,blue));
+            putpixel(plateau->buffer_pixels, x4 , y4 +7 , makecol(red,green,blue));*/
         }
     }
     return plateau;
@@ -92,10 +80,23 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
-    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_1.5.bmp", 0);
+    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV1.bmp", 0);
+    plateau->id_terrain = 1;
     plateau->buffer_pixels = buffer_pixel;
+    plateau->calque_pixels = load_bitmap("../BITMAPS/Affichage/buffer_pixel_X.bmp", 0);
     plateau->indice_tab_batiment = 0;
     plateau->indice_tab_habitations = 0;
+    plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
+    plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
+    plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude1.bmp", 0);
+    plateau->routes[3] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude2.bmp", 0);
+    plateau->routes[4] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude3.bmp", 0);
+    plateau->routes[5] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude4.bmp", 0);
+    plateau->routes[6] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies1.bmp", 0);
+    plateau->routes[7] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies2.bmp", 0);
+    plateau->routes[8] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
+    plateau->routes[9] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
+    plateau->routes[10] = load_bitmap("../BITMAPS/BUILDS/ROUTES/carrefour.bmp", 0);
     plateau->batiments = malloc(sizeof (t_batiment));
     plateau->habitations = malloc(sizeof (t_construction));
     chargement_partie(plateau->matrice);

@@ -83,7 +83,13 @@
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Affichage/affichage_continu.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Affichage/affichage_niveau.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Affichage/affichage_plateau.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/CHARGEMENT/chargement_sauvegarde.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Initialisations/init_affichage.c">
@@ -120,6 +126,9 @@
 			<Option target="ECE_CITY"/>
 		</Unit>
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/Maj_Elements/maj_routes.c">
+			<Option target="ECE_CITY"/>
+		</Unit>
+		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/SAUVEGARDE/sauvegardee.c">
 			<Option target="ECE_CITY"/>
 		</Unit>
 		<Unit filename="C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/SPGM_Informations/lecture_souris.c">
