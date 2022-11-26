@@ -8,6 +8,7 @@ void boucle_affichage(int i, int j, int hauteur, int longueur,t_plateau * platea
             plateau->matrice[k][l].affiche = 1;
         }
     }
+
     switch(type){
         case 2 :   /// habitations 3x3 (Cabane maison chantier ruine)
             if (plateau->habitations[indice]->niveau <= 3){
@@ -34,19 +35,15 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
     // Position de l'écran réel dans le repère du décor...
     if (key[KEY_RIGHT]){
         plateau->screenx+=2;
-        plateau->compteur_x+=2;
     }
     if (key[KEY_LEFT]){
         plateau->screenx-=2;
-        plateau->compteur_x-=2;
     }
     if (key[KEY_DOWN]){
         plateau->screeny+=2;
-        plateau->compteur_y+=2;
     }
     if (key[KEY_UP]){
         plateau->screeny-=2;
-        plateau->compteur_y-=2;
     }
 
     // Bloquer le scrolling si il est ammené trop loin !
@@ -57,23 +54,22 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
     if (plateau->screeny > plateau->terrain->h - SCREEN_H )
         plateau->screeny = plateau->terrain->h - SCREEN_H;
 
-    if (plateau->compteur_x < 0 ) plateau->compteur_x=0;
-    if (plateau->compteur_x > plateau->terrain->w - SCREEN_W )
-        plateau->compteur_x = plateau->terrain->w - SCREEN_W;
-    if (plateau->compteur_y < 0 ) plateau->compteur_y=0;
-    if (plateau->compteur_y > plateau->terrain->h - SCREEN_H )
-        plateau->compteur_y = plateau->terrain->h - SCREEN_H;
 
     // EFFACER BUFFER EN APPLIQUANT UNE PARTIE DU DECOR (TAILLE DE L'ECRAN)
     blit(plateau->calque_pixels, plateau->buffer_pixels, plateau->screenx, plateau->screeny, 0, 0, SCREEN_W, SCREEN_H);
-    blit(plateau->terrain, buffer, plateau->screenx, plateau->screeny, 0, 0, SCREEN_W, SCREEN_H);
+    blit(plateau->terrain,buffer, plateau->screenx, plateau->screeny, 0, 0, SCREEN_W, SCREEN_H);
+    //blit(hud->buffer2, buffer, plateau->screenx, plateau->screeny, 0, 0, SCREEN_W, SCREEN_H);
+    //blit(plateau->terrain,buffer, plateau->screenx, plateau->screeny, 0, 0, SCREEN_W, SCREEN_H);
+    affichage_routes(hud, buffer, joueur, plateau);
+    affichage_construction(hud, buffer, joueur, plateau);
+}
 
+
+void affichage_construction(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_plateau * plateau){
 
     /// affichage éléments sur le terrain
     for(int i = 0; i< 35; i++){
         for (int j = 0;j <45;j++){
-            maj_routes(hud, buffer, joueur, plateau, i, j);
-            maj_trottoirs(hud, buffer, joueur, plateau, i, j);
             if(plateau->matrice[i][j].affiche != 1){ ///pour voir si on affiche pas deux fois la meme maison en allant sur le bloc suivant
                 switch(plateau->matrice[i][j].element){
                     case 0 :break;
@@ -108,22 +104,6 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
                     case RUINE:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0,2, plateau->matrice[i][j].id_element);
                         break;
-                    case TVAGUE_CP:
-                        plateau->matrice[i][j].affiche = 1;
-                        dessin_bloc_unique(buffer, i, j, plateau, 0, 255, 0);
-                        break;
-                    case ROUTES:
-                        plateau->matrice[i][j].affiche = 1;
-                        masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i][j].x_bloc - plateau->matrice[i][j].b_element->w/2 - plateau->screenx, plateau->matrice[i][j].y_bloc -plateau->matrice[i][j].b_element->h/2 - plateau->screeny, SCREEN_W, SCREEN_H);
-                        break;
-                    case TVAGUE:
-                        plateau->matrice[i][j].affiche = 1;
-                        dessin_bloc_unique(buffer, i, j, plateau, 119, 136, 153);
-                        break;
-                    case TVAGUE_CP_BP:
-                        plateau->matrice[i][j].affiche = 1;
-                        dessin_bloc_unique(buffer, i, j, plateau, 0, 0, 255);
-                        break;
                 }
             }
             plateau->matrice[i][j].affiche = 0;
@@ -146,4 +126,36 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
     }
 }
 
+void affichage_routes(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_plateau * plateau){
 
+    /// affichage éléments sur le terrain
+    for(int i = 0; i< 35; i++){
+        for (int j = 0;j <45;j++){
+            maj_routes(hud, buffer, joueur, plateau, i, j);
+            maj_trottoirs(hud, buffer, joueur, plateau, i, j);
+            if(plateau->matrice[i][j].affiche != 1){ ///pour voir si on affiche pas deux fois la meme maison en allant sur le bloc suivant
+                switch(plateau->matrice[i][j].element){
+                    case 0 :break;
+
+                    case TVAGUE_CP:
+                        plateau->matrice[i][j].affiche = 1;
+                        dessin_bloc_unique(buffer, i, j, plateau, 0, 255, 0);
+                        break;
+                    case ROUTES:
+                        plateau->matrice[i][j].affiche = 1;
+                        masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0, plateau->matrice[i][j].x_bloc - plateau->matrice[i][j].b_element->w/2 - plateau->screenx, plateau->matrice[i][j].y_bloc -plateau->matrice[i][j].b_element->h/2 - plateau->screeny, SCREEN_W, SCREEN_H);
+                        break;
+                    case TVAGUE:
+                        plateau->matrice[i][j].affiche = 1;
+                        dessin_bloc_unique(buffer, i, j, plateau, 119, 136, 153);
+                        break;
+                    case TVAGUE_CP_BP:
+                        plateau->matrice[i][j].affiche = 1;
+                        dessin_bloc_unique(buffer, i, j, plateau, 0, 0, 255);
+                        break;
+                }
+            }
+            plateau->matrice[i][j].affiche = 0;
+        }
+    }
+}

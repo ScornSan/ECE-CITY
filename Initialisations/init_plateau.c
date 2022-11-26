@@ -49,8 +49,6 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].colonne = k;
             plateau->screenx = 100;
             plateau->screeny = 100;
-            plateau->compteur_x = 0;
-            plateau->compteur_y = 0;
             plateau->matrice[j][k].x_bloc = 38 +k*13 +j*11 + 100;
             plateau->matrice[j][k].y_bloc = 478 -k*8 +j*7 + 100;
 
@@ -82,7 +80,8 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
-    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_agrandi.bmp", 0);
+    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV1.bmp", 0);
+    plateau->id_terrain = 1;
     plateau->buffer_pixels = buffer_pixel;
     plateau->calque_pixels = load_bitmap("../BITMAPS/Affichage/buffer_pixel_X.bmp", 0);
     plateau->indice_tab_batiment = 0;

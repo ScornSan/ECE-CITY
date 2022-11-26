@@ -3,8 +3,9 @@
 
 void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     clear_bitmap(buffer);
+    printf("1\n");
     affichage_elements(hud, buffer, joueur, plateau);
-
+    printf("\n2\n");
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
     if (bouton(hud->habitants, 100, 16)){
@@ -53,9 +54,8 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
     // Argent
     masked_blit(hud->argent, buffer, 0, 0, 300, 16, SCREEN_W, SCREEN_H);
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
-    masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
 
-
+    // Sauvegarde
     draw_sprite(buffer, hud->pauseselec, 950, 680);
     if(mouse_b&1 && mouse_x>= 976 && mouse_x <= 1021 && mouse_y >= 710 && mouse_y <= 750)
     {
@@ -63,6 +63,10 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
         sauvegarde(joueur, plateau);
         menu(hud, joueur, buffer, plateau);
     }
+
+    // Curseur
+    masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
+
 }
 
 void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau, int bouton){

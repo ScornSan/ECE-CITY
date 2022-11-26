@@ -27,20 +27,17 @@ void sauvegarde( t_joueur* joueur, t_plateau* plateau){
     fprintf(ifs_plateau, "%d\n", plateau->screeny);
     fprintf(ifs_plateau, "%d\n", plateau->lig);
     fprintf(ifs_plateau, "%d\n", plateau->col);
+    // Load terrain
+    // Load buffer pixel
+    // Load calque pixel
+    // BITMAPS routes
 
-
-    for(int i = 0; i< 35; i++){                                   /// MATRICE MAP
-        for(int j = 0; j < 45; j++){
-            fprintf(ifs_plateau, "%d\n", plateau->matrice_map[i][j]);
-        }
-    }
-
-    /////////
-    printf("\n");/// MATRICE
+    /// MATRICE
 
     for(int i = 0; i< 35; i++){
-        printf("\n");/// MATRICE
         for(int j = 0; j < 45; j++){
+            fprintf(ifs_plateau, "%d\n", plateau->matrice_map[i][j]); /// MATRICE MAP
+
             fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].element);
             fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].id_element);
             fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].x_bloc);
@@ -48,7 +45,10 @@ void sauvegarde( t_joueur* joueur, t_plateau* plateau){
             fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].affiche);
             fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].ligne);
             fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].colonne);
-            fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].b_element);
+            for (int k = 0; k < 3; k++)
+                fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].RGB[k]);
+
+            fprintf(ifs_plateau, "%d\n", plateau->matrice[i][j].id_bitmap);
         }
     }
 
@@ -66,6 +66,7 @@ void sauvegarde( t_joueur* joueur, t_plateau* plateau){
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->quantite_eau);
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->quantite_elec);
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->id_element);
+        //fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->timer);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).id_element);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).element);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).affiche);
@@ -73,12 +74,12 @@ void sauvegarde( t_joueur* joueur, t_plateau* plateau){
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).ligne);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).x_bloc);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).y_bloc);
+        // BITMAP style[6]
+        // t_bloc surface[3][3]
+        // t_maillon* derniere case chemin
     }
 
 
-    //fprintf(ifs_batiment, "STRUCTURE BATIMENT");
-    //fprintf(ifs_batiment, "\n");
-    /*
     for(int i = 0; i < plateau->indice_tab_batiment; i++)            /// STRUCTURE T_BATIMENT
     {
         fprintf(ifs_batiment, "%d", plateau->batiments[i]->id_batiment);
@@ -87,7 +88,7 @@ void sauvegarde( t_joueur* joueur, t_plateau* plateau){
         fprintf(ifs_batiment, "\n");
         fprintf(ifs_batiment, "%d", plateau->batiments[i]->quantite_ressource);
         fprintf(ifs_batiment, "\n");
-        fprintf(ifs_batiment, "%d", plateau->batiments[i]->id_batiment);
+        fprintf(ifs_batiment, "%d", plateau->batiments[i]->element);
         fprintf(ifs_batiment, "\n");
         fprintf(ifs_batiment, "%d", (plateau->batiments[i]->premier_bloc).id_element);
         fprintf(ifs_batiment, "\n");
@@ -103,16 +104,12 @@ void sauvegarde( t_joueur* joueur, t_plateau* plateau){
         fprintf(ifs_batiment, "\n");
         fprintf(ifs_batiment, "%d", (plateau->batiments[i]->premier_bloc).y_bloc);
         fprintf(ifs_batiment, "\n");
-    }*/
+    }
 
     fclose(ifs_plateau);
     fclose(ifs_batiment);
     fclose(ifs_habitation);
     fclose(ifs_joueur);
-    ifs_plateau = NULL;
-    ifs_batiment=NULL;
-    ifs_joueur = NULL;
-    ifs_habitation = NULL;
     /// si on veut continuer la partie après sauvegarde ou juste quitter après sauvegarde
 }
 

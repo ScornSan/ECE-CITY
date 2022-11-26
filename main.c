@@ -33,11 +33,7 @@ int main(int argc, char *argv[])
     free(joueur);
     free(plateau);
     free(hud);
-    joueur = NULL;
-    plateau = NULL;
-    hud = NULL;
     destroy_bitmap(buffer);
-    buffer = NULL;
     return 0;
 }
 END_OF_MAIN();

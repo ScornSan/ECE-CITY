@@ -206,6 +206,10 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                         if(mouse_b & 1 && mouse_x>= 294 && mouse_x <= 636 && mouse_y >= 281 && mouse_y <= 334) // capitaliste
                         {
                             joueur->mode = 1;
+                            t_joueur* joueur = init_joueur();
+                            t_plateau* plateau = init_plateau();
+                            t_affichage* hud = init_affichage(plateau);
+                            init_batiments_et_constructions(hud);
                             masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                             int fait = 0;
                             while(!(mouse_b&2))
@@ -226,7 +230,11 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                         if(mouse_b & 1 && mouse_x>= 389 && mouse_x <= 642 && mouse_y >= 442 && mouse_y <= 505)
                         {
                             int fait = 0;
+                            joueur = init_joueur();
                             joueur->mode = 2;
+                            plateau = init_plateau();
+                            hud = init_affichage(plateau);
+                            init_batiments_et_constructions(hud);
                             while(!(mouse_b&2))
                             {
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
@@ -295,13 +303,18 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
 
         if (mouse_b & 1 && mouse_x>= 395 && mouse_x <= 631 && mouse_y >= 428 && mouse_y <= 482) //CONTINUER
         {
-            chargement_sauvegarde(hud, buffer, joueur, plateau);
+            install_keyboard();
+            plateau = chargement_sauvegarde(hud, joueur, plateau);
             printf("lets go");
-
+            printf("%d et %d et %d\n", joueur->mode, joueur->argent, joueur->habitants);
+            for (int i = 0; i < 35; i++){
+                for (int j = 0 ; j < 45; j++){
+                    printf("%d pour %d et %d\n", plateau->matrice[i][j].element, i, j);
+                }
+            }
             while (!(mouse_b & 2)) {
                 clear_bitmap(buffer);
                 affichage_hud(hud, buffer, joueur, plateau);
-                masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
             }
         }
