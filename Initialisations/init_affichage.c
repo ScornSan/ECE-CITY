@@ -4,6 +4,7 @@
 t_affichage* init_affichage(t_plateau *plateau){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
     hud->mode = load_bitmap("../BITMAPS/mode.bmp",0);
+    hud->regles = load_bitmap("../BITMAPS/regles.bmp",0);
     hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);
     hud->pauseselec = load_bitmap("../BITMAPS/HUD/pauseselec.bmp",0);
     hud->credits = load_bitmap("../BITMAPS/credits.bmp",0);

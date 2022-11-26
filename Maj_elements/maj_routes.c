@@ -5,6 +5,7 @@ void maj_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *p
 {
     if (plateau->matrice[lig-1][col].b_element == plateau->routes[0] || plateau->matrice[lig + 1][col].b_element == plateau->routes[0]){
         plateau->matrice[lig][col].b_element = plateau->routes[0];
+        plateau->matrice[lig][col].id_bitmap = 0;
     }
     if (plateau->matrice[lig][col].element == ROUTES)
     {
@@ -13,42 +14,51 @@ void maj_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *p
             if (plateau->matrice[lig-1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col+1].b_element == plateau->routes[i + 1])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[3];
+                plateau->matrice[lig][col].id_bitmap = 3;
             }
             if (plateau->matrice[lig+1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col+1].b_element == plateau->routes[i + 1])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[5];
+                plateau->matrice[lig][col].id_bitmap = 5;
             }
             if (plateau->matrice[lig+1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col-1].b_element == plateau->routes[i + 1])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[4];
+                plateau->matrice[lig][col].id_bitmap = 5;
             }
             if (plateau->matrice[lig-1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col-1].b_element == plateau->routes[i + 1])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[2];
+                plateau->matrice[lig][col].id_bitmap = 2;
             }
 
             // TOUT LES 3 VOIES
             if (plateau->matrice[lig-1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col+1].b_element == plateau->routes[i + 1] && plateau->matrice[lig+1][col].b_element == plateau->routes[i])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[9];
+                plateau->matrice[lig][col].id_bitmap = 9;
             }
             if (plateau->matrice[lig+1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col+1].b_element == plateau->routes[i + 1] && plateau->matrice[lig][col-1].b_element == plateau->routes[i + 1])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[7];
+                plateau->matrice[lig][col].id_bitmap = 7;
             }
             if (plateau->matrice[lig+1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col-1].b_element == plateau->routes[i + 1] && plateau->matrice[lig-1][col].b_element == plateau->routes[i])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[8];
+                plateau->matrice[lig][col].id_bitmap = 8;
             }
             if (plateau->matrice[lig-1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col-1].b_element == plateau->routes[i + 1] && plateau->matrice[lig][col+1].b_element == plateau->routes[i + 1])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[6];
+                plateau->matrice[lig][col].id_bitmap = 6;
             }
 
             //CARREFOUR
             if (plateau->matrice[lig-1][col].b_element == plateau->routes[i] && plateau->matrice[lig][col-1].b_element == plateau->routes[i + 1] && plateau->matrice[lig][col+1].b_element == plateau->routes[i + 1] && plateau->matrice[lig+1][col].b_element == plateau->routes[i])
             {
                 plateau->matrice[lig][col].b_element = plateau->routes[10];
+                plateau->matrice[lig][col].id_bitmap = 10;
             }
         }
     }

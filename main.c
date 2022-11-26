@@ -27,17 +27,13 @@ int main(int argc, char *argv[])
     t_joueur* joueur = init_joueur();
     t_plateau* plateau = init_plateau();
     t_affichage* hud = init_affichage(plateau);
-    init_batiments_et_constructions(hud);
+    //init_batiments_et_constructions(hud);
     menu(hud, joueur, buffer, plateau);
 
     free(joueur);
     free(plateau);
     free(hud);
-    joueur = NULL;
-    plateau = NULL;
-    hud = NULL;
     destroy_bitmap(buffer);
-    buffer = NULL;
     return 0;
 }
 END_OF_MAIN();

@@ -68,6 +68,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 construction->distance_chateau = 1000;
                 construction->id_element = plateau->indice_tab_habitations;
                 joueur->argent -= 1000;
+                construction->derniere_case_chemin = NULL;
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 2; i++) {
                     for (int j = plateau->col_mouse - 1; j < plateau->col_mouse + 2; j++) {
                         plateau->matrice[i][j].element = indice+1;
@@ -92,7 +93,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                     masked_blit(hud->construction[indice][2], buffer, 0, 0, plateau->matrice[plateau->lig_mouse][plateau->col_mouse+1].x_bloc - hud->construction[indice][2]->w/2 - plateau->screenx, plateau->matrice[plateau->lig_mouse][plateau->col_mouse+1].y_bloc - hud->construction[indice][2]->h/2 - plateau->screeny, SCREEN_W, SCREEN_H);
                 }
             }
-            if(mouse_b&1 && plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == TVAGUE_CP) {
+            if(mouse_b&1 /*&& plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == TVAGUE_CP*/) {
                 t_batiment * batiment = malloc(sizeof(t_batiment));
                 batiment->premier_bloc = plateau->matrice[plateau->lig_mouse-1][plateau->col_mouse-2];
                 batiment->indice_ordre = 0;
@@ -101,7 +102,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 batiment->ordre_distribution = malloc(sizeof (t_construction)*2);
                 plateau->batiments[plateau->indice_tab_batiment] = batiment;
                 joueur->argent -= 100000;
-
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 3; i++) {
                     for (int j = plateau->col_mouse - 2; j < plateau->col_mouse + 4; j++) {
                         plateau->matrice[i][j].element = indice+1;

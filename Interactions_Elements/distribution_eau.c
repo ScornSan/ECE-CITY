@@ -22,12 +22,10 @@ t_file * cases_adjacentes(BITMAP * buffer, t_batiment* batiment, t_plateau *plat
             t_maillon *maillon = creation_maillon(i,colonne-1, 1);
             if(file->debut == NULL) {
                 file->debut = maillon;
-                maillon->precedent = NULL;
                 file->fin = maillon;
             }
             else{
                 file->fin->suivant = maillon;
-                maillon->precedent = file->fin;
                 file->fin = maillon;
             }
         }
@@ -35,12 +33,10 @@ t_file * cases_adjacentes(BITMAP * buffer, t_batiment* batiment, t_plateau *plat
             t_maillon *maillon = creation_maillon(i,colonne+6, 1);
             if(file->debut == NULL) {
                 file->debut = maillon;
-                maillon->precedent = NULL;
                 file->fin = maillon;
             }
             else{
                 file->fin->suivant = maillon;
-                maillon->precedent = file->fin;
                 file->fin = maillon;
             }
         }
@@ -50,12 +46,10 @@ t_file * cases_adjacentes(BITMAP * buffer, t_batiment* batiment, t_plateau *plat
             t_maillon *maillon = creation_maillon(ligne-1,i, 1);
             if(file->debut == NULL) {
                 file->debut = maillon;
-                maillon->precedent = NULL;
                 file->fin = maillon;
             }
             else{
                 file->fin->suivant = maillon;
-                maillon->precedent = file->fin;
                 file->fin = maillon;
             }
         }
@@ -63,18 +57,16 @@ t_file * cases_adjacentes(BITMAP * buffer, t_batiment* batiment, t_plateau *plat
             t_maillon *maillon = creation_maillon(ligne+4,i, 1);
             if(file->debut == NULL){
                 file->debut = maillon;
-                maillon->precedent = NULL;
                 file->fin = maillon;
             }
             else{
                 file->fin->suivant = maillon;
-                maillon->precedent = file->fin;
                 file->fin = maillon;
             }
         }
     }
+    printf("sortie file\n");
     return file;
-
 }
 
 void cond_3_sur_4(int * cond,t_maillon * case_actuelle, t_plateau * plateau){
@@ -187,26 +179,27 @@ void tri_tab_ordre(t_plateau* plateau){
 }
 
 
-void dijkstra(BITMAP * buffer, t_plateau * plateau){
-    for (int i = 0; i < 35; i++) {
-        for (int j = 0; j < 45; j++) {
-            plateau->matrice[i][j].affiche = 0;
-        }
-    }
+void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
     t_maillon * case_actuelle;
     int *cond;
     t_maillon *temp;
     t_maillon * maillon;
     for(int k = 0; k < plateau->indice_tab_batiment;k++) {
+        for (int i = 0; i < 35; i++) {
+            for (int j = 0; j < 45; j++) {
+                plateau->matrice[i][j].affiche = 0;
+            }
+        }
         t_file * file;
         if (plateau->batiments[k]->element == 1) {
             if (plateau->batiments[k] != NULL) {
                 file = cases_adjacentes(buffer, plateau->batiments[k], plateau);
                 int compteur = 1;
                 case_actuelle = file->debut;
-                cond = (int *) malloc(sizeof(int) * 9);
+                cond = (int*) malloc(sizeof(int) * 9);
                 int element_case, ligne_case, colonne_case;
                 while (file->debut != NULL) {
+
                     case_actuelle = file->debut;
                     /// depilage de la case actuelle pour la suite
                     if (file->debut->suivant == NULL) {
@@ -214,7 +207,6 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau){
                         file->fin = NULL;
                     } else {
                         file->debut = file->debut->suivant;
-                        file->debut->precedent = NULL;
                     }
                     if (!plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche) {// si elle est pâs deja visitée
                         if (case_actuelle->compteur < compteur)
@@ -222,12 +214,11 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau){
                         plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche = 1; // on la marque en visitée
                         cond_3_sur_4(cond, case_actuelle, plateau); // on regarde si c'est pas une fin de route
                         if (cond[0]) {
+                            printf("mamamaa  ");
                             for (int i = 0; i < 4; i++) {    /// on regarde les 4 cases autour
                                 if (!cond[i + 1]) {  // si case != extremité
-                                    if (i ==
-                                        0) {    // element prend la valeur de la bonne case et les lignes et colonnes pareil
-                                        element_case = plateau->matrice[case_actuelle->ligne -
-                                                                        1][case_actuelle->colonne].element;
+                                    if (i ==0) {    // element prend la valeur de la bonne case et les lignes et colonnes pareil
+                                        element_case = plateau->matrice[case_actuelle->ligne -1][case_actuelle->colonne].element;
                                         ligne_case = case_actuelle->ligne - 1;
                                         colonne_case = case_actuelle->colonne;
                                     } else if (i == 1) {
@@ -248,29 +239,31 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau){
                                     }
                                     if (!plateau->matrice[ligne_case][colonne_case].affiche) { // si la case verifié n'est pas encore visitée
                                         if (element_case != 0) { // si case != vide
+                                            printf("mamamaa 2 \n");
                                             if (element_case > 4 && element_case < 10) { // si case = habitation
                                                 plateau->matrice[ligne_case][colonne_case].affiche = 1;
                                                 if (compteur < plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau) {
+                                                    printf("mamamaa 2.11 \n");
                                                     /// mise a jour de la distance avec l echateau d'eau le plus proche
                                                     plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau = case_actuelle->compteur;
                                                     plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
                                                 } else if (doublon_ordre(plateau,plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->id_element,plateau->batiments[k]->indice_ordre, k)) {
+                                                    printf("mamamaa 2.22 \n");
                                                     plateau->batiments[k]->ordre_distribution[plateau->batiments[k]->indice_ordre] = plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element];
                                                     plateau->batiments[k]->indice_ordre++;
                                                     plateau->batiments[k]->ordre_distribution = realloc(plateau->batiments[k]->ordre_distribution,sizeof(t_construction) *(plateau->batiments[k]->indice_ordre + 1));
-                                                    plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
+                                                    //plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
                                                 }
                                             } else if (element_case == 13) { // si case = route
+                                                printf("mamamaa 3 \n");
                                                 compteur++;
                                                 if (doublon_file(file, ligne_case, colonne_case)) {
                                                     maillon = creation_maillon(ligne_case, colonne_case, compteur);
                                                     if (file->debut == NULL) {
                                                         file->debut = maillon;
-                                                        maillon->precedent = NULL;
                                                         file->fin = maillon;
                                                     } else {
                                                         file->fin->suivant = maillon;
-                                                        maillon->precedent = file->fin;
                                                         file->fin = maillon;
                                                     }
                                                     maillon->predecesseur = case_actuelle;
@@ -287,28 +280,19 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau){
                 }
             }
         }
-        //tri_tab_ordre(plateau);
+        tri_tab_ordre(plateau);
     }
-    for(int i = 0; i <plateau->indice_tab_habitations; i++){
-        temp = plateau->habitations[i]->derniere_case_chemin->predecesseur;
-        while(temp != NULL){
-            dessin_bloc_unique(buffer, temp->ligne, temp->colonne, 255,255,255);
-            temp = temp->predecesseur;
+    printf("affichage\n");
+    if(affichage){
+        for(int i = 0; i <plateau->indice_tab_habitations; i++){
+            if(plateau->habitations[i]->derniere_case_chemin != NULL){
+                temp = plateau->habitations[i]->derniere_case_chemin;
+                while(temp != NULL){
+                    dessin_bloc_unique(buffer, temp->ligne, temp->colonne,plateau, 255,255,255);
+                    temp = temp->predecesseur;
+                }
+            }
         }
+        blit(buffer, screen,0,0,0,0, SCREEN_W, SCREEN_H);
     }
-    for(int i = 0; i< plateau->indice_tab_batiment; i++){
-        for(int j = 0; j< plateau->batiments[i]->indice_ordre;j++){
-            printf("for");
-            printf("distance au chateau %d = %d\n", i, plateau->batiments[i]->ordre_distribution[j]->distance_chateau);
-        }
-    }
-    printf("Sortie dij\n");
-    free(temp);
-    temp = NULL;
-    free(case_actuelle);
-    case_actuelle = NULL;
-    free(cond);
-    cond = NULL;
-    free(maillon);
-    maillon = NULL;
 }

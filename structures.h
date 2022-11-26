@@ -28,7 +28,7 @@
 #define TVAGUE_CP_BP 15
 #define ROUTES 13
 #define TVAGUE 14
-#define TIME_CYCLE 10
+#define TIME_CYCLE 3
 
 #define X 50
 #define Y 10
@@ -55,7 +55,6 @@ typedef struct maillon{
     int colonne;
     int compteur;
     struct maillon * suivant;
-    struct maillon * precedent;
     struct maillon * predecesseur;
 }t_maillon;
 
@@ -74,6 +73,7 @@ typedef struct Bloc{
     int colonne;
     int element;    // numéro indiquant de quel bat il s'agit
     BITMAP *b_element;    // bitmap associé à ce batiment
+    int id_bitmap; // 0 a 11 pour les routes, voir pour la suite
     int affiche;   // booleen pour voir si l'ensemble des blocs d'un meme bat est affiché ou non
 }t_bloc;
 
@@ -81,11 +81,9 @@ typedef struct Constructions{
     t_bloc premier_bloc;     //infos du premier blocs en haut a gauche de la constru (tous les blocs de la meme constru ont les meme parametres)
     int niveau;
     int nb_residents;
-    int impot;
     int id_element;
     int element;
     t_maillon * derniere_case_chemin;
-    t_bloc surface[3][3];
     int quantite_eau;
     int distance_chateau;
     int quantite_elec;
@@ -95,6 +93,7 @@ typedef struct Constructions{
     int incendie;
     time_t timer;
     BITMAP* style[6];
+    int id_style;
 }t_construction;
 
 typedef struct Batiment{    // 4x6
@@ -104,6 +103,7 @@ typedef struct Batiment{    // 4x6
     int element;
     t_bloc surface[4][6];
     BITMAP* style[3];
+    int id_style;
     t_construction** ordre_distribution;
     int indice_ordre;
 }t_batiment;
@@ -122,15 +122,13 @@ typedef struct Joueur{
 typedef struct Plateau{
     int screenx;
     int screeny;
-    int compteur_x;
-    int compteur_y;
     int lig;
+    int col;
     int lig_mouse;
     int col_mouse;
     t_bloc matrice[35][45];
-    int matrice_map[35][45];
-    int col;
     BITMAP* terrain;
+    int id_terrain;
     BITMAP* buffer_pixels;
     BITMAP* calque_pixels;
     t_construction** habitations; // max 175 constructions 3x3 sur la map
@@ -141,6 +139,7 @@ typedef struct Plateau{
 }t_plateau;
 
 typedef struct Affichage{
+    BITMAP* regles;
     BITMAP* argent;
     BITMAP* argent_outline;
     BITMAP* play;

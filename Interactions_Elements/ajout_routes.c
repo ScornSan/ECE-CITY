@@ -137,6 +137,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                 }
                                 joueur->argent -= cout;
                                 plateau->matrice[lig_init][i].b_element = plateau->routes[1];
+                                plateau->matrice[lig_init][i].id_bitmap = 1;
                             }
                         } else {
                             for (int i = col_init; i < plateau->col_mouse + 1; i++) {
@@ -149,6 +150,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                 }
                                 joueur->argent -= cout;
                                 plateau->matrice[lig_init][i].b_element = plateau->routes[1];
+                                plateau->matrice[lig_init][i].id_bitmap = 1;
                             }
                         }
                     } else {
@@ -163,6 +165,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                 }
                                 joueur->argent -= cout;
                                 plateau->matrice[i][col_init].b_element = plateau->routes[0];
+                                plateau->matrice[i][col_init].id_bitmap = 0;
                             }
                         } else {
                             for (int i = lig_init; i < plateau->lig_mouse + 1; i++) {
@@ -175,6 +178,7 @@ int ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau *
                                 }
                                 joueur->argent -= cout;
                                 plateau->matrice[i][col_init].b_element = plateau->routes[0];
+                                plateau->matrice[i][col_init].id_bitmap = 0;
                             }
                         }
                     }
