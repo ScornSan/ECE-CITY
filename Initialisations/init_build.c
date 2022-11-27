@@ -34,7 +34,7 @@ t_batiment *init_batiments(){
     batiment->style[2] = load_bitmap("../BITMAPS/BUILDS/caserne.bmp", 0);     /// caserne
     batiment->style_noir[3] = load_bitmap("../BITMAPS/BUILDS/Nbanque.bmp", 0);     /// Necole  // Nbanque
     batiment->style[3] = load_bitmap("../BITMAPS/BUILDS/ecole.bmp", 0);     /// ecole
-    batiment->quantite_ressource = 0;
+    batiment->quantite_ressource = 5000;
     batiment->indice_ordre = 0;
     return batiment;
 }

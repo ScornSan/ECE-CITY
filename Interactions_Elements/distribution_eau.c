@@ -179,13 +179,14 @@ void tri_tab_ordre(t_plateau* plateau){
 }
 
 
-void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
+void dijkstra(BITMAP * buffer, t_plateau * plateau){
     t_maillon * case_actuelle;
     int *cond;
     t_maillon *temp;
     t_maillon * maillon;
     t_file * file;
     for(int k = 0; k < plateau->indice_tab_batiment;k++) {
+        plateau->batiments[k]->indice_ordre = 0;
         printf("TOUR BOUCLE\n");
         for (int i = 0; i < 35; i++) {
             for (int j = 0; j < 45; j++) {
@@ -285,18 +286,23 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
         }
         tri_tab_ordre(plateau);
     }
-    printf("affichage\n");
-    if(affichage){
-        for(int i = 0; i <plateau->indice_tab_habitations; i++){
-            if(plateau->habitations[i]->derniere_case_chemin != NULL){
-                temp = plateau->habitations[i]->derniere_case_chemin;
-                while(temp != NULL){
-                    dessin_bloc_unique(buffer, temp->ligne, temp->colonne,plateau, 255,255,255);
-                    temp = temp->predecesseur;
+}
+
+void distribution_eau(t_plateau * plateau){
+    for(int k = 0; k < plateau->indice_tab_batiment;k++) {
+        if(plateau->batiments[k]->element == 1){
+            plateau->batiments[k]->quantite_ressource = 5022;
+            for(int i = 0; i<plateau->batiments[k]->indice_ordre; i++){
+                printf("quantite ressource = %d\n", plateau->batiments[k]->quantite_ressource);
+                printf("quantite eau = %d\n", plateau->batiments[k]->ordre_distribution[i]->quantite_eau);
+                plateau->batiments[k]->ordre_distribution[i]->quantite_eau = 0;
+                while(plateau->batiments[k]->quantite_ressource > 0 && plateau->batiments[k]->ordre_distribution[i]->quantite_eau < plateau->batiments[k]->ordre_distribution[i]->nb_residents){
+                    plateau->batiments[k]->quantite_ressource -= 1;
+                    plateau->batiments[k]->ordre_distribution[i]->quantite_eau++;
+                    printf("augmente eet diminue\n");
                 }
+                printf("quantite ressource = %d\n", plateau->batiments[k]->quantite_ressource);
             }
         }
-        blit(buffer, screen,0,0,0,0, SCREEN_W, SCREEN_H);
-        rest(500);
     }
 }

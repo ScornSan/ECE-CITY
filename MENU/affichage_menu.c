@@ -144,12 +144,8 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
 
     clear_bitmap(buffer);
     // Boucle interactive
-    int fait1 = 0;
+    play_sample(hud->son_menu, 255, 128, 1000, 1);
     while (!fin) {
-        if(!fait1){
-            play_sample(hud->son_menu, 255, 128, 1000, 1);
-            fait1 = 1;
-        }
         affichage_son(buffer, hud->son_menu, &clic);
 
         textprintf_ex(buffer, font, 60, 300, makecol(0, 255, 0), makecol(0, 0, 0), "%4d %4d", mouse_x, mouse_y);
@@ -163,7 +159,6 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
             ok = 0;
             sortir = 0;
             install_keyboard();
-            fait1 = 0;
             while(ok!=1 && sortir!=1) {
 
                 if (sortir != 1) {
@@ -200,17 +195,16 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                             t_affichage* hud = init_affichage(plateau);
                             masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                             int fait = 0;
+                            stop_sample(hud->son_menu);
                             while(!(mouse_b&2))
                             {
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 if(!fait){
-                                    stop_sample(hud->son_menu);
                                     play_sample(hud->son_jeu, 255, 128, 1000, 1);
                                     fait = 1;
                                 }
                                 clear_bitmap(buffer);
                                 affichage_hud(hud, buffer, joueur, plateau);
-
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
                             stop_sample(hud->son_jeu);
@@ -222,13 +216,13 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                             joueur->mode = 2;
                             plateau = init_plateau();
                             hud = init_affichage(plateau);
+                            stop_sample(hud->son_menu);
                             while(!(mouse_b&2))
                             {
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                                 clear_bitmap(buffer);
                                 if(!fait){
-                                    stop_sample(hud->son_menu);
-                                    play_sample(hud->son_jeu, 255, 128, 1000, 1);
+                                    //play_sample(hud->son_jeu, 255, 128, 1000, 1);
                                     fait = 1;
                                 }
                                 affichage_hud(hud, buffer, joueur, plateau);

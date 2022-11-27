@@ -78,6 +78,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 }
                 plateau->indice_tab_habitations++;
                 plateau->habitations = realloc(plateau->habitations, sizeof(t_construction) * (plateau->indice_tab_habitations +1));
+                dijkstra(buffer, plateau);
                 clic = 1;
                 usleep(CLIC);
             }

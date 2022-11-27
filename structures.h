@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include <conio.h>
-#define CLIC 80000
+#define CLIC 85000
 #define RIEN 0
 #define CONSTRUCT 1
 #define EAU 2

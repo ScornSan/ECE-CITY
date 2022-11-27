@@ -16,6 +16,7 @@ void affichage_liste_constru();
 void affichage_menu();
 int menu();
 void dijkstra();
+void distribution_eau();
 void maj_routes();
 void affichage_zone_constru_terrain();
 void affichage_son();

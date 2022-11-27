@@ -8,20 +8,23 @@ void boucle_affichage(int i, int j, int hauteur, int longueur,t_plateau * platea
             plateau->matrice[k][l].affiche = 1;
         }
     }
-
+    distribution_eau(plateau);
     switch(type){
         case 2 :   /// habitations 3x3 (Cabane maison chantier ruine)
             if(plateau->niveau == 0){
                 if (plateau->habitations[indice]->niveau <= 3){
-                    masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - 10 - plateau->screenx, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - 15 - plateau->screeny, SCREEN_W, SCREEN_H);
+                    masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc + deplacement- plateau->matrice[i][j].b_element->w/2 - 10 - plateau->screenx, plateau->matrice[i+position_x][j+position_y].y_bloc +2*deplacement + 2 -plateau->matrice[i][j].b_element->h/2 - 15 - plateau->screeny, SCREEN_W, SCREEN_H);
+                    textprintf_ex(buffer,font, 20 + plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx,plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 10, makecol(0,0,0),-1,"%d/%d", plateau->habitations[indice]->quantite_eau, plateau->habitations[indice]->nb_residents);
                     break;
                 }
                 else if (plateau->habitations[indice]->niveau == 4){ // BUILDING
-                    masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx - 15, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 53, SCREEN_W, SCREEN_H);
+                    masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx - 15, plateau->matrice[i+position_x][j+position_y].y_bloc +2*deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 53, SCREEN_W, SCREEN_H);
+                    textprintf_ex(buffer,font, 20 +plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx,plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 50, makecol(0,0,0),-1,"%d/%100", plateau->habitations[indice]->quantite_eau);
                     break;
                 }
                 else if (plateau->habitations[indice]->niveau == 5){ // GRATTE CIEL
-                    masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx - 13, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 86, SCREEN_W, SCREEN_H);
+                    masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx - 13, plateau->matrice[i+position_x][j+position_y].y_bloc +2*deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 86, SCREEN_W, SCREEN_H);
+                    textprintf_ex(buffer,font, 20 +plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx,plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 70, makecol(0,0,0),-1,"%d/1000", plateau->habitations[indice]->quantite_eau);
                     break;
                 }
             }
@@ -84,7 +87,6 @@ void affichage_elements(t_affichage * hud, BITMAP *buffer, t_joueur* joueur, t_p
         affichage_construction(hud, buffer, joueur, plateau);
     }
     else{
-        printf("caca\n");
         affichage_construction(hud, buffer, joueur, plateau);
     }
 }
@@ -112,10 +114,10 @@ void affichage_construction(t_affichage * hud, BITMAP *buffer, t_joueur* joueur,
                         boucle_affichage(i,j,4,6, plateau,buffer,0,3,7,3,plateau->matrice[i][j].id_element);
                         break;
                     case CHANTIER:
-                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,0,2, plateau->matrice[i][j].id_element);
+                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,7,2, plateau->matrice[i][j].id_element);
                         break;
                     case CABANE:
-                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,0,2, plateau->matrice[i][j].id_element);
+                        boucle_affichage(i,j,3,3, plateau,buffer,1,1,7,2, plateau->matrice[i][j].id_element);
                         break;
                     case MAISON:
                         boucle_affichage(i,j,3,3, plateau,buffer,1,1,0,2, plateau->matrice[i][j].id_element);
