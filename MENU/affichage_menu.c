@@ -198,7 +198,6 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                             t_joueur* joueur = init_joueur();
                             t_plateau* plateau = init_plateau();
                             t_affichage* hud = init_affichage(plateau);
-                            init_batiments_et_constructions(hud);
                             masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                             int fait = 0;
                             while(!(mouse_b&2))
@@ -223,7 +222,6 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau)
                             joueur->mode = 2;
                             plateau = init_plateau();
                             hud = init_affichage(plateau);
-                            init_batiments_et_constructions(hud);
                             while(!(mouse_b&2))
                             {
                                 masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);

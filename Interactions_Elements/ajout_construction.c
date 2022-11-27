@@ -72,7 +72,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 2; i++) {
                     for (int j = plateau->col_mouse - 1; j < plateau->col_mouse + 2; j++) {
                         plateau->matrice[i][j].element = indice+1;
-                        plateau->matrice[i][j].b_element = hud->construction[indice][1];
+                        plateau->matrice[i][j].b_element = construction->style[1];
                         plateau->matrice[i][j].id_element = plateau->indice_tab_habitations;
                     }
                 }
@@ -94,18 +94,16 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 }
             }
             if(mouse_b&1 /*&& plateau->matrice[plateau->lig_mouse][plateau->col_mouse].element == TVAGUE_CP*/) {
-                t_batiment * batiment = malloc(sizeof(t_batiment));
+                t_batiment * batiment = init_batiments();
                 batiment->premier_bloc = plateau->matrice[plateau->lig_mouse-1][plateau->col_mouse-2];
-                batiment->indice_ordre = 0;
                 batiment->id_batiment = plateau->indice_tab_batiment;
                 batiment->element = indice+1;
                 batiment->ordre_distribution = malloc(sizeof (t_construction)*2);
                 plateau->batiments[plateau->indice_tab_batiment] = batiment;
-                joueur->argent -= 100000;
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 3; i++) {
                     for (int j = plateau->col_mouse - 2; j < plateau->col_mouse + 4; j++) {
                         plateau->matrice[i][j].element = indice+1;
-                        plateau->matrice[i][j].b_element = hud->construction[indice][1];
+                        plateau->matrice[i][j].b_element = batiment->style[indice + 1];
                         plateau->matrice[i][j].id_element = plateau->indice_tab_batiment;
                     }
                 }

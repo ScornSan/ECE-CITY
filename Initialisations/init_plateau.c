@@ -80,12 +80,20 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
-    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV1.bmp", 0);
+    char chargement[100];
+    for(int i = 0; i< 5; i++){
+        sprintf(chargement, "../BITMAPS/Affichage/MAP_NIV%d.bmp",i+1);
+        plateau->terrain[i] = load_bitmap(chargement, NULL);
+        sprintf(chargement, "../BITMAPS/Affichage/MAP_NIV%d_N.bmp",i+1);
+        plateau->terrain_noir[i] = load_bitmap(chargement, NULL);
+    }
     plateau->id_terrain = 1;
     plateau->buffer_pixels = buffer_pixel;
     plateau->calque_pixels = load_bitmap("../BITMAPS/Affichage/buffer_pixel_X.bmp", 0);
     plateau->indice_tab_batiment = 0;
     plateau->indice_tab_habitations = 0;
+    plateau->niveau = 0;
+    plateau->etape = 0;
     plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
     plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
     plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude1.bmp", 0);

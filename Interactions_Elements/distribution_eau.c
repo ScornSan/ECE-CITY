@@ -184,13 +184,14 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
     int *cond;
     t_maillon *temp;
     t_maillon * maillon;
+    t_file * file;
     for(int k = 0; k < plateau->indice_tab_batiment;k++) {
+        printf("TOUR BOUCLE\n");
         for (int i = 0; i < 35; i++) {
             for (int j = 0; j < 45; j++) {
                 plateau->matrice[i][j].affiche = 0;
             }
         }
-        t_file * file;
         if (plateau->batiments[k]->element == 1) {
             if (plateau->batiments[k] != NULL) {
                 file = cases_adjacentes(buffer, plateau->batiments[k], plateau);
@@ -199,7 +200,7 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
                 cond = (int*) malloc(sizeof(int) * 9);
                 int element_case, ligne_case, colonne_case;
                 while (file->debut != NULL) {
-
+                    printf("debut while\n");
                     case_actuelle = file->debut;
                     /// depilage de la case actuelle pour la suite
                     if (file->debut->suivant == NULL) {
@@ -208,13 +209,14 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
                     } else {
                         file->debut = file->debut->suivant;
                     }
+                    printf("avvatn affiche\n");
                     if (!plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche) {// si elle est pâs deja visitée
                         if (case_actuelle->compteur < compteur)
                             compteur = case_actuelle->compteur;
                         plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche = 1; // on la marque en visitée
                         cond_3_sur_4(cond, case_actuelle, plateau); // on regarde si c'est pas une fin de route
                         if (cond[0]) {
-                            printf("mamamaa  ");
+                            printf("mamamaa");
                             for (int i = 0; i < 4; i++) {    /// on regarde les 4 cases autour
                                 if (!cond[i + 1]) {  // si case != extremité
                                     if (i ==0) {    // element prend la valeur de la bonne case et les lignes et colonnes pareil
@@ -278,6 +280,7 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
                         case_actuelle = file->debut;
                     }
                 }
+                printf("pas de while");
             }
         }
         tri_tab_ordre(plateau);
@@ -294,5 +297,6 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
             }
         }
         blit(buffer, screen,0,0,0,0, SCREEN_W, SCREEN_H);
+        rest(500);
     }
 }

@@ -12,7 +12,7 @@ int bouton(BITMAP* bitmap, int x, int y) {
 void affichage_hud_et_clic(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     int clic = 0;
     clear_bitmap(buffer);
-    affichage_elements(hud, buffer, joueur, plateau);
+    affichage_elements(hud, buffer, joueur, plateau, plateau->terrain[plateau->etape]);
 
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);

@@ -7,9 +7,10 @@
 t_affichage* init_affichage();
 t_joueur* init_joueur();
 t_plateau* init_plateau();
-void init_batiments_et_constructions();
+t_batiment *init_batiments();
 t_file * cases_adjacentes();
 void affichage_hud();
+t_plateau* chargement_sauvegarde();
 void affichage_hud_et_clic();
 void affichage_liste_constru();
 void affichage_menu();

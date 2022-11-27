@@ -46,6 +46,10 @@ t_affichage* init_affichage(t_plateau *plateau){
     hud->route = load_bitmap("../BITMAPS/HUD/routes.bmp", 0);
     hud->Nonroute = load_bitmap("../BITMAPS/HUD/Nroutes.bmp", 0);
     hud->Sroute = load_bitmap("../BITMAPS/HUD/Sroutes.bmp", 0);
+    hud->case_eau = load_bitmap("../BITMAPS/HUD/case_eau.bmp", 0);
+    hud->case_elec = load_bitmap("../BITMAPS/HUD/case_elec.bmp", 0);
+    hud->moinsun = load_bitmap("../BITMAPS/HUD/-1.bmp", 0);
+    hud->moinsdeux = load_bitmap("../BITMAPS/HUD/-2.bmp", 0);
 
     hud->construction[0][0] = load_bitmap("../BITMAPS/HUD/Nchateau.bmp", 0);       /// NON chateau
     hud->construction[0][1] = load_bitmap("../BITMAPS/HUD/chateau.bmp", 0);       /// chateau
@@ -63,6 +67,13 @@ t_affichage* init_affichage(t_plateau *plateau){
     hud->construction[3][1] = load_bitmap("../BITMAPS/HUD/ecole.bmp", 0);     /// ecole
     hud->construction[3][2] = load_bitmap("../BITMAPS/HUD/ecole_selec.bmp", 0);     /// select_ecole
 
+    //hud->construction[3][0] = load_bitmap("../BITMAPS/HUD/Nbanque.bmp", 0);     /// NON banque
+    //hud->construction[3][1] = load_bitmap("../BITMAPS/HUD/banque.bmp", 0);     /// banque
+
+    hud->construction[4][0] = load_bitmap("../BITMAPS/HUD/Nchantier.bmp", 0);     /// NON chantier
+    hud->construction[4][1] = load_bitmap("../BITMAPS/HUD/chantier.bmp", 0);     /// chantier
+    hud->construction[4][2] = load_bitmap("../BITMAPS/HUD/Schantier.bmp", 0);     /// slect chantier
+
     // son
     hud->son_menu = load_sample("../MUSIC/son_menu.wav");
     hud->son_jeu = load_sample("../MUSIC/son_jeu.wav");
@@ -71,4 +82,6 @@ t_affichage* init_affichage(t_plateau *plateau){
 
     return hud;
 }
+
+
 

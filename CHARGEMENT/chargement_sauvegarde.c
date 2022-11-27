@@ -15,7 +15,6 @@ t_plateau* chargement_sauvegarde(t_affichage * hud, t_joueur* joueur, t_plateau*
     joueur = init_joueur();
     plateau = init_plateau();
     hud = init_affichage(plateau);
-    init_batiments_et_constructions(hud);
     /// CHARGEMENT STRUCTURE JOUEUR
 
     fscanf(ifs_joueur, "%d\n", &(joueur->mode));
@@ -46,19 +45,19 @@ t_plateau* chargement_sauvegarde(t_affichage * hud, t_joueur* joueur, t_plateau*
     printf("FBIGUETGU : %d\n", plateau->id_terrain);
     switch(plateau->id_terrain){
         case 1:
-            plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV1.bmp", 0);
+            plateau->terrain[0] = load_bitmap("../BITMAPS/Affichage/MAP_NIV1.bmp", 0);
             break;
         case 2:
-            plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV2.bmp", 0);
+            plateau->terrain[1] = load_bitmap("../BITMAPS/Affichage/MAP_NIV2.bmp", 0);
             break;
         case 3:
-            plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV3.bmp", 0);
+            plateau->terrain[2] = load_bitmap("../BITMAPS/Affichage/MAP_NIV3.bmp", 0);
             break;
         case 4:
-            plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV4.bmp", 0);
+            plateau->terrain[3] = load_bitmap("../BITMAPS/Affichage/MAP_NIV4.bmp", 0);
             break;
         case 5:
-            plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV5.bmp", 0);
+            plateau->terrain[4] = load_bitmap("../BITMAPS/Affichage/MAP_NIV5.bmp", 0);
             break;
     }
     plateau->calque_pixels = load_bitmap("../BITMAPS/Affichage/buffer_pixel_X.bmp", 0);
@@ -176,7 +175,7 @@ t_plateau* chargement_sauvegarde(t_affichage * hud, t_joueur* joueur, t_plateau*
         plateau->habitations[plateau->indice_tab_habitations] = build;*/
     }
 
-    //affichage_elements(hud, buffer, joueur, plateau);
+    //affichage_elements(hud, buffer, joueur, plateau, plateau->terrain[etape]);
     printf("habitations\n");
 
     printf("CHARGEMENT BATIMENT :");

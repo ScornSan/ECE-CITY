@@ -93,6 +93,7 @@ typedef struct Constructions{
     int incendie;
     time_t timer;
     BITMAP* style[6];
+    BITMAP* style_noir[6];
     int id_style;
 }t_construction;
 
@@ -101,8 +102,8 @@ typedef struct Batiment{    // 4x6
     int quantite_ressource;
     int id_batiment;
     int element;
-    t_bloc surface[4][6];
-    BITMAP* style[3];
+    BITMAP* style[4];  // 0 = chateau ; 1 = cenrale, 2 = caserne, 3 = ecole
+    BITMAP* style_noir[4];
     int id_style;
     t_construction** ordre_distribution;
     int indice_ordre;
@@ -127,8 +128,11 @@ typedef struct Plateau{
     int lig_mouse;
     int col_mouse;
     t_bloc matrice[35][45];
-    BITMAP* terrain;
+    BITMAP* terrain[5];
+    BITMAP* terrain_noir[5];
+    int etape;
     int id_terrain;
+    int niveau;
     BITMAP* buffer_pixels;
     BITMAP* calque_pixels;
     t_construction** habitations; // max 175 constructions 3x3 sur la map
@@ -193,6 +197,12 @@ typedef struct Affichage{
     SAMPLE * son_jeu;
     BITMAP * buffer2;
     BITMAP * pauseselec;
+    BITMAP * case_eau;
+    BITMAP * case_elec;
+    BITMAP * moinsun;
+    BITMAP * moinsdeux;
+    BITMAP * banque;
+    BITMAP * Nbanque;
 
 }t_affichage;
 
