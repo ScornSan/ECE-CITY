@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Devoirs/ING2/Info/Th\u00e9orie des graphes/Projet/ECE-CITY/ECE-CITY/cmake-build-debug",
-		"source" : "C:/Devoirs/ING2/Info/Th\u00e9orie des graphes/Projet/ECE-CITY/ECE-CITY"
+		"build" : "C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY/cmake-build-debug",
+		"source" : "C:/Users/Gendry/Documents/BENJAMIN/Superieur/ING2/THEORIE DES GRAPHES/PROJET SEM1/ECE-CITY"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 3
+		"minor" : 4
 	}
 }

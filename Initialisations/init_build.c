@@ -7,8 +7,11 @@ t_construction* init_build(){
     build->nb_residents = 0;
     build->eau = 0;
     build->quantite_eau = 0;
+    build->quantite_elec = 0;
     build->elec = 0;
     build->incendie = 0;
+    build->distance_chateau = 1000;
+    build->distance_centrale = 0;
     build->style[0] = load_bitmap("../BITMAPS/BUILDS/ruine.bmp", 0);
     build->style[1] = load_bitmap("../BITMAPS/BUILDS/chantier.bmp", 0);
     build->style[2] = load_bitmap("../BITMAPS/BUILDS/cabane.bmp", 0);
@@ -34,8 +37,9 @@ t_batiment *init_batiments(){
     batiment->style[2] = load_bitmap("../BITMAPS/BUILDS/caserne.bmp", 0);     /// caserne
     batiment->style_noir[3] = load_bitmap("../BITMAPS/BUILDS/Nbanque.bmp", 0);     /// Necole  // Nbanque
     batiment->style[3] = load_bitmap("../BITMAPS/BUILDS/banque.bmp", 0);     /// ecole
-    batiment->quantite_ressource = 0;
+    batiment->quantite_ressource = 5000;
     batiment->indice_ordre = 0;
+    batiment->indice_ordre_centrale = 0;
     batiment->id_batiment = 0;
     return batiment;
 }

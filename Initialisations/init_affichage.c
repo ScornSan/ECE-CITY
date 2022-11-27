@@ -1,7 +1,7 @@
 #include "../structures.h"
 #include "../prototypes.h"
 
-t_affichage* init_affichage(t_plateau *plateau){
+t_affichage* init_affichage(){
     t_affichage *hud = (t_affichage*) malloc(sizeof(t_affichage));
     hud->mode = load_bitmap("../BITMAPS/mode.bmp",0);
     hud->nom = load_bitmap("../BITMAPS/nom.bmp",0);

@@ -3,9 +3,9 @@
 
 void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     clear_bitmap(buffer);
-    printf("ahah3\n");
+    printf("1\n");
     affichage_elements(hud, buffer, joueur, plateau, plateau->terrain[plateau->etape]);
-    printf("ahah4\n");
+    printf("2\n");
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
     if (bouton(hud->habitants, 100, 16)){
@@ -71,15 +71,12 @@ void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau
 void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau, int bouton){
     int clic = 0;
     while(!clic){
-        printf("while\n");
         affichage_hud_et_clic(hud, buffer, joueur, plateau);
         switch (bouton){
             case 1:
-                printf("1\n");
                 affichage_liste_constru(hud, buffer, joueur, plateau);
                 break;
             case 2:
-                printf("2\n");
                 // AFFICHAGE DE LA COUCHE EAU (mettre ces trois lignes dans le spgm)
                 plateau->niveau = 1;
                 masked_blit(hud->bg_on, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
@@ -88,11 +85,11 @@ void affichage_boutons(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_pla
                 plateau->niveau = 0;
                 break;
             case 3:
-                printf("4\n");
                 plateau->niveau = 2;
                 // AFFICHAGE DE LA COUCHE ELEC (mettre ces trois lignes dans le spgm)
                 masked_blit(hud->bg_on, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
                 masked_blit(hud->elec, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
+                affichage_elec(hud, buffer, joueur, plateau);
                 plateau->niveau = 0;
                 break;
         }
@@ -191,14 +188,5 @@ void affichage_liste_constru(t_affichage* hud, BITMAP* buffer, t_joueur* joueur,
     }
     else{
         masked_blit(hud->Nonroute, buffer, 0, 0, 7, 625, SCREEN_W, SCREEN_H);
-    }
-    if( mouse_x > 700 && mouse_y <300){
-        if(mouse_b&1){
-            usleep(CLIC);
-            //while(1){
-            dijkstra(buffer, plateau, 1);
-            //printf("BOUCLE");
-            //}
-        }
     }
 }

@@ -65,7 +65,6 @@ t_file * cases_adjacentes(BITMAP * buffer, t_batiment* batiment, t_plateau *plat
             }
         }
     }
-    printf("sortie file\n");
     return file;
 }
 
@@ -144,7 +143,7 @@ int doublon_file(t_file* file, int ligne_case, int col_case){
         return 1;
 }
 
-int doublon_ordre(t_plateau* plateau, int id_element, int indice_ordre, int indice){
+int doublon_ordre_chateau(t_plateau* plateau, int id_element, int indice_ordre, int indice){
     int compteur = 0;
     for(int i =0; i <indice_ordre; i++){
         if (id_element == plateau->batiments[indice]->ordre_distribution[i]->id_element){
@@ -158,40 +157,36 @@ int doublon_ordre(t_plateau* plateau, int id_element, int indice_ordre, int indi
         return 1;
 }
 
-void tri_tab_ordre(t_plateau* plateau){
-    for(int i = 0; i <plateau->indice_tab_batiment; i++){
-        t_construction * temp;
-        for (int k=0 ; k < plateau->batiments[i]->indice_ordre-1; k++)
-        {
-            for (int j=0 ; j < plateau->batiments[i]->indice_ordre-k-1; j++)
-            {
-                if (plateau->batiments[i]->ordre_distribution[j]->distance_chateau > plateau->batiments[i]->ordre_distribution[j+1]->distance_chateau)
-                {
-                    temp = plateau->batiments[i]->ordre_distribution[j];
-                    plateau->batiments[i]->ordre_distribution[j] = plateau->batiments[i]->ordre_distribution[j+1];
-                    plateau->batiments[i]->ordre_distribution[j+1] = temp;
-                }
-            }
+int doublon_ordre_centrale(t_plateau* plateau, int id_element, int indice_ordre, int indice){
+    int compteur = 0;
+    for(int i =0; i <indice_ordre; i++){
+        if (id_element == plateau->batiments[indice]->ordre_centrale[i]->id_element){
+            compteur = 1;
+            break;
         }
-        free(temp);
-        temp = NULL;
     }
+    if(compteur == 1)
+        return 0;
+    else
+        return 1;
 }
 
-
-void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
+void bfs_eau(BITMAP * buffer, t_plateau * plateau, int indice){
     t_maillon * case_actuelle;
     int *cond;
     t_maillon *temp;
     t_maillon * maillon;
+    t_file * file;
+    printf("dij1\n");
     for(int k = 0; k < plateau->indice_tab_batiment;k++) {
+        plateau->batiments[k]->indice_ordre = 0;
+        //printf("TOUR BOUCLE\n");
         for (int i = 0; i < 35; i++) {
             for (int j = 0; j < 45; j++) {
                 plateau->matrice[i][j].affiche = 0;
             }
         }
-        t_file * file;
-        if (plateau->batiments[k]->element == 1) {
+        if (plateau->batiments[k]->element == indice) {
             if (plateau->batiments[k] != NULL) {
                 file = cases_adjacentes(buffer, plateau->batiments[k], plateau);
                 int compteur = 1;
@@ -199,7 +194,7 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
                 cond = (int*) malloc(sizeof(int) * 9);
                 int element_case, ligne_case, colonne_case;
                 while (file->debut != NULL) {
-
+                    //printf("debut while\n");
                     case_actuelle = file->debut;
                     /// depilage de la case actuelle pour la suite
                     if (file->debut->suivant == NULL) {
@@ -208,13 +203,13 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
                     } else {
                         file->debut = file->debut->suivant;
                     }
+                    //printf("avvatn affiche\n");
                     if (!plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche) {// si elle est pâs deja visitée
                         if (case_actuelle->compteur < compteur)
                             compteur = case_actuelle->compteur;
                         plateau->matrice[case_actuelle->ligne][case_actuelle->colonne].affiche = 1; // on la marque en visitée
                         cond_3_sur_4(cond, case_actuelle, plateau); // on regarde si c'est pas une fin de route
                         if (cond[0]) {
-                            printf("mamamaa  ");
                             for (int i = 0; i < 4; i++) {    /// on regarde les 4 cases autour
                                 if (!cond[i + 1]) {  // si case != extremité
                                     if (i ==0) {    // element prend la valeur de la bonne case et les lignes et colonnes pareil
@@ -239,23 +234,38 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
                                     }
                                     if (!plateau->matrice[ligne_case][colonne_case].affiche) { // si la case verifié n'est pas encore visitée
                                         if (element_case != 0) { // si case != vide
-                                            printf("mamamaa 2 \n");
+                                            //printf("mamamaa 2 \n");
                                             if (element_case > 4 && element_case < 10) { // si case = habitation
                                                 plateau->matrice[ligne_case][colonne_case].affiche = 1;
-                                                if (compteur < plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau) {
-                                                    printf("mamamaa 2.11 \n");
-                                                    /// mise a jour de la distance avec l echateau d'eau le plus proche
-                                                    plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau = case_actuelle->compteur;
-                                                    plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
-                                                } else if (doublon_ordre(plateau,plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->id_element,plateau->batiments[k]->indice_ordre, k)) {
-                                                    printf("mamamaa 2.22 \n");
-                                                    plateau->batiments[k]->ordre_distribution[plateau->batiments[k]->indice_ordre] = plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element];
-                                                    plateau->batiments[k]->indice_ordre++;
-                                                    plateau->batiments[k]->ordre_distribution = realloc(plateau->batiments[k]->ordre_distribution,sizeof(t_construction) *(plateau->batiments[k]->indice_ordre + 1));
-                                                    //plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
+                                                if(indice == CHATEAU_EAU){
+                                                    if (compteur < plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau) {
+                                                        //printf("mamamaa 2.11 \n");
+                                                        /// mise a jour de la distance avec l echateau d'eau le plus proche
+                                                        plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau = case_actuelle->compteur;
+                                                        plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
+                                                    } else if (doublon_ordre_chateau(plateau,plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->id_element,plateau->batiments[k]->indice_ordre, k)) {
+                                                        //printf("mamamaa 2.22 \n");
+                                                        plateau->batiments[k]->ordre_distribution[plateau->batiments[k]->indice_ordre] = plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element];
+                                                        plateau->batiments[k]->indice_ordre++;
+                                                        plateau->batiments[k]->ordre_distribution = realloc(plateau->batiments[k]->ordre_distribution,sizeof(t_construction) *(plateau->batiments[k]->indice_ordre + 1));
+                                                        //plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
+                                                    }
+                                                }
+                                                else if(indice == CENTRALE){
+                                                    if (compteur < plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_centrale) {
+                                                        //printf("mamamaa 2.11 \n");
+                                                        /// mise a jour de la distance avec l echateau d'eau le plus proche
+                                                        plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_centrale = case_actuelle->compteur;
+                                                        plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_centrale = case_actuelle;
+                                                    } else if (doublon_ordre_centrale(plateau,plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->id_element,plateau->batiments[k]->indice_ordre_centrale, k)) {
+                                                        //printf("mamamaa 2.22 \n");
+                                                        plateau->batiments[k]->ordre_centrale[plateau->batiments[k]->indice_ordre_centrale] = plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element];
+                                                        plateau->batiments[k]->indice_ordre_centrale++;
+                                                        plateau->batiments[k]->ordre_centrale = realloc(plateau->batiments[k]->ordre_centrale,sizeof(t_construction) *(plateau->batiments[k]->indice_ordre_centrale + 1));
+                                                    }
                                                 }
                                             } else if (element_case == 13) { // si case = route
-                                                printf("mamamaa 3 \n");
+                                                //printf("mamamaa 3 \n");
                                                 compteur++;
                                                 if (doublon_file(file, ligne_case, colonne_case)) {
                                                     maillon = creation_maillon(ligne_case, colonne_case, compteur);
@@ -275,24 +285,44 @@ void dijkstra(BITMAP * buffer, t_plateau * plateau, int affichage){
                                 }
                             }
                         }
-                        case_actuelle = file->debut;
                     }
                 }
             }
         }
-        tri_tab_ordre(plateau);
     }
-    printf("affichage\n");
-    if(affichage){
-        for(int i = 0; i <plateau->indice_tab_habitations; i++){
-            if(plateau->habitations[i]->derniere_case_chemin != NULL){
-                temp = plateau->habitations[i]->derniere_case_chemin;
-                while(temp != NULL){
-                    dessin_bloc_unique(buffer, temp->ligne, temp->colonne,plateau, 255,255,255);
-                    temp = temp->predecesseur;
+    printf("dijFIN\n");
+}
+
+void distribution_eau(t_plateau * plateau){
+    for (int i = 0; i<plateau->indice_tab_habitations;i++){
+        plateau->habitations[i]->quantite_eau = 0;
+    }
+    for(int k = 0; k < plateau->indice_tab_batiment;k++) {
+        if(plateau->batiments[k]->element == 1){
+            plateau->batiments[k]->quantite_ressource = 5022;
+            for(int i = 0; i<plateau->batiments[k]->indice_ordre; i++){
+                while(plateau->batiments[k]->quantite_ressource > 0 && plateau->batiments[k]->ordre_distribution[i]->quantite_eau < plateau->batiments[k]->ordre_distribution[i]->nb_residents){
+                    plateau->batiments[k]->quantite_ressource -= 1;
+                    plateau->batiments[k]->ordre_distribution[i]->quantite_eau++;
                 }
             }
         }
-        blit(buffer, screen,0,0,0,0, SCREEN_W, SCREEN_H);
+    }
+}
+
+void distribution_elec(t_plateau * plateau){
+    for (int i = 0; i<plateau->indice_tab_habitations;i++){
+        plateau->habitations[i]->quantite_elec = 0;
+    }
+    for(int k = 0; k < plateau->indice_tab_batiment;k++) {
+        if(plateau->batiments[k]->element == 1){
+            plateau->batiments[k]->quantite_ressource = 5022;
+            for(int i = 0; i<plateau->batiments[k]->indice_ordre_centrale; i++){
+                while(plateau->batiments[k]->quantite_ressource > 0 && plateau->batiments[k]->ordre_centrale[i]->quantite_eau < plateau->batiments[k]->ordre_centrale[i]->nb_residents){
+                    plateau->batiments[k]->quantite_ressource -= 1;
+                    plateau->batiments[k]->ordre_centrale[i]->quantite_eau++;
+                }
+            }
+        }
     }
 }

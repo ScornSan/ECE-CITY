@@ -85,6 +85,7 @@ typedef struct Constructions{
     int id_element;
     int element;
     t_maillon * derniere_case_chemin;
+    t_maillon * derniere_case_centrale;
     int quantite_eau;
     int distance_chateau;
     int quantite_elec;
@@ -104,6 +105,8 @@ typedef struct Batiment{    // 4x6
     int id_batiment;
     int element;
     t_construction** ordre_distribution;
+    t_construction ** ordre_centrale;
+    int indice_ordre_centrale;
     int indice_ordre;
     BITMAP* style[4];  // 0 = chateau ; 1 = cenrale, 2 = caserne, 3 = ecole
     BITMAP* style_noir[4];

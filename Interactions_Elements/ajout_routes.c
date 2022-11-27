@@ -34,7 +34,6 @@ void selection_ajout_routes(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, 
 int check_route(t_plateau *plateau, int lig, int col) {
     //printf("%d\n", plateau->matrice[lig][col].element);
     if (plateau->matrice[lig][col].element != -1 && plateau->matrice[lig][col].element != 0 &&
-        plateau->matrice[lig][col].element != 1 && plateau->matrice[lig][col].element != 2 &&
         plateau->matrice[lig][col].element != 13 && plateau->matrice[lig][col].element != TVAGUE &&
         plateau->matrice[lig][col].element != TVAGUE_CP && plateau->matrice[lig][col].element != TVAGUE_CP_BP) {
         return 0;

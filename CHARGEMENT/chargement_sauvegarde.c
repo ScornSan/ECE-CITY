@@ -23,8 +23,8 @@ t_plateau* chargement_sauvegarde(t_affichage * hud, t_joueur* joueur, t_plateau*
     }
     joueur = init_joueur();
     plateau = init_plateau();
-    hud = init_affichage(plateau);
-    batiments = init_batiments(hud);
+    hud = init_affichage();
+    //batiments = init_batiments(hud);
     /// CHARGEMENT STRUCTURE JOUEUR
     fscanf(ifs_joueur, "%d\n", &(joueur->mode));
     fscanf(ifs_joueur, "%d\n", &(joueur->niveau));
@@ -175,12 +175,12 @@ t_plateau* chargement_sauvegarde(t_affichage * hud, t_joueur* joueur, t_plateau*
         fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->incendie);
         fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->eau);
         fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->elec);
-        fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->distance_centrale);
         fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->distance_chateau);
         fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->quantite_eau);
-        fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->quantite_elec);
         fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->id_element);
-        //fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->timer);
+        printf("chargement avant timer\n");
+        fscanf(ifs_habitation, "%d\n", &plateau->habitations[i]->timer);
+        printf("chargement apres timer\n");
         fscanf(ifs_habitation, "%d\n", &(plateau->habitations[i]->premier_bloc).id_element);
         fscanf(ifs_habitation, "%d\n", &(plateau->habitations[i]->premier_bloc).element);
         fscanf(ifs_habitation, "%d\n", &(plateau->habitations[i]->premier_bloc).affiche);

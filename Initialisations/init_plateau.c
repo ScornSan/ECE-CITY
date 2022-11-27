@@ -109,7 +109,7 @@ t_plateau* init_plateau() {
     plateau->bitmap_bat[0] = load_bitmap("../BITMAPS/BUILDS/chateau.bmp", 0);
     plateau->bitmap_bat[1] = load_bitmap("../BITMAPS/BUILDS/centrale.bmp", 0);
     plateau->bitmap_bat[2] = load_bitmap("../BITMAPS/BUILDS/caserne.bmp", 0);
-    plateau->bitmap_bat[3] = load_bitmap("../BITMAPS/BUILDS/ecole.bmp", 0);
+    plateau->bitmap_bat[3] = load_bitmap("../BITMAPS/BUILDS/banque.bmp", 0);
     plateau->batiments = (t_batiment*)malloc(sizeof (t_batiment));
     plateau->habitations = malloc(sizeof (t_construction));
     chargement_partie(plateau->matrice);

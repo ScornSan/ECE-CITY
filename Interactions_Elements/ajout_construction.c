@@ -80,7 +80,6 @@ int routes_adjacentes(BITMAP* buffer, t_plateau* plateau){
 void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau, int indice){
     int clic = 0;
     int pas_bon = 1;
-    printf("ahaha");
     while(!clic){
         affichage_elements(hud, buffer, joueur, plateau, plateau->terrain[plateau->etape]);
         for (int i = 0; i < 35; i++){
@@ -93,12 +92,9 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
         textprintf_ex(buffer,font,60,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",mouse_x,mouse_y);
         reperage_bloc_souris(plateau);
         textprintf_ex(buffer,font,300,300,makecol(0,255,0),makecol(0,0,0),"%4d %4d",plateau->lig_mouse,plateau->col_mouse);
-        printf("ahaha");
         if(indice == 4){ // si c'est une construction
             pas_bon = affichage_zone_constru_terrain(hud,buffer,joueur,plateau,2);
-            printf("ahaha");
             masked_blit(hud->construction[indice][2], buffer, 0, 0, plateau->matrice[plateau->lig_mouse][plateau->col_mouse].x_bloc - hud->construction[indice][2]->w/2 - plateau->screenx, plateau->matrice[plateau->lig_mouse][plateau->col_mouse].y_bloc - hud->construction[indice][2]->h/2 - plateau->screeny, SCREEN_W, SCREEN_H);
-            printf("ahaha");
             if(mouse_b&1 && !pas_bon) {
                 t_construction * construction= init_build();
                 construction->premier_bloc = plateau->matrice[plateau->lig_mouse-1][plateau->col_mouse-1];
@@ -107,6 +103,8 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 construction->element = indice+1;
                 construction->distance_chateau = 1000;
                 construction->id_element = plateau->indice_tab_habitations;
+                construction->derniere_case_chemin = NULL;
+                construction->derniere_case_centrale = NULL;
                 joueur->argent -= 1000;
                 for (int i = plateau->lig_mouse - 1; i < plateau->lig_mouse + 2; i++) {
                     for (int j = plateau->col_mouse - 1; j < plateau->col_mouse + 2; j++) {
@@ -119,6 +117,8 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 }
                 plateau->indice_tab_habitations++;
                 plateau->habitations = realloc(plateau->habitations, sizeof(t_construction) * (plateau->indice_tab_habitations +1));
+                bfs_eau(buffer, plateau, CHATEAU_EAU);
+                bfs_eau(buffer, plateau, CENTRALE);
                 clic = 1;
                 usleep(CLIC);
             }
@@ -141,6 +141,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 batiment->id_batiment = plateau->indice_tab_batiment;
                 batiment->element = indice+1;
                 batiment->ordre_distribution = malloc(sizeof (t_construction)*2);
+                batiment->ordre_centrale = malloc(sizeof (t_construction)*2);
                 plateau->batiments[plateau->indice_tab_batiment] = batiment;
                 switch(batiment->element){
                     case 1:
@@ -177,6 +178,9 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 }
                 plateau->indice_tab_batiment++;
                 plateau->batiments = realloc(plateau->batiments, sizeof (t_batiment) * (plateau->indice_tab_batiment+1));
+                printf("LFORGETOHO");
+                bfs_eau(buffer, plateau,CHATEAU_EAU);
+                bfs_eau(buffer, plateau,CENTRALE);
                 clic = 1;
                 usleep(CLIC);
             }

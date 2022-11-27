@@ -1,4 +1,4 @@
-#include "structures.h"
+ #include "structures.h"
 #include "prototypes.h"
 
 int main(int argc, char *argv[])
@@ -26,9 +26,9 @@ int main(int argc, char *argv[])
 
     t_joueur* joueur = init_joueur();
     t_plateau* plateau = init_plateau();
-    t_affichage* hud = init_affichage(plateau);
-    t_batiment* batiments = init_batiments();
-    menu(hud, joueur, buffer, plateau, batiments);
+    t_affichage* hud = init_affichage();
+    //t_batiment* batiments = init_batiments();
+    menu(hud, joueur, buffer, plateau);
 
     free(joueur);
     free(plateau);

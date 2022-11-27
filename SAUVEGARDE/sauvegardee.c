@@ -66,13 +66,10 @@ void sauvegarde(t_joueur* joueur, t_plateau* plateau){
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->incendie);
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->eau);
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->elec);
-        fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->distance_centrale);
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->distance_chateau);
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->quantite_eau);
-        fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->quantite_elec);
         fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->id_element);
-
-        //fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->timer);
+        fprintf(ifs_habitation, "%d\n", plateau->habitations[i]->timer);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).id_element);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).element);
         fprintf(ifs_habitation, "%d\n", (plateau->habitations[i]->premier_bloc).affiche);

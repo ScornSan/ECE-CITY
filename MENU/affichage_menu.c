@@ -148,12 +148,12 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau,
     int clic = 0;
     FONT* myfont;
     myfont = load_font("../FONT/tempus.pcx", NULL, NULL);
-    printf("EH\n");
     clear_bitmap(buffer);
     // Boucle interactive
     int fait1 = 0;
     while (!fin) {
         if(!fait1){
+            printf("1");
             play_sample(hud->son_menu, 255, 128, 1000, 1);
             fait1 = 1;
         }
@@ -214,8 +214,8 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau,
                         {
                             joueur = init_joueur();
                             plateau = init_plateau();
-                            hud = init_affichage(plateau);
-                            batiment = init_batiments();
+                            hud = init_affichage();
+                            //batiment = init_batiments();
                             joueur->mode = 1;
                             masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 5, SCREEN_W, SCREEN_H);
                             int fait = 0;
@@ -228,9 +228,7 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau,
                                     fait = 1;
                                 }
                                 clear_bitmap(buffer);
-                                printf("ahah2\n");
                                 affichage_hud(hud, buffer, joueur, plateau);
-                                printf("ahah2\n");
                                 blit(buffer, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
                             }
                             stop_sample(hud->son_jeu);
@@ -240,8 +238,8 @@ int menu(t_affichage* hud, t_joueur* joueur, BITMAP* buffer, t_plateau *plateau,
                             int fait = 0;
                             joueur = init_joueur();
                             plateau = init_plateau();
-                            hud = init_affichage(plateau);
-                            batiment = init_batiments();
+                            hud = init_affichage();
+                            //batiment = init_batiments();
                             joueur->mode = 2;
                             while(!(mouse_b&2))
                             {

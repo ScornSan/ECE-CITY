@@ -17,6 +17,12 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur *joueur, BITMAP *bu
                 joueur->habitants = joueur->habitants + 10;
                 //pas d'habitant donc pas d'impot
             }
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 10;
+            }
                 // rajouter condition de rester sans evoluer ni regresser
             else {
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 0;
@@ -26,9 +32,18 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur *joueur, BITMAP *bu
 
         } else // mode capitaliste
         {
-            plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 10;
-            plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 2;
-            joueur->habitants = joueur->habitants + 10;
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 10;
+            }
+            else{
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 10;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 2;
+                joueur->habitants = joueur->habitants + 10;
+            }
+
 
         }
     }
@@ -40,29 +55,39 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur *joueur, BITMAP *bu
         {
             if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
                 plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1) {
-                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *
-                                                                            plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
+                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 50;
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 3;
                 joueur->habitants = joueur->habitants + 40;
-            } else // regression
+
+            }
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 50;
+            }
+            else // regression
             {
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 1;
                 joueur->habitants = joueur->habitants - 10;
             }
-        } else // capitaliste pas de regression évolue quoi qu
+        } else // capitaliste pas de regression évolue quoi
         {
-            if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
-                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1) {
-                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *
-                                                                            plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
-            }
             plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 50;
             joueur->habitants = joueur->habitants + 40;
             plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 3;
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 && plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1) {
+                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
+            }
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 50;
+            }
         }
-
     }
 
         // build  niveau 3 (maison)
@@ -71,12 +96,18 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur *joueur, BITMAP *bu
         if (joueur->mode == 2) {
             if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
                 plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1) {
-                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *
-                                                                            plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
+                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 100;
                 joueur->habitants = joueur->habitants + 50;
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 4;
-            } else //regression
+            }
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 100;
+            }
+            else //regression
             {
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 2;
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 10;
@@ -84,14 +115,21 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur *joueur, BITMAP *bu
 
             }
         } else {
-            if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
-                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1 ) {
-                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *
-                                                                            plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
-            }
             plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 100;
             plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 4;
             joueur->habitants = joueur->habitants + 50;
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
+                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1 ) {
+                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
+            }
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 100;
+            }
+
+
 
         }
 
@@ -101,24 +139,36 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur *joueur, BITMAP *bu
     else if (plateau->habitations[plateau->habitations[indice]->id_element]->niveau == 4) {
 
         if (joueur->mode == 1) {
-            if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
-                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1) {
-                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *
-                                                                            plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
-            }
             plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 5;
             plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 1000;
             joueur->habitants = joueur->habitants + 900;
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 1000;
+            }
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
+                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1) {
+                joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 *plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
+            }
+
         }
+
         else {
             if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
-                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1 &&
-                plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1) {
+                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1) {
 
                 joueur->argent = joueur->argent + (joueur->coeff_banque) * (10 * plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 5;
                 plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 1000;
                 joueur->habitants = joueur->habitants + 900;
+            }
+            if (plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1)
+            {
+                plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents = 0;
+                plateau->habitations[plateau->habitations[indice]->id_element]->niveau = RUINE;
+                joueur->habitants = joueur->habitants - 1000;
             }
             else // regression
             {
@@ -136,16 +186,15 @@ void maj_habitation(int indice, t_plateau *plateau, t_joueur *joueur, BITMAP *bu
         if (joueur->mode == 2) //communiste
         {
             if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
-                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1 &&
-                plateau->habitations[plateau->habitations[indice]->id_element]->incendie == 1) {
-                joueur->argent = joueur->argent +
-                                 (10 * plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
+                plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1){
+                joueur->argent = joueur->argent +(10 * plateau->habitations[plateau->habitations[indice]->id_element]->nb_residents);
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 5;
             } else {
                 plateau->habitations[plateau->habitations[indice]->id_element]->niveau = 4;
             }
         } else //capitaliste
         {
+
             if (plateau->habitations[plateau->habitations[indice]->id_element]->eau == 1 &&
                 plateau->habitations[plateau->habitations[indice]->id_element]->elec == 1 ) {
                 joueur->argent = joueur->argent +

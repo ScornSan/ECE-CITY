@@ -13,7 +13,7 @@ void affichage_hud_et_clic();
 void affichage_liste_constru();
 void affichage_menu();
 int menu();
-void dijkstra();
+void bfs_eau();
 void maj_routes();
 int affichage_zone_constru_terrain();
 void affichage_son();
@@ -33,10 +33,11 @@ void affichage_niveaux();
 void affichage_eau();
 void affichage_elec();
 void sauvegarde();
-//t_plateau * chargement_sauvegarde();
+t_plateau * chargement_sauvegarde();
 void affichage_construction();
 void affichage_routes();
 int routes_adjacentes();
 t_batiment *init_batiments();
+void distribution_eau();
 
 #endif //ECE_CITY_PROTOTYPES_H
