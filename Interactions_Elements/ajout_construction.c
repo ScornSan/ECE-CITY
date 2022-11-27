@@ -101,7 +101,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 plateau->habitations[plateau->indice_tab_habitations] = construction;
                 construction->timer = time(NULL);
                 construction->element = indice+1;
-                construction->distance_chateau = 1000;
                 construction->id_element = plateau->indice_tab_habitations;
                 construction->derniere_case_chemin = NULL;
                 construction->derniere_case_centrale = NULL;
@@ -119,6 +118,7 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 plateau->habitations = realloc(plateau->habitations, sizeof(t_construction) * (plateau->indice_tab_habitations +1));
                 bfs_eau(buffer, plateau, CHATEAU_EAU);
                 bfs_eau(buffer, plateau, CENTRALE);
+                printf("je suis une merde\n");
                 clic = 1;
                 usleep(CLIC);
             }
@@ -142,10 +142,11 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                 batiment->element = indice+1;
                 batiment->ordre_distribution = malloc(sizeof (t_construction)*2);
                 batiment->ordre_centrale = malloc(sizeof (t_construction)*2);
+                batiment->ordre_centrale[0] = NULL;
                 plateau->batiments[plateau->indice_tab_batiment] = batiment;
                 switch(batiment->element){
                     case 1:
-                        batiment->quantite_ressource = 1000;
+                        batiment->quantite_ressource = 5000;
                         break;
                     case 2:
                         batiment->quantite_ressource = 5000;
@@ -155,9 +156,6 @@ void placement_construction(t_affichage *hud, BITMAP* buffer, t_joueur* joueur, 
                         break;
                     case 4:
                         batiment->quantite_ressource = 500;
-                        break;
-                    case 5:
-                        batiment->quantite_ressource = 0;
                         break;
                 }
                 joueur->argent -= 100000;

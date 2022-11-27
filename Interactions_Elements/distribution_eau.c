@@ -171,15 +171,32 @@ int doublon_ordre_centrale(t_plateau* plateau, int id_element, int indice_ordre,
         return 1;
 }
 
+void tri_aleatoire(t_plateau* plateau,int indice){
+    t_construction *temp;
+    if(plateau->batiments[indice]->ordre_centrale[0] != NULL){
+        for(int i = 0 ;i <20; i++){
+            printf("ca paseee ");
+            int nb_alea1 = rand()%(plateau->batiments[indice]->indice_ordre_centrale);
+            int nb_alea2 = rand()%(plateau->batiments[indice]->indice_ordre_centrale);
+            temp = plateau->batiments[indice]->ordre_centrale[nb_alea1];
+            printf("ou ");
+            plateau->batiments[indice]->ordre_centrale[nb_alea1] = plateau->batiments[indice]->ordre_centrale[nb_alea2];
+            printf("ca ");
+            plateau->batiments[indice]->ordre_centrale[nb_alea2] = temp;
+            printf("casse ");
+        }
+    }
+}
+
 void bfs_eau(BITMAP * buffer, t_plateau * plateau, int indice){
     t_maillon * case_actuelle;
     int *cond;
     t_maillon *temp;
     t_maillon * maillon;
     t_file * file;
-    printf("dij1\n");
     for(int k = 0; k < plateau->indice_tab_batiment;k++) {
         plateau->batiments[k]->indice_ordre = 0;
+        plateau->batiments[k]->indice_ordre_centrale = 0;
         //printf("TOUR BOUCLE\n");
         for (int i = 0; i < 35; i++) {
             for (int j = 0; j < 45; j++) {
@@ -239,12 +256,10 @@ void bfs_eau(BITMAP * buffer, t_plateau * plateau, int indice){
                                                 plateau->matrice[ligne_case][colonne_case].affiche = 1;
                                                 if(indice == CHATEAU_EAU){
                                                     if (compteur < plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau) {
-                                                        //printf("mamamaa 2.11 \n");
                                                         /// mise a jour de la distance avec l echateau d'eau le plus proche
                                                         plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->distance_chateau = case_actuelle->compteur;
                                                         plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->derniere_case_chemin = case_actuelle;
                                                     } else if (doublon_ordre_chateau(plateau,plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element]->id_element,plateau->batiments[k]->indice_ordre, k)) {
-                                                        //printf("mamamaa 2.22 \n");
                                                         plateau->batiments[k]->ordre_distribution[plateau->batiments[k]->indice_ordre] = plateau->habitations[plateau->matrice[ligne_case][colonne_case].id_element];
                                                         plateau->batiments[k]->indice_ordre++;
                                                         plateau->batiments[k]->ordre_distribution = realloc(plateau->batiments[k]->ordre_distribution,sizeof(t_construction) *(plateau->batiments[k]->indice_ordre + 1));
@@ -263,6 +278,7 @@ void bfs_eau(BITMAP * buffer, t_plateau * plateau, int indice){
                                                         plateau->batiments[k]->indice_ordre_centrale++;
                                                         plateau->batiments[k]->ordre_centrale = realloc(plateau->batiments[k]->ordre_centrale,sizeof(t_construction) *(plateau->batiments[k]->indice_ordre_centrale + 1));
                                                     }
+                                                    printf("affiche\n");
                                                 }
                                             } else if (element_case == 13) { // si case = route
                                                 //printf("mamamaa 3 \n");
@@ -289,6 +305,11 @@ void bfs_eau(BITMAP * buffer, t_plateau * plateau, int indice){
                 }
             }
         }
+        if(indice == CENTRALE){
+            printf("barbare tu es\n");
+            tri_aleatoire(plateau,k);
+            printf("SUITE");
+        }
     }
     printf("dijFIN\n");
 }
@@ -305,6 +326,10 @@ void distribution_eau(t_plateau * plateau){
                     plateau->batiments[k]->quantite_ressource -= 1;
                     plateau->batiments[k]->ordre_distribution[i]->quantite_eau++;
                 }
+                if(plateau->batiments[k]->ordre_distribution[i]->quantite_eau > 0)
+                    plateau->batiments[k]->ordre_distribution[i]->eau = 1;
+                else
+                    plateau->batiments[k]->ordre_distribution[i]->eau = 0;
             }
         }
     }
@@ -315,12 +340,21 @@ void distribution_elec(t_plateau * plateau){
         plateau->habitations[i]->quantite_elec = 0;
     }
     for(int k = 0; k < plateau->indice_tab_batiment;k++) {
-        if(plateau->batiments[k]->element == 1){
+        if(plateau->batiments[k]->element == 2){
             plateau->batiments[k]->quantite_ressource = 5022;
             for(int i = 0; i<plateau->batiments[k]->indice_ordre_centrale; i++){
-                while(plateau->batiments[k]->quantite_ressource > 0 && plateau->batiments[k]->ordre_centrale[i]->quantite_eau < plateau->batiments[k]->ordre_centrale[i]->nb_residents){
-                    plateau->batiments[k]->quantite_ressource -= 1;
-                    plateau->batiments[k]->ordre_centrale[i]->quantite_eau++;
+                printf("nb resident = %d, quantite d'elec = %d, calcul = %d\n",plateau->batiments[k]->ordre_centrale[i]->nb_residents, plateau->batiments[k]->quantite_ressource,plateau->batiments[k]->quantite_ressource -plateau->batiments[k]->ordre_centrale[i]->nb_residents);
+                if(plateau->batiments[k]->quantite_ressource -plateau->batiments[k]->ordre_centrale[i]->nb_residents >= 0){
+                    while(plateau->batiments[k]->ordre_centrale[i]->quantite_eau < plateau->batiments[k]->ordre_centrale[i]->nb_residents){
+                        printf("augmentation elec\n");
+                        plateau->batiments[k]->quantite_ressource -= 1;
+                        plateau->batiments[k]->ordre_centrale[i]->quantite_eau++;
+                    }
+                        if(plateau->batiments[k]->ordre_centrale[i]->quantite_elec > 0)
+                        plateau->batiments[k]->ordre_centrale[i]->elec = 1;
+                    else
+                        plateau->batiments[k]->ordre_centrale[i]->elec = 0;
+                    printf("vgalide = %d",plateau->batiments[k]->ordre_centrale[i]->elec);
                 }
             }
         }

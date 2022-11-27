@@ -17,18 +17,17 @@ void affichage_eau(t_affichage * hud, BITMAP * buffer, t_joueur* joueur, t_plate
         //habitants
         draw_trans_sprite(buffer, hud->habitants,100,16);
         textprintf_ex(buffer,font,170,16+24,makecol(255,255,255),-1,"%d", joueur->habitants);
-        printf("ecrito1\n");
         //constructions
         draw_trans_sprite(buffer, hud->bg,10,701);
         draw_trans_sprite(buffer, hud->construct,10,700);
         // Argent
         draw_trans_sprite(buffer, hud->argent,300,16);
         textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
-        printf("ecrito3\n");
 
         t_maillon *temp;
         for(int i = 0; i <plateau->indice_tab_habitations; i++){
-            if(plateau->habitations[i]->derniere_case_chemin != NULL){
+            if(plateau->habitations[i]->derniere_case_chemin != NULL && plateau->habitations[i]->eau == 1){
+                printf("rehceerhce\n");
                 temp = plateau->habitations[i]->derniere_case_chemin;
                 while(temp != NULL){
                     draw_trans_sprite(buffer, hud->case_eau,plateau->matrice[temp->ligne][temp->colonne].x_bloc-17 -plateau->screenx,plateau->matrice[temp->ligne][temp->colonne].y_bloc-17 - plateau->screeny);
@@ -74,31 +73,33 @@ void affichage_elec(t_affichage * hud, BITMAP * buffer, t_joueur* joueur, t_plat
     usleep(CLIC);
     int annuler = 0;
     set_trans_blender(100, 100, 100, 100);
+    printf("rentredans le bfs elec\n");
     bfs_eau(buffer, plateau, CENTRALE);
+    printf("sort du bfs elec\n");
     while(!annuler)
     {
         clear_bitmap(buffer);
-        affichage_elements(hud, buffer, joueur, plateau, plateau->terrain_noir[plateau->etape]);
+        //affichage_elements(hud, buffer, joueur, plateau, plateau->terrain_noir[plateau->etape]);
 
         /// affichages huds  et general
         //habitants
         draw_trans_sprite(buffer, hud->habitants,100,16);
         textprintf_ex(buffer,font,170,16+24,makecol(255,255,255),-1,"%d", joueur->habitants);
-        printf("ecrito1\n");
         //constructions
         draw_trans_sprite(buffer, hud->bg,10,701);
         draw_trans_sprite(buffer, hud->construct,10,700);
         // Argent
         draw_trans_sprite(buffer, hud->argent,300,16);
         textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
-        printf("ecrito3\n");
 
         t_maillon *temp;
         for(int i = 0; i <plateau->indice_tab_habitations; i++){
-            if(plateau->habitations[i]->derniere_case_centrale != NULL){
+            printf("derniere_case_centrale = %d\n",plateau->habitations[i]->elec);
+            if(plateau->habitations[i]->derniere_case_centrale != NULL && plateau->habitations[i]->elec == 1){
+                printf("rehceerhce\n");
                 temp = plateau->habitations[i]->derniere_case_centrale;
                 while(temp != NULL){
-                    printf("aficahg\n");
+                    printf("affichage\n");
                     draw_trans_sprite(buffer, hud->case_elec,plateau->matrice[temp->ligne][temp->colonne].x_bloc-17 -plateau->screenx,plateau->matrice[temp->ligne][temp->colonne].y_bloc-17 - plateau->screeny);
                     temp = temp->predecesseur;
                 }

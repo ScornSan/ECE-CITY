@@ -10,6 +10,7 @@ void boucle_affichage(int i, int j, int hauteur, int longueur, t_plateau *platea
         }
     }
     distribution_eau(plateau);
+    distribution_elec(plateau);
     switch (type) {
         case 2 :   /// habitations 3x3 (Cabane maison chantier ruine)
             if (plateau->niveau == 0) {
@@ -44,7 +45,7 @@ void boucle_affichage(int i, int j, int hauteur, int longueur, t_plateau *platea
                                 plateau->matrice[i][j].b_element->h / 2 - plateau->screeny - 68, SCREEN_W, SCREEN_H);
                     break;
                 }
-            } else if (plateau->niveau == 1) {
+            } else {
                 if (plateau->habitations[indice]->niveau <= 3) {
                     masked_blit(plateau->habitations[indice]->style_noir[plateau->habitations[indice]->niveau], buffer,
                                 0, 0,
@@ -222,7 +223,7 @@ void affichage_construction(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, 
         if ((int) time(NULL) - plateau->habitations[x]->timer >= TIME_CYCLE && plateau->indice_tab_habitations !=0 && plateau->habitations[x]->niveau < GRATTECIEL) // on verifie si le cycle de 15 secondes d'une des habitations est fini
         {
             //Proba que la constru en question brule
-            int probafeu = rand()%5;
+            int probafeu = rand()%30;
             if (probafeu == 1){
                 plateau->habitations[x]->incendie = 1;
             }

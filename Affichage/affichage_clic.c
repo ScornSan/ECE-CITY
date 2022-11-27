@@ -3,9 +3,7 @@
 
 void affichage_hud(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     clear_bitmap(buffer);
-    printf("1\n");
     affichage_elements(hud, buffer, joueur, plateau, plateau->terrain[plateau->etape]);
-    printf("2\n");
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
     if (bouton(hud->habitants, 100, 16)){

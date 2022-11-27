@@ -81,7 +81,7 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
-    char chargement[100];
+    char chargement[50];
     for(int i = 0; i< 5; i++){
         sprintf(chargement, "../BITMAPS/Affichage/MAP_NIV%d.bmp",i+1);
         plateau->terrain[i] = load_bitmap(chargement, NULL);

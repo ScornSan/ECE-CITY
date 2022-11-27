@@ -28,6 +28,7 @@ void reperage_bloc_souris();
 int ajout_routes();
 void dessin_bloc_unique();
 void affichage_elements();
+void distribution_elec();
 void selection_ajout_routes();
 void affichage_niveaux();
 void affichage_eau();

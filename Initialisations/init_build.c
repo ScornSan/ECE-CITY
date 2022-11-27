@@ -11,7 +11,7 @@ t_construction* init_build(){
     build->elec = 0;
     build->incendie = 0;
     build->distance_chateau = 1000;
-    build->distance_centrale = 0;
+    build->distance_centrale = 1000;
     build->style[0] = load_bitmap("../BITMAPS/BUILDS/ruine.bmp", 0);
     build->style[1] = load_bitmap("../BITMAPS/BUILDS/chantier.bmp", 0);
     build->style[2] = load_bitmap("../BITMAPS/BUILDS/cabane.bmp", 0);
