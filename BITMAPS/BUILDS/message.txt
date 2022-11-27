@@ -1,0 +1,27 @@
+void boucle_affichage(int i, int j, int hauteur, int longueur,t_plateau * plateau, BITMAP * buffer, int position_x, int position_y, int deplacement, int type, int indice){
+    for(int k = i; k< i+hauteur; k++){
+        for(int l = j; l< j+longueur; l++){
+            plateau->matrice[k][l].affiche = 1;
+        }
+    }
+
+    switch(type){
+        case 2 :   /// habitations 3x3 (Cabane maison chantier ruine)
+            if (plateau->habitations[indice]->niveau <= 3){
+                masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - 10 - plateau->screenx, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - 15 - plateau->screeny, SCREEN_W, SCREEN_H);
+                break;
+            }
+            else if (plateau->habitations[indice]->niveau == 4){ // BUILDING
+                masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx - 10, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 63, SCREEN_W, SCREEN_H);
+                break;
+            }
+            else if (plateau->habitations[indice]->niveau == 5){ // GRATTE CIEL
+                masked_blit(plateau->habitations[indice]->style[plateau->habitations[indice]->niveau], buffer, 0, 0, plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx - 9, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny - 83, SCREEN_W, SCREEN_H);
+                break;
+            }
+
+        case 3:   /// batiments 4x6
+            masked_blit(plateau->matrice[i][j].b_element, buffer, 0, 0 , plateau->matrice[i+position_x][j+position_y].x_bloc +2*deplacement - plateau->matrice[i][j].b_element->w/2 - plateau->screenx, plateau->matrice[i+position_x][j+position_y].y_bloc +deplacement -plateau->matrice[i][j].b_element->h/2 - plateau->screeny, SCREEN_W, SCREEN_H);
+            break;
+    }
+}

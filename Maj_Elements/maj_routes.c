@@ -127,4 +127,21 @@ void maj_trottoirs(t_affichage *hud, BITMAP *buffer, t_joueur *joueur, t_plateau
             plateau->matrice[lig][col].element = TVAGUE;
         }
     }
+
+    /*if (plateau->matrice[lig][col].b_element == plateau->routes[1]){
+        for (int k = 1; k <= 3; k++) {
+            if (plateau->matrice[lig + k][col].element == RIEN)
+                plateau->matrice[lig + k][col].element = TVAGUE;
+            if (plateau->matrice[lig - k][col].element == RIEN)
+                plateau->matrice[lig - k][col].element = TVAGUE;
+        }
+    }*/
+    /*if (plateau->matrice[lig][col].b_element == plateau->routes[0]){
+        for (int k = 1; k <= 3; k++) {
+            if (plateau->matrice[lig][col + k].element == RIEN)
+                plateau->matrice[lig][col + k].element = TVAGUE;
+            if (plateau->matrice[lig][col - k].element == RIEN)
+                plateau->matrice[lig][col - k].element = TVAGUE;
+        }
+    }*/
 }

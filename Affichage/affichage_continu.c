@@ -12,8 +12,9 @@ int bouton(BITMAP* bitmap, int x, int y) {
 void affichage_hud_et_clic(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t_plateau* plateau){
     int clic = 0;
     clear_bitmap(buffer);
-    affichage_elements(hud, buffer, joueur, plateau);
+    affichage_elements(hud, buffer, joueur, plateau, plateau->terrain[plateau->etape]);
 
+    printf("lol1\n");
     //Habitants
     masked_blit(hud->habitants, buffer, 0, 0, 100, 16, SCREEN_W, SCREEN_H);
     if (bouton(hud->habitants, 100, 16)){
@@ -37,6 +38,7 @@ void affichage_hud_et_clic(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t
         masked_blit(hud->eau, buffer, 0, 0, 500, 20, SCREEN_W, SCREEN_H);
     }
 
+    printf("lol2\n");
     // Elec
     masked_blit(hud->bg, buffer, 0, 0, 700, 20, SCREEN_W, SCREEN_H);
     if (bouton(hud->elec, 700, 20)){
@@ -49,6 +51,7 @@ void affichage_hud_et_clic(t_affichage* hud, BITMAP* buffer, t_joueur* joueur, t
     textprintf_ex(buffer,font,300+75,16 + 26,makecol(255,255,255),-1,"%d", joueur->argent);
 
     masked_blit(hud->cursor, buffer, 0, 0, mouse_x - 5, mouse_y - 7, SCREEN_W, SCREEN_H);
+    printf("lol3\n");
 }
 
 

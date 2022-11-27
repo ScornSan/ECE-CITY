@@ -17,7 +17,7 @@
 #define CHATEAU_EAU 1
 #define CENTRALE 2
 #define CASERNE 3
-#define ECOLE 4
+#define BANQUE 4
 #define CHANTIER 5
 #define CABANE 6
 #define MAISON 7
@@ -85,7 +85,6 @@ typedef struct Constructions{
     int id_element;
     int element;
     t_maillon * derniere_case_chemin;
-    t_bloc surface[3][3];
     int quantite_eau;
     int distance_chateau;
     int quantite_elec;
@@ -95,6 +94,7 @@ typedef struct Constructions{
     int incendie;
     time_t timer;
     BITMAP* style[6];
+    BITMAP* style_noir[6];
     int id_style;
 }t_construction;
 
@@ -103,11 +103,10 @@ typedef struct Batiment{    // 4x6
     int quantite_ressource;
     int id_batiment;
     int element;
-    t_bloc surface[4][6];
-    BITMAP* style[3];
-    int id_style;
     t_construction** ordre_distribution;
     int indice_ordre;
+    BITMAP* style[4];  // 0 = chateau ; 1 = cenrale, 2 = caserne, 3 = ecole
+    BITMAP* style_noir[4];
 }t_batiment;
 
 typedef struct Joueur{
@@ -118,20 +117,21 @@ typedef struct Joueur{
     int totaleau;
     int totalelec;
     int mode;
+    int nb_banques;
+    float coeff_banque;
 }t_joueur;
 
 
 typedef struct Plateau{
     int screenx;
     int screeny;
-    int lig;
-    int col;
     int lig_mouse;
     int col_mouse;
     t_bloc matrice[35][45];
     int matrice_map[35][45];
-    BITMAP* terrain;
     int id_terrain;
+    int etape;
+    int niveau;
     BITMAP* buffer_pixels;
     BITMAP* calque_pixels;
     t_construction** habitations; // max 175 constructions 3x3 sur la map
@@ -139,10 +139,15 @@ typedef struct Plateau{
     t_batiment** batiments; // max 66 batiments 4x6 sur la map
     int indice_tab_batiment;
     BITMAP * routes[11];
+    BITMAP* bitmap_bat[4];
+    BITMAP* style_noir[4];
+    BITMAP* terrain[5];
+    BITMAP* terrain_noir[5];
 }t_plateau;
 
 typedef struct Affichage{
     BITMAP* argent;
+    BITMAP* regles;
     BITMAP* argent_outline;
     BITMAP* play;
     BITMAP* play_outline;
@@ -180,6 +185,9 @@ typedef struct Affichage{
     BITMAP* Scaserne;
     BITMAP* Scentrale;
     BITMAP* Secole;
+    BITMAP* banque;
+    BITMAP* Nonbanque;
+    BITMAP* Sbanque;
     BITMAP* route;
     BITMAP* Nonroute;
     BITMAP* Sroute;
@@ -196,6 +204,13 @@ typedef struct Affichage{
     SAMPLE * son_jeu;
     BITMAP * buffer2;
     BITMAP * pauseselec;
+    BITMAP* terrain[5];
+    BITMAP* terrain_noir[5];
+    BITMAP * case_eau;
+    BITMAP * case_elec;
+    BITMAP * moinsun;
+    BITMAP * moinsdeux;
+    BITMAP * Nbanque;
 
 }t_affichage;
 

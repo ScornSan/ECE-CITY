@@ -45,6 +45,7 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
             plateau->matrice[j][k].ligne = j;
             plateau->matrice[j][k].element = 0;
             plateau->matrice[j][k].id_element = -1;
+            plateau->matrice[j][k].id_bitmap = -1;
             plateau->matrice[j][k].affiche = 0;
             plateau->matrice[j][k].colonne = k;
             plateau->screenx = 100;
@@ -80,12 +81,20 @@ t_plateau* distribution_couleur_blocs(t_plateau* plateau)
 t_plateau* init_plateau() {
     BITMAP *buffer_pixel = create_bitmap(SCREEN_W, SCREEN_H);
     t_plateau *plateau = (t_plateau *) malloc(sizeof(t_plateau));
-    plateau->terrain = load_bitmap("../BITMAPS/Affichage/MAP_NIV1.bmp", 0);
+    char chargement[100];
+    for(int i = 0; i< 5; i++){
+        sprintf(chargement, "../BITMAPS/Affichage/MAP_NIV%d.bmp",i+1);
+        plateau->terrain[i] = load_bitmap(chargement, NULL);
+        sprintf(chargement, "../BITMAPS/Affichage/MAP_NIV%d_N.bmp",i+1);
+        plateau->terrain_noir[i] = load_bitmap(chargement, NULL);
+    }
     plateau->id_terrain = 1;
     plateau->buffer_pixels = buffer_pixel;
     plateau->calque_pixels = load_bitmap("../BITMAPS/Affichage/buffer_pixel_X.bmp", 0);
     plateau->indice_tab_batiment = 0;
     plateau->indice_tab_habitations = 0;
+    plateau->niveau = 0;
+    plateau->etape = 0;
     plateau->routes[0] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route1.bmp", 0);
     plateau->routes[1] = load_bitmap("../BITMAPS/BUILDS/ROUTES/route2.bmp", 0);
     plateau->routes[2] = load_bitmap("../BITMAPS/BUILDS/ROUTES/coude1.bmp", 0);
@@ -97,7 +106,11 @@ t_plateau* init_plateau() {
     plateau->routes[8] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies3.bmp", 0);
     plateau->routes[9] = load_bitmap("../BITMAPS/BUILDS/ROUTES/3voies4.bmp", 0);
     plateau->routes[10] = load_bitmap("../BITMAPS/BUILDS/ROUTES/carrefour.bmp", 0);
-    plateau->batiments = malloc(sizeof (t_batiment));
+    plateau->bitmap_bat[0] = load_bitmap("../BITMAPS/BUILDS/chateau.bmp", 0);
+    plateau->bitmap_bat[1] = load_bitmap("../BITMAPS/BUILDS/centrale.bmp", 0);
+    plateau->bitmap_bat[2] = load_bitmap("../BITMAPS/BUILDS/caserne.bmp", 0);
+    plateau->bitmap_bat[3] = load_bitmap("../BITMAPS/BUILDS/ecole.bmp", 0);
+    plateau->batiments = (t_batiment*)malloc(sizeof (t_batiment));
     plateau->habitations = malloc(sizeof (t_construction));
     chargement_partie(plateau->matrice);
     distribution_couleur_blocs(plateau);
